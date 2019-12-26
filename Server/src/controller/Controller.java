@@ -9,4 +9,8 @@ public class Controller {
         this.repository = repository;
     }
 
+    public void initialize() {
+        repository.connectClient();
+        repository.connectDataBase();
+    }
 }

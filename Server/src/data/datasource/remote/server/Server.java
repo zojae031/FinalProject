@@ -1,6 +1,7 @@
 package data.datasource.remote.server;
 
 import java.io.IOException;
+import java.net.InetAddress;
 import java.net.InetSocketAddress;
 import java.nio.ByteBuffer;
 import java.nio.channels.SelectionKey;
@@ -15,14 +16,24 @@ public class Server {
     private Selector selector = null;
     private Vector room = new Vector();
 
-    public void initServer() throws IOException {
+    /**
+     * 서버 초기화 코드 Non_Blocking
+     * @return 연결된 로컬 서버 ip주소
+     * @throws IOException
+     */
+    public String initServer() throws IOException {
         selector = Selector.open(); // Selector 열고
+
+
         ServerSocketChannel serverSocketChannel = ServerSocketChannel.open(); // 채널 열고
         serverSocketChannel.configureBlocking(false); // Non-blocking 모드 설정
         serverSocketChannel.bind(new InetSocketAddress(5050)); // 12345 포트를 열어줍니다.
 
         // 서버소켓 채널을 셀렉터에 등록한다.
         serverSocketChannel.register(selector, SelectionKey.OP_ACCEPT);
+
+        InetAddress local = InetAddress.getLocalHost();
+        return local.getHostAddress();
     }
 
     public void startServer() throws Exception {

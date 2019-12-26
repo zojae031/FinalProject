@@ -13,6 +13,17 @@ public class RepositoryImpl implements Repository {
         this.remote = remote;
     }
 
+    @Override
+    public boolean connectClient() {
+        remote.openServer();
+        return false;
+    }
+
+    @Override
+    public boolean connectDataBase() {
+        return false;
+    }
+
     public static Repository getInstance(LocalDataSource local, RemoteDataSource remote) {
         if (INSTANCE == null) INSTANCE = new RepositoryImpl(local, remote);
         return INSTANCE;
