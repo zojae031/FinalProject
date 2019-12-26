@@ -20,7 +20,7 @@ public class RepositoryImpl implements Repository {
 
     @Override
     public void connectDataBase() {
-        
+        //TODO DataBase 연결코드 @{local}
     }
 
     public static Repository getInstance(LocalDataSource local, RemoteDataSource remote) {

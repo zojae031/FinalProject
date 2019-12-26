@@ -1,5 +1,7 @@
 package data.datasource.remote.server;
 
+import util.ServerUtil;
+
 import java.io.IOException;
 import java.net.InetAddress;
 import java.net.InetSocketAddress;
@@ -18,6 +20,7 @@ public class Server {
 
     /**
      * 서버 초기화 코드 Non_Blocking
+     *
      * @return 연결된 로컬 서버 ip주소
      * @throws IOException
      */
@@ -76,7 +79,7 @@ public class Server {
         System.out.println(socketChannel.toString() + "클라이언트가 접속했습니다.");
     }
 
-    private void read(SelectionKey key) {
+    private void read(SelectionKey key, ReceiveListener listener) {
         // SelectionKey 로부터 소켓채널을 얻는다.
         SocketChannel socketChannel = (SocketChannel) key.channel();
         ByteBuffer byteBuffer = ByteBuffer.allocateDirect(1024); // buffer 생성
@@ -93,6 +96,9 @@ public class Server {
             ex.printStackTrace();
         }
 
+        //Callback 구조
+        String data = ServerUtil.getInstance().ByteToString(byteBuffer);
+        listener.receive(data);
         //BroadCast
         try {
             broadcast(byteBuffer);
@@ -111,9 +117,19 @@ public class Server {
             SocketChannel socketChannel = (SocketChannel) iterator.next();
 
             if (socketChannel != null) {
+
                 socketChannel.write(byteBuffer);
                 byteBuffer.rewind();
             }
         }
+    }
+
+
+    interface ReceiveListener {
+        void receive(String data);
+    }
+
+    interface SendListener {
+
     }
 }
