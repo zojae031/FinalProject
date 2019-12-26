@@ -5,8 +5,8 @@ import data.datasource.remote.RemoteDataSource;
 
 public class RepositoryImpl implements Repository {
     private static Repository INSTANCE = null;
-    private LocalDataSource local = null;
-    private RemoteDataSource remote = null;
+    private LocalDataSource local;
+    private RemoteDataSource remote;
 
     private RepositoryImpl(LocalDataSource local, RemoteDataSource remote) {
         this.local = local;
@@ -15,7 +15,9 @@ public class RepositoryImpl implements Repository {
 
     @Override
     public void connectClient() {
-        remote.openServer();
+        remote.openServer(data -> {
+            System.out.println("받아온 데이터 : " + data);
+        });
     }
 
     @Override

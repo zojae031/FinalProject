@@ -19,11 +19,10 @@ public class RemoteDataSourceImpl implements RemoteDataSource {
     }
 
     @Override
-    public void openServer() {
+    public void openServer(Server.ReceiveListener listener) {
         try {
-            server.startServer(data -> {//데이터 들어오는 부분
-
-            });
+            //데이터 들어오는 부분
+            server.startServer(listener);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -33,4 +32,5 @@ public class RemoteDataSourceImpl implements RemoteDataSource {
         if (INSTANCE == null) INSTANCE = new RemoteDataSourceImpl(server);
         return INSTANCE;
     }
+
 }
