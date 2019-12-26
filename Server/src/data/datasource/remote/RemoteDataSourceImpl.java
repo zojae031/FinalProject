@@ -21,7 +21,9 @@ public class RemoteDataSourceImpl implements RemoteDataSource {
     @Override
     public void openServer() {
         try {
-            server.startServer();
+            server.startServer(data -> {//데이터 들어오는 부분
+
+            });
         } catch (Exception e) {
             e.printStackTrace();
         }

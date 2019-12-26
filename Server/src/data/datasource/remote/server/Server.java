@@ -39,7 +39,7 @@ public class Server {
         return local.getHostAddress();
     }
 
-    public void startServer() throws Exception {
+    public void startServer(ReceiveListener listener) throws Exception {
         System.out.println("Server Start");
 
         while (true) {
@@ -54,7 +54,8 @@ public class Server {
                 if (selectionKey.isAcceptable()) {
                     accept(selectionKey);
                 } else if (selectionKey.isReadable()) {
-                    read(selectionKey);
+                    String data = read(selectionKey);
+                    listener.receive(data);
                 }
 
                 iterator.remove();
@@ -79,7 +80,7 @@ public class Server {
         System.out.println(socketChannel.toString() + "클라이언트가 접속했습니다.");
     }
 
-    private void read(SelectionKey key, ReceiveListener listener) {
+    private String read(SelectionKey key) {
         // SelectionKey 로부터 소켓채널을 얻는다.
         SocketChannel socketChannel = (SocketChannel) key.channel();
         ByteBuffer byteBuffer = ByteBuffer.allocateDirect(1024); // buffer 생성
@@ -97,39 +98,26 @@ public class Server {
         }
 
         //Callback 구조
-        String data = ServerUtil.getInstance().ByteToString(byteBuffer);
-        listener.receive(data);
-        //BroadCast
-        try {
-            broadcast(byteBuffer);
-        } catch (IOException ex) {
-            ex.printStackTrace();
-        }
-
+        String data = ServerUtil.getInstance().byteToString(byteBuffer);
         byteBuffer.clear();
+        return data;
+
     }
 
-    private void broadcast(ByteBuffer byteBuffer) throws IOException {
-        byteBuffer.flip();
+    public void broadcast(String string) throws IOException {
         Iterator iterator = room.iterator();
 
         while (iterator.hasNext()) {
             SocketChannel socketChannel = (SocketChannel) iterator.next();
-
             if (socketChannel != null) {
-
-                socketChannel.write(byteBuffer);
-                byteBuffer.rewind();
+                socketChannel.write(ServerUtil.getInstance().stringToByteBuffer(string));
             }
         }
     }
 
 
-    interface ReceiveListener {
+    public interface ReceiveListener {
         void receive(String data);
     }
 
-    interface SendListener {
-
-    }
 }

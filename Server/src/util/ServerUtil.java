@@ -1,6 +1,7 @@
 package util;
 
 import java.nio.ByteBuffer;
+import java.nio.charset.StandardCharsets;
 
 public class ServerUtil {
     private static ServerUtil INSTANCE = null;
@@ -8,11 +9,12 @@ public class ServerUtil {
     private ServerUtil() {
     }
 
-    public String ByteToString(ByteBuffer byteBuffer) {
-        byte[] bytes = new byte[byteBuffer.position()];
-        byteBuffer.flip();
-        byteBuffer.get(bytes);
-        return new String(bytes);
+    public String byteToString(ByteBuffer byteBuffer) {
+        return StandardCharsets.UTF_8.decode(byteBuffer).toString();
+    }
+
+    public ByteBuffer stringToByteBuffer(String s) {
+        return StandardCharsets.UTF_8.encode(s);
     }
 
     public static ServerUtil getInstance() {
