@@ -14,14 +14,13 @@ public class RepositoryImpl implements Repository {
     }
 
     @Override
-    public boolean connectClient() {
+    public void connectClient() {
         remote.openServer();
-        return false;
     }
 
     @Override
-    public boolean connectDataBase() {
-        return false;
+    public void connectDataBase() {
+        
     }
 
     public static Repository getInstance(LocalDataSource local, RemoteDataSource remote) {

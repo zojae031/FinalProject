@@ -1,7 +1,7 @@
 package data;
 
 public interface Repository {
-    boolean connectClient();
+    void connectClient();
 
-    boolean connectDataBase();
+    void connectDataBase();
 }
