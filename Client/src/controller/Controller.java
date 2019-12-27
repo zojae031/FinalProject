@@ -1,6 +1,7 @@
 package controller;
 
 import data.Repository;
+import data.RepositoryImpl;
 import ui.AdminView;
 import ui.UserView;
 
@@ -15,5 +16,18 @@ public class Controller {
         this.repository = repository;
     }
 
+    void connectServer() {
+        repository.connectServer(new RepositoryImpl.ServerConnectionCallback() {
+            @Override
+            public void accept(String data) {
+
+            }
+
+            @Override
+            public void error() {
+
+            }
+        });
+    }
 
 }
