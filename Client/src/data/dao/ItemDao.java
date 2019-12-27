@@ -1,4 +1,4 @@
-package data;
+package data.dao;
 
 public class ItemDao {
 }
