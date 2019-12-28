@@ -1,5 +1,5 @@
 import data.RepositoryImpl;
-import data.ServerConnection;
+import data.datasource.ServerConnection;
 
 public class Main {
     public static void main(String[] args) {

@@ -1,5 +1,7 @@
 package data;
 
+import data.datasource.ServerConnection;
+
 public class RepositoryImpl implements Repository {
     private static Repository INSTANCE = null;
     private ServerConnection serverConnection;

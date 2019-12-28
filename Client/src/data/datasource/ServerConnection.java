@@ -1,4 +1,4 @@
-package data;
+package data.datasource;
 
 import java.io.*;
 import java.net.Socket;
@@ -7,7 +7,6 @@ import java.util.Scanner;
 
 //TODO Server와 연결되는 코드를 작성해야하는 클래스
 // Port 5050, ip : 추후 지정
-// 서버가 넌 블러킹으로 되어있으니 순서에 상관없이 좀더 편하게 하실 수 있으실겁니다.
 public class ServerConnection extends Thread {
     private BufferedReader reader;
     private PrintWriter writer;
@@ -43,6 +42,8 @@ public class ServerConnection extends Thread {
         System.out.println("데이터 수신 준비!");
         while (!this.isInterrupted()) {
             try {
+                //TODO 서버에서 오는 데이터 set을 모두 여기서 관리
+                // callback을 통해 Repository Layer 까지 내려주어야 함
                 System.out.println("받은 메시지 : " + reader.readLine());
             } catch (IOException e) {
 
