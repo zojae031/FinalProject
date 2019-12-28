@@ -8,7 +8,6 @@ public class RemoteDataSourceImpl implements RemoteDataSource {
 
     private RemoteDataSourceImpl(Server server) {
         this.server = server;
-
     }
 
     @Override

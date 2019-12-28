@@ -19,14 +19,13 @@ public class Server extends Thread {
     }
 
     private void startServer() {
-
         try {
             socket = new ServerSocket(port);
 
             System.out.println("IP : " + InetAddress.getLocalHost().getHostAddress());
             System.out.println("Server Open...");
 
-            while (true) {
+            while (!this.isInterrupted()) {
                 Socket clientSocket = socket.accept();
                 System.out.println("클라이언트 접속 : " + clientSocket.getInetAddress());
                 Client client = new Client(clientSocket, data -> System.out.println("받은 데이터 : " + data));
