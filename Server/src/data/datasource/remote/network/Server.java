@@ -1,124 +1,46 @@
 package data.datasource.remote.network;
 
-import util.ServerUtil;
-
 import java.io.IOException;
 import java.net.InetAddress;
-import java.net.InetSocketAddress;
-import java.nio.ByteBuffer;
-import java.nio.channels.SelectionKey;
-import java.nio.channels.Selector;
-import java.nio.channels.ServerSocketChannel;
-import java.nio.channels.SocketChannel;
-import java.util.Iterator;
-import java.util.Set;
+import java.net.ServerSocket;
+import java.net.Socket;
+import java.util.List;
 import java.util.Vector;
 
-public class Server {
-    private Selector selector = null;
-    private Vector room = new Vector();
-
-    /**
-     * 서버 초기화 코드 Non_Blocking
-     *
-     * @return 연결된 로컬 서버 ip주소
-     * @throws IOException
-     */
-    public String initServer() throws IOException {
-        selector = Selector.open(); // Selector 열고
+public class Server extends Thread {
+    private static final int port = 5050;
+    private ServerSocket socket;
+    private List<Client> clients = new Vector();
 
 
-        ServerSocketChannel serverSocketChannel = ServerSocketChannel.open(); // 채널 열고
-        serverSocketChannel.configureBlocking(false); // Non-blocking 모드 설정
-        serverSocketChannel.bind(new InetSocketAddress(5050)); // 12345 포트를 열어줍니다.
-
-        // 서버소켓 채널을 셀렉터에 등록한다.
-        serverSocketChannel.register(selector, SelectionKey.OP_ACCEPT);
-
-        InetAddress local = InetAddress.getLocalHost();
-        return local.getHostAddress();
+    @Override
+    public void run() {
+        startServer();
     }
 
-    public void startServer(ReceiveListener listener) throws Exception {
-        System.out.println("Server Start");
-
-        while (true) {
-            selector.select(); //select() 메소드로 준비된 이벤트가 있는지 확인한다.
-
-            Set<SelectionKey> selectionKeySet = selector.selectedKeys();
-            Iterator iterator = selectionKeySet.iterator();
-
-            while (iterator.hasNext()) {
-                SelectionKey selectionKey = (SelectionKey) iterator.next();
-
-                if (selectionKey.isAcceptable()) {
-                    accept(selectionKey);
-                } else if (selectionKey.isReadable()) {
-                    String data = read(selectionKey);
-                    listener.receive(data);
-                }
-
-                iterator.remove();
-            }
-        }
-    }
-
-    private void accept(SelectionKey key) throws Exception {
-        ServerSocketChannel server = (ServerSocketChannel) key.channel();
-
-        // 서버소켓 accept() 메소드로 서버소켓을 생성한다.
-        SocketChannel socketChannel = server.accept();
-        // 생성된 소켓채널을 비 블록킹과 읽기 모드로 셀렉터에 등록한다.
-
-        if (socketChannel == null)
-            return;
-
-        socketChannel.configureBlocking(false);
-        socketChannel.register(selector, SelectionKey.OP_READ);
-
-        room.add(socketChannel); // 접속자 추가
-        System.out.println(socketChannel.toString() + "클라이언트가 접속했습니다.");
-    }
-
-    private String read(SelectionKey key) {
-        // SelectionKey 로부터 소켓채널을 얻는다.
-        SocketChannel socketChannel = (SocketChannel) key.channel();
-        ByteBuffer byteBuffer = ByteBuffer.allocateDirect(1024); // buffer 생성
+    private void startServer() {
 
         try {
-            socketChannel.read(byteBuffer); // 클라이언트 소켓으로부터 데이터를 읽음
-            byteBuffer.flip();//flip을 해줌으로 써 byteBuffer 내부 데이터에 맞게 범위를 설정한다.
-        } catch (IOException ex) {
-            try {
-                socketChannel.close();
-            } catch (IOException e) {
-                e.printStackTrace();
+            socket = new ServerSocket(port);
+
+            System.out.println("IP : " + InetAddress.getLocalHost().getHostAddress());
+            System.out.println("Server Open...");
+
+            while (true) {
+                Socket clientSocket = socket.accept();
+                System.out.println("클라이언트 접속 : " + clientSocket.getInetAddress());
+                Client client = new Client(clientSocket, data -> System.out.println("받은 데이터 : " + data));
+                client.start();
+                clients.add(client);
             }
-            room.remove(socketChannel);
-            ex.printStackTrace();
-        }
-
-        //Callback 구조
-        String data = ServerUtil.getInstance().byteToString(byteBuffer);
-        byteBuffer.clear();
-        return data;
-
-    }
-
-    public void broadcast(String string) throws IOException {
-        Iterator iterator = room.iterator();
-
-        while (iterator.hasNext()) {
-            SocketChannel socketChannel = (SocketChannel) iterator.next();
-            if (socketChannel != null) {
-                socketChannel.write(ServerUtil.getInstance().stringToByteBuffer(string));
-            }
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 
-
-    public interface ReceiveListener {
-        void receive(String data);
+    public void broadCast(String data) {
+        for (Client c : clients) {
+            c.send(data);
+        }
     }
-
 }

@@ -2,30 +2,27 @@ package data.datasource.remote;
 
 import data.datasource.remote.network.Server;
 
-import java.io.IOException;
-
 public class RemoteDataSourceImpl implements RemoteDataSource {
     private static RemoteDataSource INSTANCE = null;
     private Server server;
 
     private RemoteDataSourceImpl(Server server) {
         this.server = server;
+
+    }
+
+    @Override
+    public void openServer() {
         try {
-            String ip = server.initServer();
-            System.out.println("서버 연결 성공 : " + ip);
-        } catch (IOException e) {
-            System.out.println("서버 연결 오류" + e.getMessage());
+            server.start();
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
     @Override
-    public void openServer(Server.ReceiveListener listener) {
-        try {
-            //데이터 들어오는 부분
-            server.startServer(listener);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+    public void sendData(String data) {
+        server.broadCast(data);
     }
 
     public static RemoteDataSource getInstance(Server server) {

@@ -1,7 +1,7 @@
 package data.datasource.remote;
 
-import data.datasource.remote.network.Server;
-
 public interface RemoteDataSource {
-    void openServer(Server.ReceiveListener listener);
+    void openServer();
+
+    void sendData(String data);
 }

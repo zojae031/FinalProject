@@ -3,6 +3,8 @@ package data;
 import data.datasource.local.LocalDataSource;
 import data.datasource.remote.RemoteDataSource;
 
+import java.util.Scanner;
+
 public class RepositoryImpl implements Repository {
     private static Repository INSTANCE = null;
     private LocalDataSource local;
@@ -15,9 +17,10 @@ public class RepositoryImpl implements Repository {
 
     @Override
     public void connectClient() {
-        remote.openServer(data -> {
-            System.out.println("받아온 데이터 : " + data);
-        });
+
+        remote.openServer();
+        Scanner sc = new Scanner(System.in);
+        remote.sendData(sc.nextLine());
     }
 
     @Override
