@@ -24,6 +24,8 @@ public class Client extends Thread {
         super.run();
         while (!this.isInterrupted()) {
             try {
+                //TODO 클라이언트에게서 오는 데이터 set을 모두 여기서 관리
+                // callback을 통해 Repository Layer 까지 내려주어야 함
                 callback.accept(reader.readLine());
             } catch (IOException e) {
                 e.printStackTrace();

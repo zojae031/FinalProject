@@ -11,4 +11,9 @@ public class LocalDataSourceImpl implements LocalDataSource {
         if (INSTANCE == null) INSTANCE = new LocalDataSourceImpl();
         return INSTANCE;
     }
+
+    @Override
+    public void closeDb() {
+
+    }
 }
