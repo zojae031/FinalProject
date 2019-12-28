@@ -3,6 +3,8 @@ package data;
 import data.datasource.local.LocalDataSource;
 import data.datasource.remote.RemoteDataSource;
 
+import java.io.IOException;
+
 public class RepositoryImpl implements Repository {
     private static Repository INSTANCE = null;
     private LocalDataSource local;
@@ -28,6 +30,16 @@ public class RepositoryImpl implements Repository {
         //TODO DataBase 연결코드 @{local}
     }
 
+    @Override
+    public void closeServer() {
+        try {
+            remote.closeServer();
+            local.closeDb();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+    }
 
     public static Repository getInstance(LocalDataSource local, RemoteDataSource remote) {
         if (INSTANCE == null) INSTANCE = new RepositoryImpl(local, remote);

@@ -44,6 +44,12 @@ public class Client extends Thread {
         writer.println(data);
     }
 
+    void close() throws IOException {
+        reader.close();
+        writer.close();
+        client.close();
+    }
+
     interface ReceiveCallback {
         void accept(String data);
     }

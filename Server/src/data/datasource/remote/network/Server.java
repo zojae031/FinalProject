@@ -42,4 +42,12 @@ public class Server extends Thread {
             c.send(data);
         }
     }
+
+    public void close() throws IOException {
+        for (Client c : clients) {
+            c.close();
+        }
+        clients.clear();
+        socket.close();
+    }
 }

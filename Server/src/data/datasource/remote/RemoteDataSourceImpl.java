@@ -2,6 +2,8 @@ package data.datasource.remote;
 
 import data.datasource.remote.network.Server;
 
+import java.io.IOException;
+
 public class RemoteDataSourceImpl implements RemoteDataSource {
     private static RemoteDataSource INSTANCE = null;
     private Server server;
@@ -22,6 +24,11 @@ public class RemoteDataSourceImpl implements RemoteDataSource {
     @Override
     public void sendData(String data) {
         server.broadCast(data);
+    }
+
+    @Override
+    public void closeServer() throws IOException {
+        server.close();
     }
 
     public static RemoteDataSource getInstance(Server server) {
