@@ -1,5 +1,7 @@
 package data.datasource;
 
+import com.google.gson.JsonObject;
+
 import java.sql.*;
 
 public class Database {
@@ -33,5 +35,38 @@ public class Database {
         }
     }
 
+    public void registerProduct(JsonObject data_Product){
+        connectDB();
+        String sql = "insert into product values(?,?,?,?,?)";
 
+        try {
+            pstmt = conn.prepareStatement(sql);
+            pstmt.setString(1,data_Product.get("PrCode").getAsString());
+            pstmt.setString(2,data_Product.get("PrName").getAsString());
+            pstmt.setString(3,data_Product.get("PrPrice").getAsString());
+            pstmt.setString(4,data_Product.get("PrNumber").getAsString());
+            pstmt.setString(5,data_Product.get("PrIngredient").getAsString());
+            pstmt.execute();
+            System.out.println("DB에 [Product]가 저장되었습니다.");
+        } catch (SQLException e) {
+            System.out.println("DB 저장 실패[Product]");
+            e.printStackTrace();
+        }
+    }//registerProduct
+
+    public void registerIngredient(JsonObject data_Ingredient){
+        connectDB();
+        String sql = "insert into ingredient values(?,?,?,?)";
+
+        try {
+            pstmt = conn.prepareStatement(sql);
+            pstmt.setString(1,data_Ingredient.get("IgCode").getAsString());
+            pstmt.setString(2,data_Ingredient.get("IgName").getAsString());
+            pstmt.setString(3,data_Ingredient.get("IgNumber").getAsString());
+            pstmt.setString(4,data_Ingredient.get("IgPrice").getAsString());
+            pstmt.execute();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 }
