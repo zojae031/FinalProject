@@ -1,6 +1,6 @@
 package data.datasource.remote;
 
-import data.datasource.remote.server.Server;
+import data.datasource.remote.network.Server;
 
 public interface RemoteDataSource {
     void openServer(Server.ReceiveListener listener);

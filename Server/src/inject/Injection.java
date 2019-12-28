@@ -6,7 +6,7 @@ import data.datasource.local.LocalDataSource;
 import data.datasource.local.LocalDataSourceImpl;
 import data.datasource.remote.RemoteDataSource;
 import data.datasource.remote.RemoteDataSourceImpl;
-import data.datasource.remote.server.Server;
+import data.datasource.remote.network.Server;
 
 public class Injection implements Injector {
     private static Injection INSTANCE = null;

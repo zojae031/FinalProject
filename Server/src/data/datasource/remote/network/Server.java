@@ -1,4 +1,4 @@
-package data.datasource.remote.server;
+package data.datasource.remote.network;
 
 import util.ServerUtil;
 
@@ -87,6 +87,7 @@ public class Server {
 
         try {
             socketChannel.read(byteBuffer); // 클라이언트 소켓으로부터 데이터를 읽음
+            byteBuffer.flip();//flip을 해줌으로 써 byteBuffer 내부 데이터에 맞게 범위를 설정한다.
         } catch (IOException ex) {
             try {
                 socketChannel.close();
