@@ -2,6 +2,7 @@ package data.datasource.remote.network;
 
 import java.io.*;
 import java.net.Socket;
+import java.nio.charset.StandardCharsets;
 
 public class Client extends Thread {
     private Socket client;
@@ -12,8 +13,8 @@ public class Client extends Thread {
 
     public Client(Socket client, ReceiveCallback callback) throws IOException {
         this.client = client;
-        reader = new BufferedReader(new InputStreamReader(client.getInputStream(), "UTF-8"));
-        writer = new PrintWriter(new BufferedWriter(new OutputStreamWriter(client.getOutputStream(), "UTF-8")),
+        reader = new BufferedReader(new InputStreamReader(client.getInputStream(), StandardCharsets.UTF_8));
+        writer = new PrintWriter(new BufferedWriter(new OutputStreamWriter(client.getOutputStream(), StandardCharsets.UTF_8)),
                 true);
         this.callback = callback;
     }
@@ -45,6 +46,5 @@ public class Client extends Thread {
 
     interface ReceiveCallback {
         void accept(String data);
-
     }
 }
