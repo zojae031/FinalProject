@@ -1,5 +1,7 @@
 package data.datasource;
 
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 
 import java.sql.*;
@@ -69,4 +71,51 @@ public class Database {
             e.printStackTrace();
         }
     }
-}
+
+    public JsonArray getProductArray(){
+        connectDB();
+        String sql = "select * from product";
+        JsonArray result = new JsonArray();
+        try {
+            pstmt = conn.prepareStatement(sql);
+            ResultSet rs = pstmt.executeQuery();
+            JsonObject input;
+            while(rs.next()){
+                input = new JsonObject();
+                input.addProperty("PrCode",rs.getString("PrCode"));
+                input.addProperty("PrName",rs.getString("PrName"));
+                input.addProperty("PrPrice",rs.getString("PrPrice"));
+                input.addProperty("PrNumber",rs.getString("PrNumber"));
+                input.addProperty("PrIngredient",rs.getString("PrIngredient"));
+                result.add(input);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        closeDB();
+        return result;
+    }//getProductArray
+
+    public JsonArray getIngredientArray(){
+        connectDB();
+        String sql = "select * from ingredient";
+        JsonArray result = new JsonArray();
+        try {
+            pstmt = conn.prepareStatement(sql);
+            ResultSet rs = pstmt.executeQuery();
+            JsonObject input;
+            while(rs.next()){
+                input = new JsonObject();
+                input.addProperty("IgCode",rs.getString("IgCode"));
+                input.addProperty("IgName",rs.getString("IgName"));
+                input.addProperty("IgNumber",rs.getString("IgNumber"));
+                input.addProperty("IgPrice",rs.getString("IgPrice"));
+                result.add(input);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return result;
+    }//getIngredientArray
+
+}// Class DataBase
