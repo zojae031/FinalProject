@@ -22,7 +22,7 @@ public class Database {
     public void connectDB(){
         // FIXME: 2019-12-28 ID Password 입력
         try {
-            conn = DriverManager.getConnection(jdbcUrl,"eknow25","2486xawd!@");
+            conn = DriverManager.getConnection(jdbcUrl,ID,Password);
         } catch (SQLException e) {
             e.printStackTrace();
         }
