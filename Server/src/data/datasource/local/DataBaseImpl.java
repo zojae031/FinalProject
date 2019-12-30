@@ -1,4 +1,5 @@
 package data.datasource.local;
+
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 
@@ -39,17 +40,17 @@ public class DataBaseImpl implements DataBase {
     }
 
     @Override
-    public void registerProduct(JsonObject data_Product){
+    public void registerProduct(JsonObject data_Product) {
         connectDB();
         String sql = "insert into product values(?,?,?,?,?)";
 
         try {
             pstmt = conn.prepareStatement(sql);
-            pstmt.setString(1,data_Product.get("PrCode").getAsString());
-            pstmt.setString(2,data_Product.get("PrName").getAsString());
-            pstmt.setString(3,data_Product.get("PrPrice").getAsString());
-            pstmt.setString(4,data_Product.get("PrNumber").getAsString());
-            pstmt.setString(5,data_Product.get("PrIngredient").getAsString());
+            pstmt.setString(1, data_Product.get("PrCode").getAsString());
+            pstmt.setString(2, data_Product.get("PrName").getAsString());
+            pstmt.setString(3, data_Product.get("PrPrice").getAsString());
+            pstmt.setString(4, data_Product.get("PrNumber").getAsString());
+            pstmt.setString(5, data_Product.get("PrIngredient").getAsString());
             pstmt.execute();
             System.out.println("DB에 [Product]가 저장되었습니다.");
         } catch (SQLException e) {
@@ -59,16 +60,16 @@ public class DataBaseImpl implements DataBase {
     }//registerProduct
 
     @Override
-    public void registerIngredient(JsonObject data_Ingredient){
+    public void registerIngredient(JsonObject data_Ingredient) {
         connectDB();
         String sql = "insert into ingredient values(?,?,?,?)";
 
         try {
             pstmt = conn.prepareStatement(sql);
-            pstmt.setString(1,data_Ingredient.get("IgCode").getAsString());
-            pstmt.setString(2,data_Ingredient.get("IgName").getAsString());
-            pstmt.setString(3,data_Ingredient.get("IgNumber").getAsString());
-            pstmt.setString(4,data_Ingredient.get("IgPrice").getAsString());
+            pstmt.setString(1, data_Ingredient.get("IgCode").getAsString());
+            pstmt.setString(2, data_Ingredient.get("IgName").getAsString());
+            pstmt.setString(3, data_Ingredient.get("IgNumber").getAsString());
+            pstmt.setString(4, data_Ingredient.get("IgPrice").getAsString());
             pstmt.execute();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -76,7 +77,7 @@ public class DataBaseImpl implements DataBase {
     }//registerIngredient
 
     @Override
-    public JsonArray getProductArray(){
+    public JsonArray getProductArray() {
         connectDB();
         String sql = "select * from product";
         JsonArray result = new JsonArray();
@@ -84,13 +85,13 @@ public class DataBaseImpl implements DataBase {
             pstmt = conn.prepareStatement(sql);
             ResultSet rs = pstmt.executeQuery();
             JsonObject input;
-            while(rs.next()){
+            while (rs.next()) {
                 input = new JsonObject();
-                input.addProperty("PrCode",rs.getString("PrCode"));
-                input.addProperty("PrName",rs.getString("PrName"));
-                input.addProperty("PrPrice",rs.getString("PrPrice"));
-                input.addProperty("PrNumber",rs.getString("PrNumber"));
-                input.addProperty("PrIngredient",rs.getString("PrIngredient"));
+                input.addProperty("PrCode", rs.getString("PrCode"));
+                input.addProperty("PrName", rs.getString("PrName"));
+                input.addProperty("PrPrice", rs.getString("PrPrice"));
+                input.addProperty("PrNumber", rs.getString("PrNumber"));
+                input.addProperty("PrIngredient", rs.getString("PrIngredient"));
                 result.add(input);
             }
             rs.close();
@@ -102,7 +103,7 @@ public class DataBaseImpl implements DataBase {
     }//getProductArray
 
     @Override
-    public JsonArray getIngredientArray(){
+    public JsonArray getIngredientArray() {
         connectDB();
         String sql = "select * from ingredient";
         JsonArray result = new JsonArray();
@@ -110,12 +111,12 @@ public class DataBaseImpl implements DataBase {
             pstmt = conn.prepareStatement(sql);
             ResultSet rs = pstmt.executeQuery();
             JsonObject input;
-            while(rs.next()){
+            while (rs.next()) {
                 input = new JsonObject();
-                input.addProperty("IgCode",rs.getString("IgCode"));
-                input.addProperty("IgName",rs.getString("IgName"));
-                input.addProperty("IgNumber",rs.getString("IgNumber"));
-                input.addProperty("IgPrice",rs.getString("IgPrice"));
+                input.addProperty("IgCode", rs.getString("IgCode"));
+                input.addProperty("IgName", rs.getString("IgName"));
+                input.addProperty("IgNumber", rs.getString("IgNumber"));
+                input.addProperty("IgPrice", rs.getString("IgPrice"));
                 result.add(input);
             }
             rs.close();

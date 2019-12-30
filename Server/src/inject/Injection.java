@@ -19,6 +19,11 @@ public class Injection implements Injector {
 
     }
 
+    public static Injection getInstance() {
+        if (INSTANCE == null) INSTANCE = new Injection();
+        return INSTANCE;
+    }
+
     @Override
     public Repository injectRepository() {
         if (repository == null)
@@ -36,10 +41,5 @@ public class Injection implements Injector {
     public RemoteDataSource injectRemoteDataSource() {
         if (remote == null) remote = RemoteDataSourceImpl.getInstance(new Server());
         return remote;
-    }
-
-    public static Injection getInstance() {
-        if (INSTANCE == null) INSTANCE = new Injection();
-        return INSTANCE;
     }
 }

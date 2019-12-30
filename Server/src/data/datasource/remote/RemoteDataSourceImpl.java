@@ -12,6 +12,11 @@ public class RemoteDataSourceImpl implements RemoteDataSource {
         this.server = server;
     }
 
+    public static RemoteDataSource getInstance(final Server server) {
+        if (INSTANCE == null) INSTANCE = new RemoteDataSourceImpl(server);
+        return INSTANCE;
+    }
+
     @Override
     public void openServer() {
         try {
@@ -22,18 +27,13 @@ public class RemoteDataSourceImpl implements RemoteDataSource {
     }
 
     @Override
-    public void sendData(String data) {
+    public void sendData(final String data) {
         server.broadCast(data);
     }
 
     @Override
     public void closeServer() throws IOException {
         server.close();
-    }
-
-    public static RemoteDataSource getInstance(Server server) {
-        if (INSTANCE == null) INSTANCE = new RemoteDataSourceImpl(server);
-        return INSTANCE;
     }
 
 }

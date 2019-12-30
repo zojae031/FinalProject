@@ -15,6 +15,11 @@ public class RepositoryImpl implements Repository {
         this.remote = remote;
     }
 
+    public static Repository getInstance(LocalDataSource local, RemoteDataSource remote) {
+        if (INSTANCE == null) INSTANCE = new RepositoryImpl(local, remote);
+        return INSTANCE;
+    }
+
     @Override
     public void connectClient() {
         remote.openServer();
@@ -39,10 +44,5 @@ public class RepositoryImpl implements Repository {
             e.printStackTrace();
         }
 
-    }
-
-    public static Repository getInstance(LocalDataSource local, RemoteDataSource remote) {
-        if (INSTANCE == null) INSTANCE = new RepositoryImpl(local, remote);
-        return INSTANCE;
     }
 }
