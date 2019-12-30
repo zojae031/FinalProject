@@ -29,6 +29,8 @@ public class Client extends Thread {
                 callback.accept(reader.readLine());
             } catch (IOException e) {
                 e.printStackTrace();
+                this.interrupt();
+
             }
         }
 
