@@ -11,7 +11,7 @@
     <orderEntry type="module-library">
       <library>
         <CLASSES>
-          <root url="jar://$MODULE_DIR$/../../../../gson-2.8.6.jar!/" />
+          <root url="jar://$USER_HOME$/gson-2.8.6.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
@@ -20,12 +20,12 @@
     <orderEntry type="module-library">
       <library>
         <CLASSES>
-          <root url="jar://$MODULE_DIR$/../../../../jsoup-1.12.1.jar!/" />
+          <root url="jar://$USER_HOME$/jsoup-1.12.1.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
       </library>
     </orderEntry>
-
+    <orderEntry type="library" name="gson-2.8.6" level="application" />
   </component>
 </module>

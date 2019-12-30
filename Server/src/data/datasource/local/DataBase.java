@@ -1,5 +1,8 @@
 package data.datasource.local;
 
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
+
 import java.sql.*;
 
 public class DataBase {
