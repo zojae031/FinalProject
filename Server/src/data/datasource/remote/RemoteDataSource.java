@@ -1,7 +1,11 @@
 package data.datasource.remote;
 
-import data.datasource.remote.server.Server;
+import java.io.IOException;
 
 public interface RemoteDataSource {
-    void openServer(Server.ReceiveListener listener);
+    void openServer();
+
+    void sendData(String data);
+
+    void closeServer() throws IOException;
 }

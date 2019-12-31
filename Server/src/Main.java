@@ -1,9 +1,10 @@
-import controller.Controller;
+import data.Repository;
 import inject.Injection;
 
 public class Main {
     public static void main(String[] args) {
-        Controller controller = new Controller(Injection.getInstance().injectRepository());
-        controller.initialize();
+        Repository repository = Injection.getInstance().injectRepository();
+        repository.connectClient();
+        repository.connectDataBase();
     }
 }

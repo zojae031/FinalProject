@@ -6,7 +6,7 @@ import data.datasource.local.LocalDataSource;
 import data.datasource.local.LocalDataSourceImpl;
 import data.datasource.remote.RemoteDataSource;
 import data.datasource.remote.RemoteDataSourceImpl;
-import data.datasource.remote.server.Server;
+import data.datasource.remote.network.Server;
 
 public class Injection implements Injector {
     private static Injection INSTANCE = null;
@@ -17,6 +17,11 @@ public class Injection implements Injector {
 
     private Injection() {
 
+    }
+
+    public static Injection getInstance() {
+        if (INSTANCE == null) INSTANCE = new Injection();
+        return INSTANCE;
     }
 
     @Override
@@ -36,10 +41,5 @@ public class Injection implements Injector {
     public RemoteDataSource injectRemoteDataSource() {
         if (remote == null) remote = RemoteDataSourceImpl.getInstance(new Server());
         return remote;
-    }
-
-    public static Injection getInstance() {
-        if (INSTANCE == null) INSTANCE = new Injection();
-        return INSTANCE;
     }
 }
