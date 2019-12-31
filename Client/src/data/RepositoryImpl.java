@@ -14,8 +14,10 @@ public class RepositoryImpl implements Repository {
     public void connectServer(ServerConnectionCallback callback) {
         //TODO Server와 연결하는 동작
         // serverConnection
+
         serverConnection.start();
         serverConnection.send();
+
 
     }
 

@@ -5,9 +5,9 @@ import data.dao.ItemDao;
 import java.util.Vector;
 
 public interface UserView {
-    void updateItemLists(Vector<ItemDao> ItemLists);
+    void updateItemLists();
 
-    void updateSelectedLists(Vector<ItemDao> selectedItems);
+    void updateSelectedLists();
 
     void updateInsertMoney(String money);
 
