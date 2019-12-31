@@ -1,5 +1,7 @@
 package data.datasource.remote;
 
+import com.google.gson.JsonParser;
+import data.datasource.remote.callback.LoginCallback;
 import data.datasource.remote.network.Server;
 
 import java.io.IOException;
@@ -7,6 +9,7 @@ import java.io.IOException;
 public class RemoteDataSourceImpl implements RemoteDataSource {
     private static RemoteDataSource INSTANCE = null;
     private Server server;
+    private JsonParser parser = new JsonParser();
 
     private RemoteDataSourceImpl(Server server) {
         this.server = server;
@@ -18,17 +21,21 @@ public class RemoteDataSourceImpl implements RemoteDataSource {
     }
 
     @Override
-    public void openServer() {
-        try {
-            server.start();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+    public void openServer(LoginCallback callback) {
+        server.startServer();
+        server.ReceiveData(data -> {
+            if (parser.parse(data).getAsJsonObject().get("login").getAsString().equals("100")) {
+                callback.login();
+            } else {
+                callback.error();
+            }
+
+        });
     }
 
     @Override
     public void sendData(final String data) {
-        server.broadCast(data);
+        server.send(data);
     }
 
     @Override
