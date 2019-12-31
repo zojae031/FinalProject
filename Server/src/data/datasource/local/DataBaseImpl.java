@@ -3,6 +3,7 @@ package data.datasource.local;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 
+import javax.swing.*;
 import java.sql.*;
 /*
     Database Info
@@ -38,7 +39,7 @@ public class DataBaseImpl implements DataBase {
     private String ID, Password;
 
 
-    public DataBaseImpl(String ID, String Password,String IP) {
+    public DataBaseImpl(String ID, String Password, String IP) {
         jdbcUrl = "jdbc://mysql://localhost/javadb";
         this.ID = ID;
         this.Password = Password;
@@ -76,10 +77,10 @@ public class DataBaseImpl implements DataBase {
 
         try {
             pstmt = conn.prepareStatement(sql);
-            pstmt.setString(1, data_Product.get("PrCode").getAsString());
+            pstmt.setInt(1, data_Product.get("PrCode").getAsInt());
             pstmt.setString(2, data_Product.get("PrName").getAsString());
-            pstmt.setString(3, data_Product.get("PrPrice").getAsString());
-            pstmt.setString(4, data_Product.get("PrNumber").getAsString());
+            pstmt.setInt(3, data_Product.get("PrPrice").getAsInt());
+            pstmt.setInt(4, data_Product.get("PrNumber").getAsInt());
             pstmt.setString(5, data_Product.get("PrIngredient").getAsString());
             pstmt.execute();
             System.out.println("DB에 [Product]가 저장되었습니다.");
@@ -92,14 +93,15 @@ public class DataBaseImpl implements DataBase {
     @Override
     public void registerIngredient(JsonObject data_Ingredient) {
         connectDB();
-        String sql = "insert into ingredient values(?,?,?,?)";
+        String sql = "insert into ingredient values(?,?,?,?,?)";
 
         try {
             pstmt = conn.prepareStatement(sql);
-            pstmt.setString(1, data_Ingredient.get("IgCode").getAsString());
+            pstmt.setInt(1, data_Ingredient.get("IgCode").getAsInt());
             pstmt.setString(2, data_Ingredient.get("IgName").getAsString());
-            pstmt.setString(3, data_Ingredient.get("IgNumber").getAsString());
-            pstmt.setString(4, data_Ingredient.get("IgPrice").getAsString());
+            pstmt.setInt(3, data_Ingredient.get("IgNumber").getAsInt());
+            pstmt.setInt(4, data_Ingredient.get("IgPrice").getAsInt());
+            pstmt.setString(5, data_Ingredient.get("IgProduct").getAsString());
             pstmt.execute();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -117,10 +119,10 @@ public class DataBaseImpl implements DataBase {
             JsonObject input;
             while (rs.next()) {
                 input = new JsonObject();
-                input.addProperty("PrCode", rs.getString("PrCode"));
+                input.addProperty("PrCode", rs.getInt("PrCode"));
                 input.addProperty("PrName", rs.getString("PrName"));
-                input.addProperty("PrPrice", rs.getString("PrPrice"));
-                input.addProperty("PrNumber", rs.getString("PrNumber"));
+                input.addProperty("PrPrice", rs.getInt("PrPrice"));
+                input.addProperty("PrNumber", rs.getInt("PrNumber"));
                 input.addProperty("PrIngredient", rs.getString("PrIngredient"));
                 result.add(input);
             }
@@ -143,10 +145,11 @@ public class DataBaseImpl implements DataBase {
             JsonObject input;
             while (rs.next()) {
                 input = new JsonObject();
-                input.addProperty("IgCode", rs.getString("IgCode"));
+                input.addProperty("IgCode", rs.getInt("IgCode"));
                 input.addProperty("IgName", rs.getString("IgName"));
-                input.addProperty("IgNumber", rs.getString("IgNumber"));
-                input.addProperty("IgPrice", rs.getString("IgPrice"));
+                input.addProperty("IgNumber", rs.getInt("IgNumber"));
+                input.addProperty("IgPrice", rs.getInt("IgPrice"));
+                input.addProperty("IgProduct", rs.getString("IgProduct"));
                 result.add(input);
             }
             rs.close();
