@@ -38,7 +38,7 @@ public class DataBaseImpl implements DataBase {
     private PreparedStatement pstmt;
     private String ID, Password;
 
-    public DataBaseImpl getInstance(){
+    public static DataBaseImpl getInstance(){
         if(Instance == null){
             System.out.println("Database must be initialize with ID PW IP");
             return null;

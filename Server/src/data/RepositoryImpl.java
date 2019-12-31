@@ -1,8 +1,6 @@
 package data;
 
-import com.google.gson.JsonArray;
 import data.datasource.local.DataBase;
-import data.datasource.local.LocalDataSource;
 import data.datasource.remote.RemoteDataSource;
 import data.datasource.remote.callback.LoginCallback;
 
