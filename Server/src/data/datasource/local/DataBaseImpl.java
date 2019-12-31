@@ -13,13 +13,22 @@ import java.sql.*;
     Table Info
         Table Name : Product
     =====================================================
-    | PrCode | PrName | PrPrice | PrNumber | PrIngredient |
+    | PrCode(int) | PrName(char(40)) | PrPrice(int) | PrNumber(int) | PrIngredient(char(40)) |
     =====================================================
+        *PrCode - 상품 코드(4자리 숫자 1001~)
+        *PrIngredient - 상품에 들어가는 재료목록
+        ex) 101-30/103-50/105-35
+            101번 재료 30g / 103번 재료 50g / 105번 재료 35g
 
         Table Name : Ingredient
-    ========================================
-    | IgCode | IgName | IgNumber | IgPrice |
-    ========================================
+    =====================================================
+    | IgCode(int) | IgName(char(40)) | IgNumber(int) | IgPrice(int) | IgProduct(char(40)) |
+    ====================================================
+        *IgCode : 재료 코드(3자리 숫자 101~)
+        *IgProduct : - 재료가 들어가는 상품 코드 목록
+        ex) 1001-40/1005-30/1006-4
+            1001번 상품에 해당 재료 40g / 1005번 상품에 해당 재료 30g / 1006번 재료에 해당 재료 4g
+
  */
 
 public class DataBaseImpl implements DataBase {
