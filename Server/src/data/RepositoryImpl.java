@@ -28,7 +28,7 @@ public class RepositoryImpl implements Repository {
             public void login() {
                 //TODO 로컬로 연결후 성공하면
                 remote.sendData("itemLists JsonArray to String");
-
+                //TODO Handler 사용해서
             }
 
             @Override
