@@ -36,7 +36,7 @@ public class ServerConnection {
     public void login(ServerConnectionCallback callback) {
         JsonObject jsonObject = new JsonObject();
         jsonObject.addProperty("login", "100");
-        send(jsonObject.getAsString());
+        send(jsonObject.toString());
         new Thread(() -> {
             try {
                 String data = reader.readLine();

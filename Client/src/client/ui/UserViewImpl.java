@@ -21,7 +21,7 @@ public class UserViewImpl extends JFrame implements UserView {
         startPnl = new JPanel(); // client View 전체를 담는 패널
         startPnl.setLayout(null);
         add(startPnl);
-        updateItemLists();
+//        updateItemLists();
 
         // selectedListPnl w 315, h 500
         selectedListPnl = new JPanel();

@@ -3,6 +3,7 @@ package client.controller;
 import client.data.Repository;
 import client.data.RepositoryImpl;
 import client.data.dao.ProductModel;
+import client.data.datasource.callback.ServerConnectionCallback;
 import client.ui.AdminView;
 import client.ui.UserView;
 
@@ -20,7 +21,7 @@ public class Controller {
     }
 
     public void connectServer() {
-        repository.connectServer(new RepositoryImpl.ServerConnectionCallback() {
+        repository.connectServer(new ServerConnectionCallback() {
             @Override
             public void accept(Vector<ProductModel> lists) {
                 userView.updateItemLists(lists);
