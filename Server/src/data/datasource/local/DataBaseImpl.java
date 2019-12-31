@@ -39,8 +39,17 @@ public class DataBaseImpl implements DataBase {
     private String ID, Password;
 
     public DataBaseImpl getInstance(){
-        if(Instance == null)
-            Instance = new DataBaseImpl()
+        if(Instance == null){
+            System.out.println("Database must be initialize with ID PW IP");
+            return null;
+        }
+        return Instance;
+    }
+
+    public DataBaseImpl(){
+        if(jdbcUrl.isEmpty() || ID.isEmpty() || Password.isEmpty()){
+            System.out.println("DB Connection fail");
+        }
     }
 
     public DataBaseImpl(String ID, String Password, String IP) {
@@ -57,12 +66,16 @@ public class DataBaseImpl implements DataBase {
         this.Password = Password;
     }
 
-    private void connectDB() {
+    private boolean connectDB() {
+        boolean result = false;
         try {
             conn = DriverManager.getConnection(jdbcUrl, ID, Password);
+            result = true;
         } catch (SQLException e) {
             e.printStackTrace();
+            result = false;
         }
+        return result;
     }
 
     private void closeDB() {
@@ -76,7 +89,10 @@ public class DataBaseImpl implements DataBase {
 
     @Override
     public void registerProduct(JsonObject data_Product) {
-        connectDB();
+        if(!connectDB()){
+            System.out.println("Connect DB is fail in DataBaseImpl at registerProduct");
+            System.out.println("Regist Product is fail");
+        }
         String sql = "insert into product values(?,?,?,?,?)";
 
         try {
@@ -96,7 +112,10 @@ public class DataBaseImpl implements DataBase {
 
     @Override
     public void registerIngredient(JsonObject data_Ingredient) {
-        connectDB();
+        if(!connectDB()){
+            System.out.println("Connect DB is fail in DataBaseImpl at registerIngredient");
+            System.out.println("Regist Ingredient fail");
+        }
         String sql = "insert into ingredient values(?,?,?,?,?)";
 
         try {
@@ -114,7 +133,10 @@ public class DataBaseImpl implements DataBase {
 
     @Override
     public JsonArray getProductArray() {
-        connectDB();
+        if(!connectDB()){
+            System.out.println("Connect DB is fail in DataBaseImpl at getProductArray");
+            return null;
+        }
         String sql = "select * from product";
         JsonArray result = new JsonArray();
         try {
@@ -140,7 +162,10 @@ public class DataBaseImpl implements DataBase {
 
     @Override
     public JsonArray getIngredientArray() {
-        connectDB();
+        if(!connectDB()){
+            System.out.println("Connect DB is fail in DataBaseImpl at getIngredientArray");
+            return null;
+        }
         String sql = "select * from ingredient";
         JsonArray result = new JsonArray();
         try {

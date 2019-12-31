@@ -1,5 +1,7 @@
 package data;
 
+import com.google.gson.JsonArray;
+import data.datasource.local.DataBase;
 import data.datasource.local.LocalDataSource;
 import data.datasource.remote.RemoteDataSource;
 import data.datasource.remote.callback.LoginCallback;
@@ -8,15 +10,15 @@ import java.io.IOException;
 
 public class RepositoryImpl implements Repository {
     private static Repository INSTANCE = null;
-    private LocalDataSource local;
+    private DataBase local;
     private RemoteDataSource remote;
 
-    private RepositoryImpl(LocalDataSource local, RemoteDataSource remote) {
+    private RepositoryImpl(DataBase local, RemoteDataSource remote) {
         this.local = local;
         this.remote = remote;
     }
 
-    public static Repository getInstance(LocalDataSource local, RemoteDataSource remote) {
+    public static Repository getInstance(DataBase local, RemoteDataSource remote) {
         if (INSTANCE == null) INSTANCE = new RepositoryImpl(local, remote);
         return INSTANCE;
     }
@@ -27,7 +29,7 @@ public class RepositoryImpl implements Repository {
             @Override
             public void login() {
                 //TODO 로컬로 연결후 성공하면
-                remote.sendData("itemLists JsonArray to String");
+                remote.sendData(local.getProductArray().toString());
                 //TODO Handler 사용해서
             }
 
@@ -46,13 +48,14 @@ public class RepositoryImpl implements Repository {
     @Override
     public void connectDataBase() {
         //TODO DataBase 연결코드 @{local}
+        // TODO: 2020-01-01 지워도 되지 않나요? 확인부탁드립니다.
     }
 
     @Override
     public void closeServer() {
         try {
             remote.closeServer();
-            local.closeDb();
+            // Remove DB close
         } catch (IOException e) {
             e.printStackTrace();
         }
