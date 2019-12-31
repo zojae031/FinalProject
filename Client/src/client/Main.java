@@ -8,7 +8,7 @@ import client.ui.UserViewImpl;
 
 public class Main {
     public static void main(String[] args) {
-        Controller controller = new Controller(new UserViewImpl(),new AdminViewImpl(), RepositoryImpl.getInstance(new ServerConnection()));
-        controller.startApp();
+        //Controller controller = new Controller(new UserViewImpl(),new AdminViewImpl(), RepositoryImpl.getInstance(new ServerConnection()));
+
     }
 }

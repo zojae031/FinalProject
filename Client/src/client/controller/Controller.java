@@ -14,9 +14,6 @@ public class Controller {
         this.userView = userView;
         this.adminView = adminView;
         this.repository = repository;
-    }
-
-    public void startApp() {
 
     }
 
