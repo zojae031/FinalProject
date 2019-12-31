@@ -1,5 +1,7 @@
 package data;
 
+import data.datasource.ServerConnection;
+
 public class RepositoryImpl implements Repository {
     private static Repository INSTANCE = null;
     private ServerConnection serverConnection;
@@ -12,7 +14,10 @@ public class RepositoryImpl implements Repository {
     public void connectServer(ServerConnectionCallback callback) {
         //TODO Server와 연결하는 동작
         // serverConnection
-        serverConnection.ConnectServer();
+
+        serverConnection.start();
+        serverConnection.send();
+
 
     }
 
