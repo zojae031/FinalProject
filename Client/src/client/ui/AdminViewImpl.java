@@ -24,14 +24,24 @@ public class AdminViewImpl extends JFrame implements AdminView {
                     {3, "치킨마요", 4000, 1, 4000}};
 
     // TODO: 제품 재고현황 example
-    String columnItemNames [] =
+    String columnItemNames[] =
             {"상품번호", "재료명", "남은 수량"};
 
-    Object rowItemData [][] =
+    Object rowItemData[][] =
             {
                     {1, "양파", "300g"},
                     {2, "마늘", "300g"},
                     {3, "파", "300g"}};
+
+    // TODO: 재고 구매 example
+    String columnIngredientNames[] =
+            {"상품번호", "재료명", "재료 가격", "남은 수량"};
+
+    Object rowIngredientData[][] =
+            {
+                    {1, "양파", 1000, "300g"},
+                    {2, "마늘", 2000, "300g"},
+                    {3, "파", 3000, "300g"}};
 
     public AdminViewImpl() {
         setTitle("Manage");
@@ -40,7 +50,7 @@ public class AdminViewImpl extends JFrame implements AdminView {
         setSize(1100, 700);
 
 
-        setCurrentItems();
+        setBuyIngredients();
         tab = new JPanel();
         cardLayout = new CardLayout();
         tab.setLayout(cardLayout);
@@ -83,7 +93,7 @@ public class AdminViewImpl extends JFrame implements AdminView {
         add(adminStartPanel);
     }
 
-    public void setTotalMoneyPnl() {
+    public void setTotalMoneyPnl() { // 총 매출
         JPanel totalMoneyPnl = new JPanel();
         totalMoneyPnl.setLayout(null);
 
@@ -91,6 +101,7 @@ public class AdminViewImpl extends JFrame implements AdminView {
         lblWhatToDo.setFont(new Font("맑은고딕", Font.PLAIN, 25));
         lblWhatToDo.setBounds(480, 10, 200, 30);
 
+        // table
         JPanel tablePnl = new JPanel();
         tablePnl.setLayout(new BorderLayout());
 
@@ -103,7 +114,7 @@ public class AdminViewImpl extends JFrame implements AdminView {
         scroll.setBounds(40, 70, 1000, 400);
 
 
-// total sale
+        // total sale
         JPanel totalSalesPnl = new JPanel();
         totalSalesPnl.setBackground(Color.orange);
         totalSalesPnl.setBounds(40, 490, 1000, 70);
@@ -122,6 +133,7 @@ public class AdminViewImpl extends JFrame implements AdminView {
         totalSalesPnl.add(lblTotalSales);
         totalSalesPnl.add(lblTotalSalesMoney);
 
+        // btnBack
         btnBack.setBounds(940, 580, 100, 50);
 
         totalMoneyPnl.add(lblWhatToDo);
@@ -130,15 +142,16 @@ public class AdminViewImpl extends JFrame implements AdminView {
         totalMoneyPnl.add(totalSalesPnl);
         add(totalMoneyPnl);
     }
-    public void setCurrentItems() {
-        JPanel currentItemsPnl = new JPanel();
-        currentItemsPnl.setLayout(null);
+
+    public void setCurrentIngredients() { // 제품 재고 현황황
+       JPanel currentIngredientsPnl = new JPanel();
+        currentIngredientsPnl.setLayout(null);
 
         lblWhatToDo.setText("Current Items");
         lblWhatToDo.setFont(new Font("맑은고딕", Font.PLAIN, 25));
         lblWhatToDo.setBounds(480, 10, 200, 30);
 
-
+        // table
         JPanel tablePnl = new JPanel();
         tablePnl.setLayout(new BorderLayout());
 
@@ -149,11 +162,53 @@ public class AdminViewImpl extends JFrame implements AdminView {
                 JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
 
         scroll.setBounds(40, 70, 1000, 500);
-        btnBack.setBounds(940, 580, 100, 50);
-        currentItemsPnl.add(lblWhatToDo);
-        currentItemsPnl.add(scroll);
-        currentItemsPnl.add(btnBack);
-        add(currentItemsPnl);
 
+        // btnBack
+        btnBack.setBounds(940, 580, 100, 50);
+
+        currentIngredientsPnl.add(lblWhatToDo);
+        currentIngredientsPnl.add(scroll);
+        currentIngredientsPnl.add(btnBack);
+        add(currentIngredientsPnl);
+
+    }
+
+    public void setBuyIngredients() { // 재고 구매
+        JPanel buyIngredientsPnl = new JPanel();
+        buyIngredientsPnl.setLayout(null);
+        lblWhatToDo.setText("Buy Items");
+        lblWhatToDo.setFont(new Font("맑은고딕", Font.PLAIN, 25));
+        lblWhatToDo.setBounds(480, 10, 200, 30);
+
+        // combo box
+
+
+        // 재고 수량 label
+
+
+        // 등록, 수정, 삭제 btn
+
+
+        // 총액감소 label
+
+
+        // table
+        JPanel tablePnl = new JPanel();
+        tablePnl.setLayout(new BorderLayout());
+
+        itemTable = new JTable(rowIngredientData, columnIngredientNames);
+        tablePnl.add(itemTable, BorderLayout.CENTER);
+
+        JScrollPane scroll = new JScrollPane(itemTable, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
+                JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+        scroll.setBounds(600, 70, 450, 500);
+
+        // btnBack
+        btnBack.setBounds(940, 580, 100, 50);
+
+        buyIngredientsPnl.add(lblWhatToDo);
+        buyIngredientsPnl.add(scroll);
+        buyIngredientsPnl.add(btnBack);
+        add(buyIngredientsPnl);
     }
 }
