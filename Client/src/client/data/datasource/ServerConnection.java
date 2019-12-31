@@ -1,18 +1,17 @@
 package client.data.datasource;
 
+import client.data.RepositoryImpl;
+
 import java.io.*;
 import java.net.Socket;
 import java.nio.charset.StandardCharsets;
-import java.util.Scanner;
 
 //TODO Server와 연결되는 코드를 작성해야하는 클래스
 // Port 5050, ip : 추후 지정
-public class ServerConnection extends Thread {
+public class ServerConnection {
     private BufferedReader reader;
     private PrintWriter writer;
-    private Scanner scanner = new Scanner(System.in);
     private Socket socket;
-
 
     public ServerConnection() {
         try {
@@ -22,32 +21,44 @@ public class ServerConnection extends Thread {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
-
     }
 
-    @Override
-    public void run() {
-        super.run();
-        read();
-    }
 
-    public void send() {
-        String text = scanner.nextLine();// 사용자 입력
-        writer = new PrintWriter(writer, true);
+    public synchronized void send(String text) {
         writer.println(text);//전송
     }
 
-    public void read() {
-        System.out.println("데이터 수신 준비!");
-        while (!this.isInterrupted()) {
+    public void read(DataReceiveCallback callback) {
+        new Thread(() -> {
             try {
-                //TODO 서버에서 오는 데이터 set을 모두 여기서 관리
-                // callback을 통해 Repository Layer 까지 내려주어야 함
-                System.out.println("받은 메시지 : " + reader.readLine());
+                String data = reader.readLine();
+                System.out.println("받은 데이터 : " + data);
+                callback.accept(data);
             } catch (IOException e) {
-
+                e.printStackTrace();
+                callback.fail(e.getMessage());
             }
-        }
+        }).start();
     }
+
+    public void login(RepositoryImpl.ServerConnectionCallback callback) {
+        new Thread(() -> {
+            try {
+                String data = reader.readLine();
+                System.out.println("받은 데이터 : " + data);
+                //TODO 받은 데이터 정리
+                callback.accept();
+            } catch (IOException e) {
+                e.printStackTrace();
+                callback.error(e.getMessage());
+            }
+        }).start();
+    }
+
+    public interface DataReceiveCallback {
+        void accept(String data);
+
+        void fail(String data);
+    }
+
 }
