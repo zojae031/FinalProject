@@ -1,53 +1,65 @@
 package data.datasource.remote.network;
 
-import java.io.IOException;
+import java.io.*;
 import java.net.InetAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.util.List;
-import java.util.Vector;
+import java.nio.charset.StandardCharsets;
 
-public class Server extends Thread {
+public class Server {
     private static final int port = 5050;
     private ServerSocket socket;
-    private List<Client> clients = new Vector();
+    private Socket clientSocket;
+    private BufferedReader reader;
+    private PrintWriter writer;
 
+    public Server() {
 
-    @Override
-    public void run() {
-        startServer();
     }
 
-    private void startServer() {
+    public void startServer() {
         try {
             socket = new ServerSocket(port);
 
             System.out.println("IP : " + InetAddress.getLocalHost().getHostAddress());
             System.out.println("Server Open...");
 
-            while (!this.isInterrupted()) {
-                Socket clientSocket = socket.accept();
-                System.out.println("클라이언트 접속 : " + clientSocket.getInetAddress());
-                Client client = new Client(clientSocket, data -> System.out.println("받은 데이터 : " + data));
-                client.start();
-                clients.add(client);
-            }
+
+            clientSocket = socket.accept();
+            reader = new BufferedReader(new InputStreamReader(clientSocket.getInputStream(), StandardCharsets.UTF_8));
+            writer = new PrintWriter(new BufferedWriter(new OutputStreamWriter(clientSocket.getOutputStream(), StandardCharsets.UTF_8)),
+                    true);
+
+            System.out.println("클라이언트 접속 : " + clientSocket.getInetAddress());
+
+
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-    public void broadCast(String data) {
-        for (Client c : clients) {
-            c.send(data);
-        }
+    public void ReceiveData(ReceiveCallback callback) {
+        new Thread(() -> {
+            try {
+                callback.accept(reader.readLine());
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }).start();
+    }
+
+    public void send(String data) {
+        writer.println(data);
     }
 
     public void close() throws IOException {
-        for (Client c : clients) {
-            c.close();
-        }
-        clients.clear();
+        reader.close();
+        writer.close();
+        clientSocket.close();
         socket.close();
+    }
+
+    public interface ReceiveCallback {
+        void accept(String data);
     }
 }

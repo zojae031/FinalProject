@@ -22,7 +22,11 @@ public class RepositoryImpl implements Repository {
 
     @Override
     public void connectClient() {
-        remote.openServer();
+        remote.openServer(() -> {
+
+            //TODO DataBase로 리스트 요청하기
+            remote.sendData("아아아앙");
+        });
     }
 
     @Override
