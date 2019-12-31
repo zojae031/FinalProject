@@ -10,6 +10,11 @@ public class RepositoryImpl implements Repository {
         this.serverConnection = serverConnection;
     }
 
+    public static Repository getInstance(ServerConnection serverConnection) {
+        if (INSTANCE == null) INSTANCE = new RepositoryImpl(serverConnection);
+        return INSTANCE;
+    }
+
     @Override
     public void connectServer(ServerConnectionCallback callback) {
         //TODO Server와 연결하는 동작
@@ -19,11 +24,6 @@ public class RepositoryImpl implements Repository {
         serverConnection.send();
 
 
-    }
-
-    public static Repository getInstance(ServerConnection serverConnection) {
-        if (INSTANCE == null) INSTANCE = new RepositoryImpl(serverConnection);
-        return INSTANCE;
     }
 
     public interface ServerConnectionCallback {

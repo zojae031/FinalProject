@@ -41,36 +41,6 @@ public class UserViewImpl extends JFrame implements UserView {
 
     }
 
-    public class setItemInfoPnl { // TODO: 2019-12-31 인자로 Vector ItemDao
-        JPanel itemInfoPnl = new JPanel();
-        JButton btnItem = new JButton();
-        JLabel lblItemPrice = new JLabel();
-        JLabel lblItemName = new JLabel();
-        int itemIndex;
-
-
-        public setItemInfoPnl(String itemName, String itemPrice, int index) {
-            itemInfoPnl.setPreferredSize(new Dimension(100, 70));
-            itemInfoPnl.setBackground(Color.CYAN);
-            itemInfoPnl.setLayout(new BoxLayout(itemInfoPnl, BoxLayout.Y_AXIS));
-
-            btnItem.setText(Integer.toString(index));
-            //btnItem.setPreferredSize(new Dimension(100,50));
-            lblItemPrice.setText(itemPrice);
-            lblItemName.setText(itemName);
-            itemIndex = index;
-
-            itemInfoPnl.add(btnItem);
-            itemInfoPnl.add(lblItemName);
-            itemInfoPnl.add(lblItemPrice);
-
-        }
-
-        public void addItemInfoPnl() {
-            itemListPnl.add(itemInfoPnl);
-        }
-    }
-
     @Override
     public void updateItemLists() {
         itemListPnl = new JPanel();
@@ -139,6 +109,36 @@ public class UserViewImpl extends JFrame implements UserView {
     @Override
     public void showUserInterface() {
 
+    }
+
+    public class setItemInfoPnl { // TODO: 2019-12-31 인자로 Vector ItemDao
+        JPanel itemInfoPnl = new JPanel();
+        JButton btnItem = new JButton();
+        JLabel lblItemPrice = new JLabel();
+        JLabel lblItemName = new JLabel();
+        int itemIndex;
+
+
+        public setItemInfoPnl(String itemName, String itemPrice, int index) {
+            itemInfoPnl.setPreferredSize(new Dimension(100, 70));
+            itemInfoPnl.setBackground(Color.CYAN);
+            itemInfoPnl.setLayout(new BoxLayout(itemInfoPnl, BoxLayout.Y_AXIS));
+
+            btnItem.setText(Integer.toString(index));
+            //btnItem.setPreferredSize(new Dimension(100,50));
+            lblItemPrice.setText(itemPrice);
+            lblItemName.setText(itemName);
+            itemIndex = index;
+
+            itemInfoPnl.add(btnItem);
+            itemInfoPnl.add(lblItemName);
+            itemInfoPnl.add(lblItemPrice);
+
+        }
+
+        public void addItemInfoPnl() {
+            itemListPnl.add(itemInfoPnl);
+        }
     }
 
 

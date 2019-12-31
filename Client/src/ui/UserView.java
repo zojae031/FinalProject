@@ -1,9 +1,5 @@
 package ui;
 
-import data.dao.ItemDao;
-
-import java.util.Vector;
-
 public interface UserView {
     void updateItemLists();
 
