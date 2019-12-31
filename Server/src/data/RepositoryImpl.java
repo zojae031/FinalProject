@@ -2,6 +2,7 @@ package data;
 
 import data.datasource.local.LocalDataSource;
 import data.datasource.remote.RemoteDataSource;
+import data.datasource.remote.callback.LoginCallback;
 
 import java.io.IOException;
 
@@ -22,10 +23,18 @@ public class RepositoryImpl implements Repository {
 
     @Override
     public void connectClient() {
-        remote.openServer(() -> {
+        remote.openServer(new LoginCallback() {
+            @Override
+            public void login() {
+                //TODO 로컬로 연결후 성공하면
+                remote.sendData("itemLists JsonArray to String");
 
-            //TODO DataBase로 리스트 요청하기
-            remote.sendData("아아아앙");
+            }
+
+            @Override
+            public void error() {
+                System.out.println("로그인 실패!!!");
+            }
         });
     }
 

@@ -48,7 +48,7 @@ public class Server {
         }).start();
     }
 
-    public void send(String data) {
+    public synchronized void send(String data) {
         writer.println(data);
     }
 

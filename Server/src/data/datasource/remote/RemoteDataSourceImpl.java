@@ -26,6 +26,8 @@ public class RemoteDataSourceImpl implements RemoteDataSource {
         server.ReceiveData(data -> {
             if (parser.parse(data).getAsJsonObject().get("login").getAsString().equals("100")) {
                 callback.login();
+            } else {
+                callback.error();
             }
 
         });
