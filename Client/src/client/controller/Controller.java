@@ -16,6 +16,10 @@ public class Controller {
         this.repository = repository;
     }
 
+    public void startApp() {
+
+    }
+
     void connectServer() {
         repository.connectServer(new RepositoryImpl.ServerConnectionCallback() {
             @Override

@@ -1,21 +1,14 @@
 package client;
 
+import client.controller.Controller;
 import client.data.RepositoryImpl;
 import client.data.datasource.ServerConnection;
+import client.ui.AdminViewImpl;
+import client.ui.UserViewImpl;
 
 public class Main {
     public static void main(String[] args) {
-//        Controller client.controller = new Controller(/*MainView*/,/*AdminView*/, RepositoryImpl.getInstance(new ServerConnection()));
-        RepositoryImpl.getInstance(new ServerConnection()).connectServer(new RepositoryImpl.ServerConnectionCallback() {
-            @Override
-            public void accept(String data) {
-
-            }
-
-            @Override
-            public void error() {
-
-            }
-        });
+        Controller controller = new Controller(new UserViewImpl(),new AdminViewImpl(), RepositoryImpl.getInstance(new ServerConnection()));
+        controller.startApp();
     }
 }
