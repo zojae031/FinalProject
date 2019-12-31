@@ -6,9 +6,11 @@ import client.data.datasource.callback.ServerConnectionCallback;
 import client.ui.AdminView;
 import client.ui.UserView;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.Vector;
 
-public class Controller {
+public class Controller implements ActionListener {
     UserView userView;
     AdminView adminView;
     Repository repository;
@@ -17,6 +19,7 @@ public class Controller {
         this.userView = userView;
         this.adminView = adminView;
         this.repository = repository;
+        userView.addListener(this);
 
     }
 
@@ -36,4 +39,8 @@ public class Controller {
     }
 
 
+    @Override
+    public void actionPerformed(ActionEvent actionEvent) {
+
+    }
 }

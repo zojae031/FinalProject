@@ -2,6 +2,7 @@ package client.ui;
 
 import client.data.dao.ProductModel;
 
+import java.awt.event.ActionListener;
 import java.util.Vector;
 
 public interface UserView {
@@ -20,5 +21,7 @@ public interface UserView {
     void showAdminDialog();
 
     void showUserInterface();
+
+    void addListener(ActionListener listener);
 
 }

@@ -5,6 +5,7 @@ import client.data.dao.ProductModel;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionListener;
 import java.util.Vector;
 
 public class UserViewImpl extends JFrame implements UserView {
@@ -207,7 +208,8 @@ public class UserViewImpl extends JFrame implements UserView {
 
     }
 
+    @Override
+    public void addListener(ActionListener listener) {
 
-
-
+    }
 }
