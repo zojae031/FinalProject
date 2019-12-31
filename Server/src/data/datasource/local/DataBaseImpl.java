@@ -4,6 +4,23 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 
 import java.sql.*;
+/*
+    Database Info
+        Schemas Name : javadb
+            Table Name : Product    /   Ingredient
+ */
+/*
+    Table Info
+        Table Name : Product
+    =====================================================
+    | PrCode | PrName | PrPrice | PrNumber | PrIngredient |
+    =====================================================
+
+        Table Name : Ingredient
+    ========================================
+    | IgCode | IgName | IgNumber | IgPrice |
+    ========================================
+ */
 
 public class DataBaseImpl implements DataBase {
     private String jdbcUrl;
@@ -11,12 +28,16 @@ public class DataBaseImpl implements DataBase {
     private PreparedStatement pstmt;
     private String ID, Password;
 
-    public DataBaseImpl(String Url) {
-        jdbcUrl = Url;
+
+    public DataBaseImpl(String ID, String Password,String IP) {
+        jdbcUrl = "jdbc://mysql://localhost/javadb";
+        this.ID = ID;
+        this.Password = Password;
+        this.jdbcUrl = "jdbc://mysql://" + IP + "/javadb";
     }
 
+    // FIXME: 2019-12-31 Fix IP Address
     public DataBaseImpl(String ID, String Password) {
-        // TODO: 2019-12-28 연결할 IP 연결하기
         jdbcUrl = "jdbc://mysql://localhost/javadb";
         this.ID = ID;
         this.Password = Password;
