@@ -1,6 +1,10 @@
 package client.data;
 
+import client.data.dao.ProductModel;
 import client.data.datasource.ServerConnection;
+import client.data.datasource.callback.ServerConnectionCallback;
+
+import java.util.Vector;
 
 public class RepositoryImpl implements Repository {
     private static Repository INSTANCE = null;
@@ -19,16 +23,18 @@ public class RepositoryImpl implements Repository {
     public void connectServer(ServerConnectionCallback callback) {
         //TODO Server와 연결하는 동작
         // serverConnection
+        serverConnection.login(new ServerConnectionCallback() {
+            @Override
+            public void accept(Vector<ProductModel> lists) {
+                callback.accept(lists);
+            }
 
-        serverConnection.start();
-        serverConnection.send();
-
+            @Override
+            public void error(String error) {
+                callback.error(error);
+            }
+        });
 
     }
 
-    public interface ServerConnectionCallback {
-        void accept(String data);
-
-        void error();
-    }
 }

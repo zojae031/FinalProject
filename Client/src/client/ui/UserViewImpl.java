@@ -19,7 +19,11 @@ public class UserViewImpl extends JFrame implements UserView {
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setTitle("Manage System");
 
-        setStartPnl();
+        startPnl = new JPanel(); // client View 전체를 담는 패널
+        startPnl.setLayout(null);
+        add(startPnl);
+//        updateItemLists();
+
 
 
 
