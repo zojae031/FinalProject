@@ -23,6 +23,16 @@ public class AdminViewImpl extends JFrame implements AdminView {
                     {2, "오믈렛", 3000, 4, 12000},
                     {3, "치킨마요", 4000, 1, 4000}};
 
+    // TODO: 제품 재고현황 example
+    String columnItemNames [] =
+            {"상품번호", "재료명", "남은 수량"};
+
+    Object rowItemData [][] =
+            {
+                    {1, "양파", "300g"},
+                    {2, "마늘", "300g"},
+                    {3, "파", "300g"}};
+
     public AdminViewImpl() {
         setTitle("Manage");
         setResizable(false);
@@ -30,7 +40,7 @@ public class AdminViewImpl extends JFrame implements AdminView {
         setSize(1100, 700);
 
 
-        setTotalMoneyPnl();
+        setCurrentItems();
         tab = new JPanel();
         cardLayout = new CardLayout();
         tab.setLayout(cardLayout);
@@ -120,5 +130,30 @@ public class AdminViewImpl extends JFrame implements AdminView {
         totalMoneyPnl.add(totalSalesPnl);
         add(totalMoneyPnl);
     }
+    public void setCurrentItems() {
+        JPanel currentItemsPnl = new JPanel();
+        currentItemsPnl.setLayout(null);
 
+        lblWhatToDo.setText("Current Items");
+        lblWhatToDo.setFont(new Font("맑은고딕", Font.PLAIN, 25));
+        lblWhatToDo.setBounds(480, 10, 200, 30);
+
+
+        JPanel tablePnl = new JPanel();
+        tablePnl.setLayout(new BorderLayout());
+
+        itemTable = new JTable(rowItemData, columnItemNames);
+        tablePnl.add(itemTable, BorderLayout.CENTER);
+
+        JScrollPane scroll = new JScrollPane(itemTable, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
+                JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+
+        scroll.setBounds(40, 70, 1000, 500);
+        btnBack.setBounds(940, 580, 100, 50);
+        currentItemsPnl.add(lblWhatToDo);
+        currentItemsPnl.add(scroll);
+        currentItemsPnl.add(btnBack);
+        add(currentItemsPnl);
+
+    }
 }
