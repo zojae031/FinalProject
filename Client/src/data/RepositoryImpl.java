@@ -12,11 +12,8 @@ public class RepositoryImpl implements Repository {
     public void connectServer(ServerConnectionCallback callback) {
         //TODO Server와 연결하는 동작
         // serverConnection
-        serverConnection.doSomething();
-                if()
-        callback.accept("성공");
-                else
-        callback.error();
+        serverConnection.ConnectServer();
+
     }
 
     public static Repository getInstance(ServerConnection serverConnection) {

@@ -6,10 +6,9 @@ import ui.UserViewImpl;
 
 import java.util.Vector;
 
-public class Main {
+public class DriverView {
     public static void main(String[] args) {
-       // Controller controller = new Controller(/*MainView*/,/*AdminView*/, RepositoryImpl.getInstance(new ServerConnection()));
-
-
+        UserViewImpl view = new UserViewImpl();
     }
+
 }
