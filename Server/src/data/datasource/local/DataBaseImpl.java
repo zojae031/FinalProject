@@ -32,11 +32,16 @@ import java.sql.*;
  */
 
 public class DataBaseImpl implements DataBase {
+    private static DataBaseImpl Instance = null;
     private String jdbcUrl;
     private Connection conn;
     private PreparedStatement pstmt;
     private String ID, Password;
 
+    public DataBaseImpl getInstance(){
+        if(Instance == null)
+            Instance = new DataBaseImpl()
+    }
 
     public DataBaseImpl(String ID, String Password, String IP) {
         jdbcUrl = "jdbc://mysql://localhost/javadb";
