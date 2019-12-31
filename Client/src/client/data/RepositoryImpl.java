@@ -1,6 +1,6 @@
-package data;
+package client.data;
 
-import data.datasource.ServerConnection;
+import client.data.datasource.ServerConnection;
 
 public class RepositoryImpl implements Repository {
     private static Repository INSTANCE = null;

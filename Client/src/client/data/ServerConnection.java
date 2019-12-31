@@ -1,4 +1,4 @@
-package data;
+package client.data;
 
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;

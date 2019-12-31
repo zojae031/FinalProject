@@ -1,4 +1,4 @@
-package data.datasource;
+package client.data.datasource;
 
 import java.io.*;
 import java.net.Socket;

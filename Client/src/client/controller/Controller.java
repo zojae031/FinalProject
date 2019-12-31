@@ -1,9 +1,9 @@
-package controller;
+package client.controller;
 
-import data.Repository;
-import data.RepositoryImpl;
-import ui.AdminView;
-import ui.UserView;
+import client.data.Repository;
+import client.data.RepositoryImpl;
+import client.ui.AdminView;
+import client.ui.UserView;
 
 public class Controller {
     UserView userView;
