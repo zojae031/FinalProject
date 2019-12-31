@@ -10,5 +10,6 @@
     <orderEntry type="library" name="KotlinJavaRuntime" level="project" />
     <orderEntry type="library" name="gson-2.8.6" level="project" />
     <orderEntry type="library" name="gson-2.8.61" level="application" />
+    <orderEntry type="library" name="gson-2.8.0" level="application" />
   </component>
 </module>

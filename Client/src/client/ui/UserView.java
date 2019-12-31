@@ -9,7 +9,7 @@ public interface UserView {
     // TODO: 2019-12-31 파라미터
     void updateItemLists(Vector<ProductModel> lists);
 
-    // TODO: 2019-12-31 파라미터
+    // TODO: 2019-12-31 파라미터, 여기 i 어떻게?
     void updateSelectedLists(Vector<ProductModel> selectedItem, int i);
 
     void updateInsertMoney(String money);

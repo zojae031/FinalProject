@@ -10,23 +10,21 @@ import java.util.Vector;
 
 public class UserViewImpl extends JFrame implements UserView {
     JPanel startPnl, itemListPnl, selectedListPnl;
-    JButton btnItem;
-    JTextField tfInsertMoney, tfChange, tfTotalMoney;
-    JLabel lblInsertMoney, lblTotalMoney, lblChangeMoney;
+    JButton btnItem, btnAdminClient, btnPay, btnMinus, btnPlus, btnX;
+    JLabel lblInsertMoney, lblTotalMoney, lblChangeMoney, lblItemQuantity;
+
+    // TODO: 2019-12-31  Vector<ProductModel> productModels = ;
 
     public UserViewImpl() {
         setResizable(false);
-        setSize(1000, 800);
+        setSize(1100, 700);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setTitle("Manage System");
 
         startPnl = new JPanel(); // client View 전체를 담는 패널
         startPnl.setLayout(null);
         add(startPnl);
-//        updateItemLists();
-
-
-
+        setStartPnl();
 
         showAdminDialog();
         setVisible(true);
@@ -39,8 +37,19 @@ public class UserViewImpl extends JFrame implements UserView {
         startPnl.setLayout(null);
         add(startPnl);
 
+        // Manager <-> User Button
+        JButton btnAdminClient = new JButton();
+        btnAdminClient.setText("Manager");
+        btnAdminClient.setBounds(0, 0, 100, 30);
+        startPnl.add(btnAdminClient);
+        JLabel lblWhatToDo = new JLabel("Select Item");
+        lblWhatToDo.setFont(new Font("맑은고딕", Font.BOLD, 20));
+        lblWhatToDo.setBounds(400, 10, 200, 20);
+        startPnl.add(lblWhatToDo);
+
+
         itemListPnl = new JPanel();
-        itemListPnl.setLayout(new GridLayout(4, 5, 15, 15));
+        itemListPnl.setLayout(new GridLayout(4, 3, 15, 15));
         itemListPnl.setBackground(Color.orange);
         JScrollPane scroll = new JScrollPane(itemListPnl, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
                 JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
@@ -52,44 +61,48 @@ public class UserViewImpl extends JFrame implements UserView {
         // TODO: 2019-12-31 for test
         updateItemListss();
 
-
-
         // selectedListPnl w 315, h 500
         selectedListPnl = new JPanel();
         selectedListPnl.setLayout(null);
         selectedListPnl.setBackground(Color.green);
         JScrollPane selectedListPnlScroll = new JScrollPane(selectedListPnl, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
-                JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
-        selectedListPnlScroll.setBounds(650, 50, 315, 300);
+                JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+        selectedListPnlScroll.setBounds(670, 50, 400, 300);
         startPnl.add(selectedListPnlScroll);
 
         // total money
         JPanel totalMoneyPnl = new JPanel();
         totalMoneyPnl.setLayout(new BorderLayout());
-        totalMoneyPnl.setBounds(670, 350, 315, 70);
+        totalMoneyPnl.setBounds(670, 360, 400, 70);
         lblTotalMoney = new JLabel("총 금액 ");
         totalMoneyPnl.add(lblTotalMoney, BorderLayout.CENTER);
         totalMoneyPnl.setBackground(Color.lightGray);
-        
+
         // insert money
         JPanel insertMoneyPnl = new JPanel();
         insertMoneyPnl.setLayout(new BorderLayout());
-        insertMoneyPnl.setBounds(670, 450, 315, 70);
+        insertMoneyPnl.setBounds(670, 450, 400, 70);
         lblInsertMoney = new JLabel("투입 금액 ");
         insertMoneyPnl.add(lblInsertMoney, BorderLayout.CENTER);
         insertMoneyPnl.setBackground(Color.lightGray);
-        
+
         // change money
         JPanel changeMoneyPnl = new JPanel();
         changeMoneyPnl.setLayout(new BorderLayout());
-        changeMoneyPnl.setBounds(670, 530, 315, 100);
+        changeMoneyPnl.setBounds(670, 520, 400, 70);
         lblChangeMoney = new JLabel("거스름돈 ");
         changeMoneyPnl.add(lblChangeMoney, BorderLayout.CENTER);
         changeMoneyPnl.setBackground(Color.lightGray);
-        
+
         startPnl.add(totalMoneyPnl);
         startPnl.add(insertMoneyPnl);
         startPnl.add(changeMoneyPnl);
+
+
+        // 구매 버튼
+        btnPay = new JButton("구매");
+        btnPay.setBounds(780, 600, 100, 50);
+        startPnl.add(btnPay);
 
         // TODO: 2019-12-31 for test
         updateTotalMoney("10000");
@@ -98,6 +111,7 @@ public class UserViewImpl extends JFrame implements UserView {
         updateSelectedListss();
     }
 
+
     @Override
     public void updateItemLists(Vector<ProductModel> lists) {
         /*for (int i = 0; i < lists.size(); i++) {
@@ -105,15 +119,17 @@ public class UserViewImpl extends JFrame implements UserView {
             item.addItemInfoPnl();
         }*/
     }
-    public void updateItemListss(){
-        // TODO: 2019-12-31
+
+    public void updateItemListss() {
+        // TODO: 2019-12-31 for test
         for (int i = 0; i < 27; i++) {
-            setItemInfoPnl item = new setItemInfoPnl("menu", "3,500",i);
+            setItemInfoPnl item = new setItemInfoPnl("menu", "3,500", i);
             item.addItemInfoPnl();
         }
 
 
     }
+
     // 1개의 아이템 이름, 가격, 이미지 담고 있는 패널
     public class setItemInfoPnl { // TODO: 2019-12-31 parameter Vector ItemDao
         JPanel itemInfoPnl = new JPanel();
@@ -151,26 +167,48 @@ public class UserViewImpl extends JFrame implements UserView {
     }
 
     // TODO: for test
-    public void updateSelectedListss(){
-        JPanel insertMoneyPnl = new JPanel(); // 선택되는 순간 만들어짐
+    public void updateSelectedListss() {
+        JPanel itemInsertPnl = new JPanel();
+        itemInsertPnl.setBounds(10, 10, 370, 50);
+
+        JPanel itemNameAndMoneyPnl = new JPanel(); // 선택되는 순간 만들어짐
         // 선택된 아이템 각각 w:180 h:100 todo 버튼을 이 옆에
-        insertMoneyPnl.setBounds(10,30,180, 100);
-        insertMoneyPnl.setBackground(Color.pink);
-        insertMoneyPnl.setLayout(new BorderLayout());
+        // TODO: itemNameAndMoneyPnl 이랑 itemQuantityPnl 위치 조정
+        itemNameAndMoneyPnl.setBounds(10, 10, 180, 50);
+        itemNameAndMoneyPnl.setBackground(Color.pink);
+        itemNameAndMoneyPnl.setLayout(new BorderLayout());
 
         JLabel lblSelectedItemName = new JLabel();
         JLabel lblSelectedItemPrice = new JLabel();
 // todo       lblSelectedItemName.setText(selectedItem.get(i).PrName);
         lblSelectedItemName.setText("menu1");
- //todo       lblSelectedItemPrice.setText(Integer.toString(selectedItem.get(i).PrPrice));
+        //todo       lblSelectedItemPrice.setText(Integer.toString(selectedItem.get(i).PrPrice));
         lblSelectedItemName.setFont(new Font("맑은고딕", Font.PLAIN, 20));
         lblSelectedItemPrice.setText("3550");
         lblSelectedItemPrice.setFont(new Font("맑은고딕", Font.PLAIN, 20));
 
-        insertMoneyPnl.add(lblSelectedItemName, BorderLayout.CENTER);
-        insertMoneyPnl.add(lblSelectedItemPrice, BorderLayout.LINE_END);
+        itemNameAndMoneyPnl.add(lblSelectedItemName, BorderLayout.CENTER);
+        itemNameAndMoneyPnl.add(lblSelectedItemPrice, BorderLayout.LINE_END);
 
-        selectedListPnl.add(insertMoneyPnl);
+
+        JPanel itemQuantityPnl = new JPanel();
+        itemQuantityPnl.setBounds(190, 10, 100, 50);
+        itemQuantityPnl.setBackground(Color.magenta);
+        itemQuantityPnl.setLayout(new GridLayout(1, 4));
+
+        btnMinus = new JButton("-");
+        lblItemQuantity = new JLabel("3"); // TODO: 값 받아와서 인자로 넣어주기
+        btnPlus = new JButton("+");
+        btnX = new JButton("x");
+
+        itemQuantityPnl.add(btnMinus);
+        itemQuantityPnl.add(lblItemQuantity);
+        itemQuantityPnl.add(btnPlus);
+        itemQuantityPnl.add(btnX);
+
+        itemInsertPnl.add(itemNameAndMoneyPnl);
+        itemInsertPnl.add(itemQuantityPnl);
+        selectedListPnl.add(itemInsertPnl);
     }
 
     // todo 제거 - > view 쪽에서 list를 가지고 있어야 붙이고 지우고,,
@@ -191,16 +229,9 @@ public class UserViewImpl extends JFrame implements UserView {
     }
 
     @Override
-    public void showAdminDialog() { // 관리자 사용자 스위치버튼, 메뉴선택, 재고관리 등 제목라벨 패널
+    public void showAdminDialog() {
 
-        JButton btnAdminClient = new JButton();
-        btnAdminClient.setText("Manager");
-        btnAdminClient.setBounds(0, 0, 100, 30);
-        startPnl.add(btnAdminClient);
-        JLabel lblWhatToDo = new JLabel("Select Item");
-        lblWhatToDo.setFont(new Font("맑은고딕", Font.BOLD, 20));
-        lblWhatToDo.setBounds(400, 10, 200, 20);
-        startPnl.add(lblWhatToDo);
+
     }
 
     @Override
@@ -210,6 +241,11 @@ public class UserViewImpl extends JFrame implements UserView {
 
     @Override
     public void addListener(ActionListener listener) {
-
+        btnItem.addActionListener(listener); // item image Button
+        btnAdminClient.addActionListener(listener); // Manager <-> User Switch Button
+        btnPay.addActionListener(listener); // 구매 버튼
+        btnMinus.addActionListener(listener); // selectedItem 수량 -
+        btnPlus.addActionListener(listener); // selectedItem 수량 +
+        btnX.addActionListener(listener); // selectedItem 삭제
     }
 }

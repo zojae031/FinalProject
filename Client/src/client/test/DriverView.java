@@ -1,11 +1,13 @@
 package client.test;
 
+import client.ui.AdminView;
+import client.ui.AdminViewImpl;
 import client.ui.UserView;
 import client.ui.UserViewImpl;
 
 public class DriverView {
     public static void main(String[] args) {
-        UserViewImpl view = new UserViewImpl();
+        AdminViewImpl view = new AdminViewImpl();
     }
-        UserView view = new UserViewImpl();
+
 }
