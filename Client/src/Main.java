@@ -9,7 +9,7 @@ import java.util.Vector;
 public class Main {
     public static void main(String[] args) {
        // Controller controller = new Controller(/*MainView*/,/*AdminView*/, RepositoryImpl.getInstance(new ServerConnection()));
-        UserView view = new UserViewImpl();
+        new UserViewImpl();
 
     }
 }

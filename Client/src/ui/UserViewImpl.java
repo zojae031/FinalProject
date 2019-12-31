@@ -11,57 +11,62 @@ public class UserViewImpl extends JFrame implements UserView {
     JPanel startPnl, itemListPnl, selectedListPnl;
     JButton btnItem;
     JTextField tfInsertMoney, tfChange, tfTotalMoney;
+
     public UserViewImpl() {
-        setResizable(false);
-        setSize(800,500);
+
+        setSize(800, 500);
+        setDefaultCloseOperation(EXIT_ON_CLOSE);
         setTitle("Manage System");
 
         startPnl = new JPanel();
-        startPnl.setPreferredSize(new Dimension(500,400));
+        startPnl.setLayout(new BorderLayout());
         add(startPnl);
 
-        //startPnl.setLayout(new BorderLayout());
-        updateItemLists(new Vector<ItemDao>());
-        selectedListPnl = new JPanel();
-        add(selectedListPnl);
 
-        updateSelectedLists(new Vector<ItemDao>());
-        updateTotalMoney(new String("money"));
-        updateInsertMoney(new String("money"));
-        updateChangesMoney(new String("money"));
+        //updateSelectedLists();
+        //updateTotalMoney(new String("money"));
+        //updateInsertMoney(new String("money"));
+        //updateChangesMoney(new String("money"));
 
 
         showAdminDialog();
         setVisible(true);
-        setDefaultCloseOperation(EXIT_ON_CLOSE);
+
+
 
 
     }
 
+
     @Override
-    public void updateItemLists(Vector<ItemDao> itemLists) {
+    public void updateItemLists(Vector<ItemDao> selectedItems) {
         itemListPnl = new JPanel();
+        JPanel leftPnl = new JPanel();
+        leftPnl.setLayout(new BorderLayout());
+        startPnl.add(leftPnl, BorderLayout.CENTER);
 
         itemListPnl.setLayout(new GridLayout(4, 4, 15, 15));
         JScrollPane scroll = new JScrollPane(itemListPnl, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
                 JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
-        for (int i = 0; i < itemLists.size(); i++) {
-            btnItem = new JButton();
-            btnItem.setText(""); // TODO
-            btnItem.setPreferredSize(new Dimension(10, 10));
+        for (int i = 0; i < 17; i++) {
+            btnItem = new JButton(Integer.toString(i));
+            //btnItem.setText(); // TODO
+            //btnItem.setPreferredSize(new Dimension(10, 10));
 
             itemListPnl.add(btnItem);
         }
         itemListPnl.setBorder(BorderFactory.createEmptyBorder(30, 30, 30, 30));
-        startPnl.add(itemListPnl);
+        leftPnl.add(itemListPnl, BorderLayout.CENTER);
 
     }
 
     @Override
     public void updateSelectedLists(Vector<ItemDao> selectedItems) { // 선택된 상품 목록
+        selectedListPnl = new JPanel();
+
         JLabel lblSelectedItem = new JLabel();
         selectedListPnl.add(lblSelectedItem);
-
+        add(selectedListPnl);
     }
 
     @Override
