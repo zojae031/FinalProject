@@ -13,39 +13,43 @@ public class UserViewImpl extends JFrame implements UserView {
     JTextField tfInsertMoney, tfChange, tfTotalMoney;
 
     public UserViewImpl() {
-
-        setSize(800, 500);
+        setResizable(false);
+        setSize(1000, 700);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setTitle("Manage System");
 
         startPnl = new JPanel();
-        startPnl.setLayout(new BorderLayout());
+        startPnl.setLayout(null);
         add(startPnl);
+        updateItemLists();
 
 
-        //updateSelectedLists();
-        //updateTotalMoney(new String("money"));
-        //updateInsertMoney(new String("money"));
-        //updateChangesMoney(new String("money"));
+        selectedListPnl = new JPanel();
+        selectedListPnl.setLayout(null);
+        selectedListPnl.setPreferredSize(new Dimension(300,500));
+        selectedListPnl.setBounds(650,50,300,500);
+
+        startPnl.add(selectedListPnl);
+        updateSelectedLists();
+
+        // TODO: 2019-12-31 인자 값 바꾸기 
+        updateTotalMoney("money");
+        updateInsertMoney("money");
+        updateChangesMoney("money");
 
 
         showAdminDialog();
         setVisible(true);
 
 
-
-
     }
 
 
     @Override
-    public void updateItemLists(Vector<ItemDao> selectedItems) {
+    public void updateItemLists() {
         itemListPnl = new JPanel();
-        JPanel leftPnl = new JPanel();
-        leftPnl.setLayout(new BorderLayout());
-        startPnl.add(leftPnl, BorderLayout.CENTER);
-
         itemListPnl.setLayout(new GridLayout(4, 4, 15, 15));
+
         JScrollPane scroll = new JScrollPane(itemListPnl, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
                 JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
         for (int i = 0; i < 17; i++) {
@@ -56,23 +60,25 @@ public class UserViewImpl extends JFrame implements UserView {
             itemListPnl.add(btnItem);
         }
         itemListPnl.setBorder(BorderFactory.createEmptyBorder(30, 30, 30, 30));
-        leftPnl.add(itemListPnl, BorderLayout.CENTER);
+        itemListPnl.setBounds(0,50,600,500);
+        startPnl.add(itemListPnl);
 
     }
 
     @Override
-    public void updateSelectedLists(Vector<ItemDao> selectedItems) { // 선택된 상품 목록
-        selectedListPnl = new JPanel();
-
+    public void updateSelectedLists() { // 선택된 상품 목록
         JLabel lblSelectedItem = new JLabel();
+        lblSelectedItem.setText("김치찌개");
+        //for(int i=0; i<selectedItem.size();i++)
+        lblSelectedItem.setBounds(10,40,100,50);
         selectedListPnl.add(lblSelectedItem);
-        add(selectedListPnl);
     }
 
     @Override
     public void updateInsertMoney(String money) { // 투입 금액
         tfInsertMoney = new JTextField();
         tfInsertMoney.setText(money); // TODO 라벨 붙이기
+
         selectedListPnl.add(tfInsertMoney);
     }
 
