@@ -2,7 +2,7 @@ package data;
 
 import data.datasource.local.DataBase;
 import data.datasource.remote.RemoteDataSource;
-import data.datasource.remote.callback.LoginCallback;
+import data.datasource.remote.callback.ServerCallback;
 
 import java.io.IOException;
 
@@ -23,11 +23,16 @@ public class RepositoryImpl implements Repository {
 
     @Override
     public void connectClient() {
-        remote.openServer(new LoginCallback() {
+        remote.openServer(new ServerCallback() {
             @Override
             public void login() {
                 //TODO 로컬로 연결후 성공하면
                 remote.sendData(local.getProductArray().toString());
+            }
+
+            @Override
+            public void selectItem() {
+
             }
 
             @Override
@@ -41,7 +46,7 @@ public class RepositoryImpl implements Repository {
     public void broadCastClients(String data) {
         remote.sendData(data);
     }
-    
+
 
     @Override
     public void closeServer() {

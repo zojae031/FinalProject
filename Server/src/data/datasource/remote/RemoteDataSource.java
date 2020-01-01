@@ -1,11 +1,11 @@
 package data.datasource.remote;
 
-import data.datasource.remote.callback.LoginCallback;
+import data.datasource.remote.callback.ServerCallback;
 
 import java.io.IOException;
 
 public interface RemoteDataSource {
-    void openServer(LoginCallback callback);
+    void openServer(ServerCallback callback);
 
     void sendData(String data);
 
