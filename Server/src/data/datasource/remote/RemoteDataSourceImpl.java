@@ -32,6 +32,8 @@ public class RemoteDataSourceImpl implements RemoteDataSource {
                 callback.selectItem(object.get("select").toString());
             } else if (object.get("minus") != null) {
                 callback.minusItem(object.get("minus").toString());
+            } else if (object.get("exit") != null) {
+                callback.exitCallback(object.get("exit").toString(), object.get("count").getAsInt());
             } else {
                 callback.error();
             }
