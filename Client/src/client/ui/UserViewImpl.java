@@ -9,9 +9,9 @@ import java.awt.event.ActionListener;
 import java.util.Vector;
 
 public class UserViewImpl extends JFrame implements UserView {
-    JPanel startPnl, itemListPnl, selectedListPnl;
-    JButton btnItem, btnAdminClient, btnPay, btnMinus, btnPlus, btnX;
-    JLabel lblInsertMoney, lblTotalMoney, lblChangeMoney, lblItemQuantity;
+    public JPanel startPnl, itemListPnl, selectedListPnl;
+    public JButton btnItem, btnAdminClient, btnPay, btnMinus, btnPlus, btnX;
+    public JLabel lblInsertMoney, lblTotalMoney, lblChangeMoney, lblItemQuantity;
 
     // TODO: 2019-12-31  Vector<ProductModel> productModels = ;
 
@@ -113,6 +113,8 @@ public class UserViewImpl extends JFrame implements UserView {
 
     @Override
     public void updateItemLists(Vector<ProductModel> lists) {
+        lists.forEach(productModel -> System.out.println(productModel.PrCode + productModel.PrNumber + productModel.PrPrice + productModel.PrName + productModel.PrIngredient));
+
         /*for (int i = 0; i < lists.size(); i++) {
             setItemInfoPnl item = new setItemInfoPnl(lists.get(i).PrName, Integer.toString(lists.get(i).PrPrice), i);
             item.addItemInfoPnl();

@@ -130,7 +130,7 @@ public class AdminViewImpl extends JFrame implements AdminView {
         AdminClientButtonPnl.add(btnAdminClient, BorderLayout.WEST);
         adminStartPanel.add(AdminClientButtonPnl, BorderLayout.NORTH);
 
-        add(this);
+//        add(this);
     }
 
 
