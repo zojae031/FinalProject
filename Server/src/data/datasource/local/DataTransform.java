@@ -96,4 +96,8 @@ public class DataTransform {
         }
         return result;
     }
+
+    public void buyIngredient(int IgCode){
+        
+    }
 }

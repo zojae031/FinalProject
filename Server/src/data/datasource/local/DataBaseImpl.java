@@ -145,7 +145,7 @@ public class DataBaseImpl implements DataBase {
         }
         String sql = "select * from product";
         JsonArray result = new JsonArray();
-        JsonArray ingredient = getIngredientArray();
+        JsonArray ingredient = getIngredientArray2();
         try {
             pstmt = conn.prepareStatement(sql);
             ResultSet rs = pstmt.executeQuery();
@@ -197,6 +197,29 @@ public class DataBaseImpl implements DataBase {
             e.printStackTrace();
         }
         closeDB();
+        return result;
+    }//getIngredientArray
+
+    private JsonArray getIngredientArray2() {
+        String sql = "select * from ingredient";
+        JsonArray result = new JsonArray();
+        try {
+            pstmt = conn.prepareStatement(sql);
+            ResultSet rs = pstmt.executeQuery();
+            JsonObject input;
+            while (rs.next()) {
+                input = new JsonObject();
+                input.addProperty("IgCode", rs.getInt("IgCode"));
+                input.addProperty("IgName", rs.getString("IgName"));
+                input.addProperty("IgNumber", rs.getInt("IgNumber"));
+                input.addProperty("IgPrice", rs.getInt("IgPrice"));
+                input.addProperty("IgProduct", rs.getString("IgProduct"));
+                result.add(input);
+            }
+            rs.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
         return result;
     }//getIngredientArray
 
