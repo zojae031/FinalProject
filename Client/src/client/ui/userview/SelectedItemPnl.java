@@ -13,13 +13,14 @@ public class SelectedItemPnl extends JPanel {
     JLabel lblSelectedItemName = new JLabel();
     JLabel lblSelectedItemPrice = new JLabel();
     JPanel itemQuantityPnl = new JPanel();
-    JButton btnMinus = new JButton("-"), btnPlus = new JButton("+"), btnX = new JButton("x");
+    public JButton btnMinus = new JButton("-"), btnPlus = new JButton("+"), btnX = new JButton("x");
     JLabel lblItemQuantity = new JLabel("1");
-    ProductModel productModel;
+    public ProductModel productModel;
 
     public SelectedItemPnl(ProductModel productModel) {
         setBounds(10, 10, 370, 50);
         this.productModel = productModel;
+
         itemNameAndMoneyPnl.setBounds(10, 10, 180, 50);
         itemNameAndMoneyPnl.setBackground(Color.pink);
         itemNameAndMoneyPnl.setLayout(new BorderLayout());
