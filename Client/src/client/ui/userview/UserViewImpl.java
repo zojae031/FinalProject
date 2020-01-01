@@ -10,8 +10,8 @@ import java.util.Vector;
 
 public class UserViewImpl extends JFrame implements UserView {
 
-
     // TODO: 2019-12-31  Vector<ProductModel> productModels = ;
+
 
     public UserViewImpl() {
         setResizable(false);
@@ -27,13 +27,6 @@ public class UserViewImpl extends JFrame implements UserView {
         updateInsertMoney("3500");
         updateChangesMoney("6500");
 
-
-        UserTab.setLayout(UserCardLayout);
-        UserTab.add(startPnl, "startPanel");
-
-        UserCardLayout.show(UserTab,"startPanel");
-        this.add(UserTab);
-        UserTab.add(AdminView.adminStartPanel, "adminStartPanel");
 
     }
 
@@ -99,6 +92,8 @@ public class UserViewImpl extends JFrame implements UserView {
         // 구매 버튼
         btnPay.setBounds(830, 600, 100, 50);
         startPnl.add(btnPay);
+
+        add(startPnl);
     }
 
 
@@ -143,8 +138,7 @@ public class UserViewImpl extends JFrame implements UserView {
     @Override
 
     public void changeDialog(String pnl) {
-        //UserCardLayout.show(UserTab, "adminStartPanel");
-        UserCardLayout.show(UserTab, pnl);
+
     }
 
     @Override

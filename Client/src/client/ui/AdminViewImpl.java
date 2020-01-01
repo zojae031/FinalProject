@@ -55,12 +55,11 @@ public class AdminViewImpl extends JFrame implements AdminView {
         setSize(1100, 700);
 
 
-        AdminTab.setLayout(AdminCardLayout);
 
 
         //***************************
-        //setBtnAdminWhatToDoPnl();
-        setTotalMoneyPnl();
+        setBtnAdminWhatToDoPnl();
+        //setTotalMoneyPnl();
         //setCurrentIngredients();
         //setBuyIngredients();
 
@@ -71,8 +70,8 @@ public class AdminViewImpl extends JFrame implements AdminView {
         //***************************
 
 
-        AdminCardLayout.show(AdminTab, "adminStart");
-        this.add(AdminTab, BorderLayout.NORTH);
+        //AdminCardLayout.show(AdminTab, "adminStart");
+        //this.add(AdminTab, BorderLayout.NORTH);
 
 
         //setVisible(true);
@@ -114,7 +113,7 @@ public class AdminViewImpl extends JFrame implements AdminView {
         AdminClientButtonPnl.add(btnAdminClient, BorderLayout.WEST);
         adminStartPanel.add(AdminClientButtonPnl, BorderLayout.NORTH);
 
-//      add(this);
+        //add(adminStartPanel);
     }
 
 
