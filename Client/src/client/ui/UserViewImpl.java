@@ -106,6 +106,7 @@ public class UserViewImpl extends JFrame implements UserView {
             itemLists.add(item);
             item.addItemInfoPnl();
         }
+        itemListPnl.updateUI();
     }
 
 
