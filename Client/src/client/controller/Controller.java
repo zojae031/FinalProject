@@ -29,6 +29,7 @@ public class Controller implements ActionListener {
             @Override
             public void accept(Vector<ProductModel> lists) {
                 userView.updateItemLists(lists);
+                userView.addItemListListener(Controller.this::actionPerformed);
                 userView.addListener(Controller.this::actionPerformed);
             }
 
@@ -44,14 +45,14 @@ public class Controller implements ActionListener {
     public void actionPerformed(ActionEvent actionEvent) {
         Object obj = actionEvent.getSource();
         if (userView.btnPay.equals(obj)) {
+
+        } else if (userView.btnAdminClient.equals(obj)) {
             if (changeDialogFlag) {
                 userView.changeDialog("adminStartPanel");
             } else {
                 userView.changeDialog("startPanel");
             }
             changeDialogFlag = !changeDialogFlag;
-        } else if (userView.btnAdminClient.equals(obj)) {
-
         } else {
             userView.itemLists.forEach(item ->
             {
@@ -59,6 +60,7 @@ public class Controller implements ActionListener {
                     repository.selectItem(item.productModel, (productModelVector) -> {
                         userView.updateSelectedLists(item.productModel.PrName);
                         userView.updateItemLists(productModelVector);
+                        userView.addItemListListener(Controller.this::actionPerformed);
                         userView.addSelectedItemListener(this::actionPerformed);
                     });
 

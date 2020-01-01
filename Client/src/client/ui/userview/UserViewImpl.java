@@ -104,12 +104,16 @@ public class UserViewImpl extends JFrame implements UserView {
 
     @Override
     public void updateItemLists(Vector<ProductModel> lists) {
+        itemLists.clear();
+        itemListPnl.removeAll();
         for (int i = 0; i < lists.size(); i++) {
             ItemInfoPnl item = new ItemInfoPnl(lists.get(i), i);
+            System.out.println(item.productModel.IsSell);
             if (!item.productModel.IsSell) {
                 item.btnItem.setBackground(Color.magenta);
                 item.btnItem.setEnabled(false);
             }
+
             itemLists.add(item);
             itemListPnl.add(item);
         }
@@ -158,12 +162,15 @@ public class UserViewImpl extends JFrame implements UserView {
 
     @Override
     public void addListener(ActionListener listener) {
+        btnAdminClient.addActionListener(listener); // Manager <-> User Switch Button
+        btnPay.addActionListener(listener); // 구매 버튼
+    }
+
+    @Override
+    public void addItemListListener(ActionListener listener) {
         itemLists.forEach(item -> {
             item.addListener(listener);
         });
-        btnAdminClient.addActionListener(listener); // Manager <-> User Switch Button
-        btnPay.addActionListener(listener); // 구매 버튼
-
     }
 
     @Override
