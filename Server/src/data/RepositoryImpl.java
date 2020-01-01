@@ -35,6 +35,7 @@ public class RepositoryImpl implements Repository {
             public void selectItem(String select) {
                 System.out.println(select);
                 (new DataTransform("java7","java8")).buyProduct(Integer.parseInt(select));
+                remote.sendData(local.getProductArray().toString());
             }
 
             @Override
@@ -58,6 +59,5 @@ public class RepositoryImpl implements Repository {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
     }
 }
