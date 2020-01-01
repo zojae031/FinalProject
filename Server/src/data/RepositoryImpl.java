@@ -42,12 +42,7 @@ public class RepositoryImpl implements Repository {
     public void broadCastClients(String data) {
         remote.sendData(data);
     }
-
-    @Override
-    public void connectDataBase() {
-        //TODO DataBase 연결코드 @{local}
-        // TODO: 2020-01-01 지워도 되지 않나요? 확인부탁드립니다.
-    }
+    
 
     @Override
     public void closeServer() {
