@@ -6,8 +6,6 @@ import client.data.dao.ProductModel;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
-import java.util.LinkedList;
-import java.util.List;
 import java.util.Vector;
 
 public class UserViewImpl extends JFrame implements UserView {
@@ -46,7 +44,6 @@ public class UserViewImpl extends JFrame implements UserView {
         lblWhatToDo.setFont(new Font("맑은고딕", Font.BOLD, 20));
         lblWhatToDo.setBounds(400, 10, 200, 20);
         startPnl.add(lblWhatToDo);
-
 
 
         itemListPnl.setLayout(new GridLayout(4, 3, 15, 15));
@@ -106,39 +103,8 @@ public class UserViewImpl extends JFrame implements UserView {
         lists.forEach(productModel -> System.out.println(productModel.PrCode + productModel.PrNumber + productModel.PrPrice + productModel.PrName + productModel.PrIngredient));
         for (int i = 0; i < lists.size(); i++) {
             ItemInfoPnl item = new ItemInfoPnl(lists.get(i).PrName, Integer.toString(lists.get(i).PrPrice), i);
+            itemLists.add(item);
             item.addItemInfoPnl();
-        }
-    }
-
-
-
-    // 1개의 아이템 이름, 가격, 이미지 담고 있는 패널
-    public class ItemInfoPnl extends JPanel {
-        JButton btnItem = new JButton();
-        JLabel lblItemPrice = new JLabel();
-        JLabel lblItemName = new JLabel();
-        int itemIndex;
-
-
-        public ItemInfoPnl(String itemName, String itemPrice, int index) {
-            setPreferredSize(new Dimension(100, 70));
-            setBackground(Color.CYAN);
-            setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
-
-            btnItem.setText(Integer.toString(index));
-            //btnItem.setPreferredSize(new Dimension(100,50));
-            lblItemPrice.setText(itemPrice);
-            lblItemName.setText(itemName);
-            itemIndex = index;
-
-            add(btnItem);
-            add(lblItemName);
-            add(lblItemPrice);
-
-        }
-
-        public void addItemInfoPnl() {
-            itemListPnl.add(this);
         }
     }
 
@@ -217,11 +183,47 @@ public class UserViewImpl extends JFrame implements UserView {
 
     @Override
     public void addListener(ActionListener listener) {
-        btnItem.addActionListener(listener); // item image Button
+        itemLists.forEach(item -> {
+            item.addLitener(listener);
+        });
         btnAdminClient.addActionListener(listener); // Manager <-> User Switch Button
         btnPay.addActionListener(listener); // 구매 버튼
         btnMinus.addActionListener(listener); // selectedItem 수량 -
         btnPlus.addActionListener(listener); // selectedItem 수량 +
         btnX.addActionListener(listener); // selectedItem 삭제
+    }
+
+    // 1개의 아이템 이름, 가격, 이미지 담고 있는 패널
+    public class ItemInfoPnl extends JPanel {
+        JButton btnItem = new JButton();
+        JLabel lblItemPrice = new JLabel();
+        JLabel lblItemName = new JLabel();
+        int itemIndex;
+
+
+        public ItemInfoPnl(String itemName, String itemPrice, int index) {
+            setPreferredSize(new Dimension(100, 70));
+            setBackground(Color.CYAN);
+            setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
+
+            btnItem.setText(Integer.toString(index));
+            //btnItem.setPreferredSize(new Dimension(100,50));
+            lblItemPrice.setText(itemPrice);
+            lblItemName.setText(itemName);
+            itemIndex = index;
+
+            add(btnItem);
+            add(lblItemName);
+            add(lblItemPrice);
+
+        }
+
+        public void addLitener(ActionListener listener) {
+            btnItem.addActionListener(listener);
+        }
+
+        public void addItemInfoPnl() {
+            itemListPnl.add(this);
+        }
     }
 }

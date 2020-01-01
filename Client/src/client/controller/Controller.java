@@ -19,8 +19,6 @@ public class Controller implements ActionListener {
         this.userView = userView;
         this.adminView = adminView;
         this.repository = repository;
-
-
     }
 
     public void connectServer() {
