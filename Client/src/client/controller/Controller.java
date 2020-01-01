@@ -32,6 +32,7 @@ public class Controller implements ActionListener {
                 cardLayoutMain.userView.addItemListListener(Controller.this::actionPerformed);
                 cardLayoutMain.userView.addListener(Controller.this::actionPerformed);
                 cardLayoutMain.adminView.addAdminListener(Controller.this::actionPerformed);
+
             }
 
             @Override
@@ -47,7 +48,7 @@ public class Controller implements ActionListener {
         Object obj = actionEvent.getSource();
         if (cardLayoutMain.userView.btnPay.equals(obj)) {
 
-        } else if (cardLayoutMain.userView.btnAdminClient.equals(obj)) {
+        } else if (cardLayoutMain.userView.btnAdminClient.equals(obj) || cardLayoutMain.adminView.btnAdminClient.equals(obj)) {
             if (changeDialogFlag) {
                 System.out.println("admin");
                 cardLayoutMain.changeDialog("admin");

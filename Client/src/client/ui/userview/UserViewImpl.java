@@ -14,6 +14,7 @@ public class UserViewImpl implements UserView {
 
     public UserViewImpl() {
         setStartPnl();
+
     }
 
     public void setStartPnl() {
