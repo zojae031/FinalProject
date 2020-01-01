@@ -41,7 +41,7 @@ public class Controller implements ActionListener {
     public void actionPerformed(ActionEvent actionEvent) {
         Object obj = actionEvent.getSource();
         if (userView.btnPay.equals(obj)) {
-            //TODO 구매
+            userView.showAdminDialog();
         } else if (userView.btnAdminClient.equals(obj)) {
 
         } else {
@@ -49,7 +49,7 @@ public class Controller implements ActionListener {
             {
                 if (obj.equals(item.btnItem)) {
                     repository.selectItem(item.productModel, (productModelVector) -> {
-                        userView.updateSelectedLists("앙 앙앙");//TODO 여기는 추가된 아이템 리스트!
+                        userView.updateSelectedLists(item.productModel.PrName);//TODO 여기는 추가된 아이템 리스트!
                         userView.updateItemLists(productModelVector);
                         userView.addSelectedItemListener(this::actionPerformed);
                     });

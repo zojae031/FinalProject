@@ -137,7 +137,6 @@ public class UserViewImpl extends JFrame implements UserView {
     @Override
     public void showAdminDialog() {
 
-
     }
 
     @Override
