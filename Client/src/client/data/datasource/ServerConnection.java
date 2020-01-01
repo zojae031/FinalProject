@@ -2,6 +2,7 @@ package client.data.datasource;
 
 import client.data.dao.ProductModel;
 import client.data.datasource.callback.ServerConnectionCallback;
+import client.util.JsonUtil;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
@@ -43,18 +44,11 @@ public class ServerConnection {
         new Thread(() -> {
             try {
                 String data = reader.readLine();
-
-                //TODO 받은 데이터 정리
                 JsonArray array = (JsonArray) parser.parse(data);
-                Vector<ProductModel> vector = new Vector<ProductModel>();
+                Vector<ProductModel> vector = new Vector<>();
                 for (JsonElement object : array) {
-                    int PrCode = object.getAsJsonObject().get("PrCode").getAsInt();
-                    String PrName = object.getAsJsonObject().get("PrName").getAsString();
-                    int PrPrice = object.getAsJsonObject().get("PrPrice").getAsInt();
-                    int PrNumber = object.getAsJsonObject().get("PrNumber").getAsInt();
-                    String PrIngredient = object.getAsJsonObject().get("PrIngredient").getAsString();
-                    ProductModel productModel = new ProductModel(PrCode, PrName, PrPrice, PrNumber, PrIngredient);
-                    vector.add(productModel);
+                    ProductModel model = JsonUtil.INSTANCE.getProductModel(object);
+                    vector.add(model);
                 }
                 callback.accept(vector);
             } catch (IOException e) {

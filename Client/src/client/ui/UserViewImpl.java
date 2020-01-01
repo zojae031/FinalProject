@@ -6,12 +6,12 @@ import client.data.dao.ProductModel;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Vector;
 
 public class UserViewImpl extends JFrame implements UserView {
-    public JPanel startPnl, itemListPnl, selectedListPnl;
-    public JButton btnItem, btnAdminClient, btnPay, btnMinus, btnPlus, btnX;
-    public JLabel lblInsertMoney, lblTotalMoney, lblChangeMoney, lblItemQuantity;
+
 
     // TODO: 2019-12-31  Vector<ProductModel> productModels = ;
 
@@ -34,7 +34,7 @@ public class UserViewImpl extends JFrame implements UserView {
     }
 
     public void setStartPnl() {
-        startPnl = new JPanel(); // client View 전체를 담는 패널
+        // client View 전체를 담는 패널
         startPnl.setLayout(null);
         add(startPnl);
 
@@ -48,7 +48,7 @@ public class UserViewImpl extends JFrame implements UserView {
         startPnl.add(lblWhatToDo);
 
 
-        itemListPnl = new JPanel();
+
         itemListPnl.setLayout(new GridLayout(4, 3, 15, 15));
         itemListPnl.setBackground(Color.orange);
         JScrollPane scroll = new JScrollPane(itemListPnl, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
@@ -60,7 +60,6 @@ public class UserViewImpl extends JFrame implements UserView {
 
 
         // selectedListPnl w 315, h 500
-        selectedListPnl = new JPanel();
         selectedListPnl.setLayout(null);
         selectedListPnl.setBackground(Color.green);
         JScrollPane selectedListPnlScroll = new JScrollPane(selectedListPnl, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
@@ -72,7 +71,6 @@ public class UserViewImpl extends JFrame implements UserView {
         JPanel totalMoneyPnl = new JPanel();
         totalMoneyPnl.setLayout(new BorderLayout());
         totalMoneyPnl.setBounds(670, 360, 400, 70);
-        lblTotalMoney = new JLabel("총 금액 ");
         totalMoneyPnl.add(lblTotalMoney, BorderLayout.CENTER);
         totalMoneyPnl.setBackground(Color.lightGray);
 
@@ -80,7 +78,6 @@ public class UserViewImpl extends JFrame implements UserView {
         JPanel insertMoneyPnl = new JPanel();
         insertMoneyPnl.setLayout(new BorderLayout());
         insertMoneyPnl.setBounds(670, 450, 400, 70);
-        lblInsertMoney = new JLabel("투입 금액 ");
         insertMoneyPnl.add(lblInsertMoney, BorderLayout.CENTER);
         insertMoneyPnl.setBackground(Color.lightGray);
 
@@ -88,7 +85,6 @@ public class UserViewImpl extends JFrame implements UserView {
         JPanel changeMoneyPnl = new JPanel();
         changeMoneyPnl.setLayout(new BorderLayout());
         changeMoneyPnl.setBounds(670, 520, 400, 70);
-        lblChangeMoney = new JLabel("거스름돈 ");
         changeMoneyPnl.add(lblChangeMoney, BorderLayout.CENTER);
         changeMoneyPnl.setBackground(Color.lightGray);
 
@@ -98,7 +94,6 @@ public class UserViewImpl extends JFrame implements UserView {
 
 
         // 구매 버튼
-        btnPay = new JButton("구매");
         btnPay.setBounds(780, 600, 100, 50);
         startPnl.add(btnPay);
 
@@ -181,11 +176,6 @@ public class UserViewImpl extends JFrame implements UserView {
         itemQuantityPnl.setBounds(190, 10, 100, 50);
         itemQuantityPnl.setBackground(Color.magenta);
         itemQuantityPnl.setLayout(new GridLayout(1, 4));
-
-        btnMinus = new JButton("-");
-        lblItemQuantity = new JLabel("3"); // TODO: 값 받아와서 인자로 넣어주기
-        btnPlus = new JButton("+");
-        btnX = new JButton("x");
 
         itemQuantityPnl.add(btnMinus);
         itemQuantityPnl.add(lblItemQuantity);
