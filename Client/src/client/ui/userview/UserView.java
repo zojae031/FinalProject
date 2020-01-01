@@ -3,6 +3,7 @@ package client.ui.userview;
 import client.data.dao.ProductModel;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionListener;
 import java.util.LinkedList;
 import java.util.List;
@@ -15,6 +16,8 @@ public interface UserView {
     List<ItemInfoPnl> itemLists = new LinkedList<>();
     List<SelectedItemPnl> selectedItemLists = new LinkedList<>();
 
+    CardLayout UserCardLayout = new CardLayout();
+    Container UserTab = new Container();
 
     void updateItemLists(Vector<ProductModel> lists);
 
@@ -29,7 +32,7 @@ public interface UserView {
 
     void updateTotalMoney(String money);
 
-    void showAdminDialog();
+    void changeDialog(String pnl);
 
     void showUserInterface();
 

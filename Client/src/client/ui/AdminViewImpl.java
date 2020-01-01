@@ -6,13 +6,10 @@ import java.awt.event.ActionListener;
 
 public class AdminViewImpl extends JFrame implements AdminView {
 
-    protected CardLayout cardLayout;
-    protected Container tab;
-
-
     protected JLabel lblWhatToDo = new JLabel();
     // 초기화면
-    protected JPanel adminStartPanel, btnAdminWhatToDo, AdminClientButtonPnl;
+    //adminStartPanel
+    protected JPanel btnAdminWhatToDo, AdminClientButtonPnl;
     protected JButton btnTotalMoney, btnCurrentItems, btnBuyItem, btnAddItem, btnAdminClient;
     // 총 매출
     protected JPanel totalMoneyPnl, totalSalesPnl;
@@ -57,9 +54,9 @@ public class AdminViewImpl extends JFrame implements AdminView {
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setSize(1100, 700);
 
-        tab = new JPanel();
-        cardLayout = new CardLayout();
-        tab.setLayout(cardLayout);
+
+
+        AdminTab.setLayout(AdminCardLayout);
 
 
         //***************************
@@ -75,18 +72,17 @@ public class AdminViewImpl extends JFrame implements AdminView {
         //***************************
 
 
-        cardLayout.show(tab, "adminStart");
-        this.add(tab, BorderLayout.NORTH);
+        AdminCardLayout.show(AdminTab, "adminStart");
+        this.add(AdminTab, BorderLayout.NORTH);
 
 
-        setVisible(true);
+        //setVisible(true);
 
     }
 
     // 판매총액, 재고현황, 재고구매, 제품추가
-
     public void setBtnAdminWhatToDoPnl() {
-        adminStartPanel = new JPanel();
+        //adminStartPanel = new JPanel();
         adminStartPanel.setLayout(new BorderLayout());
         btnAdminWhatToDo = new JPanel();
         btnAdminWhatToDo.setLayout(new GridLayout(2, 2, 50, 50));

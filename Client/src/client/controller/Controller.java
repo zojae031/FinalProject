@@ -5,6 +5,7 @@ import client.data.dao.ProductModel;
 import client.data.datasource.callback.ServerConnectionCallback;
 import client.ui.AdminView;
 import client.ui.userview.UserView;
+import kotlin.jvm.Volatile;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -14,6 +15,8 @@ public class Controller implements ActionListener {
     private UserView userView;
     private AdminView adminView;
     private Repository repository;
+    @Volatile
+    private boolean changeDialogFlag = true;
 
     public Controller(UserView userView, AdminView adminView, Repository repository) {
         this.userView = userView;
@@ -41,7 +44,12 @@ public class Controller implements ActionListener {
     public void actionPerformed(ActionEvent actionEvent) {
         Object obj = actionEvent.getSource();
         if (userView.btnPay.equals(obj)) {
-            userView.showAdminDialog();
+            if (changeDialogFlag) {
+                userView.changeDialog("adminStartPanel");
+            } else {
+                userView.changeDialog("");
+            }
+            changeDialogFlag = !changeDialogFlag;
         } else if (userView.btnAdminClient.equals(obj)) {
 
         } else {
