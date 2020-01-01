@@ -1,6 +1,7 @@
 package data.datasource.local;
 
 import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 
 import java.sql.*;
@@ -116,6 +117,16 @@ public class DataBaseImpl implements DataBase {
             e.printStackTrace();
         }
     }//registerIngredient
+
+    public void updateIngredient(JsonArray toupdate) {
+        connectDB();
+        for (JsonElement elem : toupdate) {
+            JsonObject obj = elem.getAsJsonObject();
+            String sql = "update ingredient set IgNumber = IgNumber - " + obj.get("IgNumber") + " where PrCode =" + obj.get("PrCode");
+
+        }
+        closeDB();
+    }
 
     @Override
     public JsonArray getProductArray() {

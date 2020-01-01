@@ -6,7 +6,7 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.nio.charset.StandardCharsets;
 
-public class Server {
+public class Server  {
     private static final int port = 5050;
     private ServerSocket socket;
     private Socket clientSocket;
