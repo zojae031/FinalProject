@@ -68,7 +68,7 @@ public class DataTransform {
         return true;
     }
 
-    private boolean isSell(JsonObject product, JsonArray ingredient) {
+    public boolean isSell(JsonObject product, JsonArray ingredient) {
         JsonArray supply = returnIngredient(product);
 
         for (JsonElement elem : ingredient) {

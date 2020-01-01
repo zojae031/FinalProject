@@ -145,6 +145,7 @@ public class DataBaseImpl implements DataBase {
         }
         String sql = "select * from product";
         JsonArray result = new JsonArray();
+        JsonArray ingredient = getIngredientArray();
         try {
             pstmt = conn.prepareStatement(sql);
             ResultSet rs = pstmt.executeQuery();
@@ -156,6 +157,10 @@ public class DataBaseImpl implements DataBase {
                 input.addProperty("PrPrice", rs.getInt("PrPrice"));
                 input.addProperty("PrNumber", rs.getInt("PrNumber"));
                 input.addProperty("PrIngredient", rs.getString("PrIngredient"));
+                if(new DataTransform(ID,Password).isSell(input,ingredient))
+                    input.addProperty("IsSell",true);
+                else
+                    input.addProperty("IsSell",false);
                 result.add(input);
             }
             rs.close();
