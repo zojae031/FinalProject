@@ -64,7 +64,29 @@ public class DataTransform {
                 }
             }
         }
-        DB.updateIngredient(toUpdate);
+        DB.updateIngredient(toUpdate,"-");
+        return true;
+    }
+
+    public boolean cancelProduct(int PrCode) {
+        JsonArray needArr = returnIngredient(returnProductObject(PrCode));
+        if (needArr.isJsonNull()) return false;
+
+        JsonArray ingredientArr = DB.getIngredientArray();
+        JsonArray toUpdate = new JsonArray();
+        for (JsonElement elem : ingredientArr) {
+            for (JsonElement need : needArr) {
+                if (elem.getAsJsonObject().get("IgCode").getAsInt() == need.getAsJsonObject().get("IgCode").getAsInt()) {
+                    if (elem.getAsJsonObject().get("IgNumber").getAsInt() > need.getAsJsonObject().get("IgNumber").getAsInt()) {
+                        toUpdate.add(need);
+                    } else {
+                        System.out.println("취소에 실패했습니다..");
+                        return false;
+                    }
+                }
+            }
+        }
+        DB.updateIngredient(toUpdate,"+");
         return true;
     }
 
@@ -97,7 +119,10 @@ public class DataTransform {
         return result;
     }
 
-    public void buyIngredient(int IgCode){
-        
+    public void buyIngredient(int IgCode) {
+        if (DB.addIngredient(IgCode))
+            System.out.println("재료 구매에 성공했습니다.");
+        else
+            System.out.println("재료 구매에 실패했습니다.");
     }
 }

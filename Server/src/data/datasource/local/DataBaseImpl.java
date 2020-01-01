@@ -118,13 +118,13 @@ public class DataBaseImpl implements DataBase {
         }
     }//registerIngredient
 
-    public boolean updateIngredient(JsonArray toupdate) {
+    public boolean updateIngredient(JsonArray toupdate, String sign) {
         boolean result = true;
         connectDB();
         for (JsonElement elem : toupdate) {
             JsonObject obj = elem.getAsJsonObject();
-            System.out.println(obj.get("IgCode") + "|" + obj.get("IgNumber")  );
-            String sql = "update ingredient set IgNumber = IgNumber - " + obj.get("IgNumber") + " where IgCode = " + obj.get("IgCode");
+            System.out.println(obj.get("IgCode") + "|" + obj.get("IgNumber"));
+            String sql = "update ingredient set IgNumber = IgNumber " + sign + " " + obj.get("IgNumber") + " where IgCode = " + obj.get("IgCode");
             try {
                 pstmt = conn.prepareStatement(sql);
                 pstmt.execute();
@@ -157,10 +157,10 @@ public class DataBaseImpl implements DataBase {
                 input.addProperty("PrPrice", rs.getInt("PrPrice"));
                 input.addProperty("PrNumber", rs.getInt("PrNumber"));
                 input.addProperty("PrIngredient", rs.getString("PrIngredient"));
-                if(new DataTransform(ID,Password).isSell(input,ingredient))
-                    input.addProperty("IsSell",true);
+                if (new DataTransform(ID, Password).isSell(input, ingredient))
+                    input.addProperty("IsSell", true);
                 else
-                    input.addProperty("IsSell",false);
+                    input.addProperty("IsSell", false);
                 result.add(input);
             }
             rs.close();
@@ -222,5 +222,11 @@ public class DataBaseImpl implements DataBase {
         }
         return result;
     }//getIngredientArray
+
+    public boolean addIngredient(int IgCode) {
+
+
+        return true;
+    }
 
 }// Class DataBase
