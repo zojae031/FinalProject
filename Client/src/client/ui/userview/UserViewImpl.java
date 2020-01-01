@@ -194,6 +194,5 @@ public class UserViewImpl extends JFrame implements UserView {
         btnX.addActionListener(listener); // selectedItem 삭제
     }
 
-    // 1개의 아이템 이름, 가격, 이미지 담고 있는 패널
 
 }

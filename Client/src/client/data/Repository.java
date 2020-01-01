@@ -1,8 +1,11 @@
 package client.data;
 
+import client.data.dao.ProductModel;
+import client.data.datasource.callback.SelectItemCallback;
 import client.data.datasource.callback.ServerConnectionCallback;
 
 public interface Repository {
     void connectServer(ServerConnectionCallback callback);
-    //Test 주석입니다.
+
+    void selectItem(ProductModel item, SelectItemCallback callback);
 }

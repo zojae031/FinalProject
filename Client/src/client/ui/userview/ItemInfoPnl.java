@@ -7,7 +7,7 @@ import java.awt.*;
 import java.awt.event.ActionListener;
 
 public class ItemInfoPnl extends JPanel {
-    ProductModel productModel;
+    public ProductModel productModel;
     public JButton btnItem = new JButton();
     JLabel lblItemPrice = new JLabel();
     JLabel lblItemName = new JLabel();
@@ -18,7 +18,7 @@ public class ItemInfoPnl extends JPanel {
         setPreferredSize(new Dimension(100, 70));
         setBackground(Color.CYAN);
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
-
+        this.productModel = productModel;
         btnItem.setText(Integer.toString(index));
         //btnItem.setPreferredSize(new Dimension(100,50));
         lblItemPrice.setText(String.valueOf(productModel.PrPrice));

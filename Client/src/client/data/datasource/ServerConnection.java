@@ -1,6 +1,7 @@
 package client.data.datasource;
 
 import client.data.dao.ProductModel;
+import client.data.datasource.callback.SelectItemCallback;
 import client.data.datasource.callback.ServerConnectionCallback;
 import client.util.JsonUtil;
 import com.google.gson.JsonArray;
@@ -58,5 +59,21 @@ public class ServerConnection {
         }).start();
     }
 
+    public void selectItem(ProductModel item, SelectItemCallback callback) {
+        JsonObject jsonObject = new JsonObject();
+        jsonObject.addProperty("select", item.PrCode);
+        send(jsonObject.toString());
+        new Thread(() -> {
+            try {
+                String data = reader.readLine();
+                System.out.println(data);
+                callback.success();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+        }
+        ).start();
+    }
 
 }
