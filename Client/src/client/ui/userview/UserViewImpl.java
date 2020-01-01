@@ -100,11 +100,10 @@ public class UserViewImpl extends JFrame implements UserView {
 
     @Override
     public void updateItemLists(Vector<ProductModel> lists) {
-        lists.forEach(productModel -> System.out.println(productModel.PrCode + productModel.PrNumber + productModel.PrPrice + productModel.PrName + productModel.PrIngredient));
         for (int i = 0; i < lists.size(); i++) {
             ItemInfoPnl item = new ItemInfoPnl(lists.get(i), i);
             itemLists.add(item);
-            itemListPnl.add(item);//
+            itemListPnl.add(item);
         }
         itemListPnl.updateUI();
     }
