@@ -1,6 +1,9 @@
 package client.data.datasource;
 
+import client.data.dao.ProductModel;
 import client.data.datasource.callback.ServerConnectionCallback;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
@@ -19,7 +22,7 @@ public class ServerConnection {
 
     public ServerConnection() {
         try {
-            socket = new Socket("127.0.0.1", 5050);//LocalHost로 port 5050연결
+            socket = new Socket("192.168.123.29", 5050);//LocalHost로 port 5050연결
             writer = new PrintWriter(new BufferedWriter(new OutputStreamWriter(socket.getOutputStream(), StandardCharsets.UTF_8)), true); // Buffer에 사용할 수 있는 writer 클래스 생성 후 socket에 연결된 outputStream에 연결하는 과정
             reader = new BufferedReader(new InputStreamReader(socket.getInputStream(), StandardCharsets.UTF_8));
         } catch (IOException e) {
@@ -42,10 +45,18 @@ public class ServerConnection {
                 String data = reader.readLine();
 
                 //TODO 받은 데이터 정리
-                parser.parse(data).getAsString();
-
-                System.out.println("받은 데이터 : " + data);
-                callback.accept(new Vector<>());
+                JsonArray array = (JsonArray) parser.parse(data);
+                Vector<ProductModel> vector = new Vector<ProductModel>();
+                for (JsonElement object : array) {
+                    int PrCode = object.getAsJsonObject().get("PrCode").getAsInt();
+                    String PrName = object.getAsJsonObject().get("PrName").getAsString();
+                    int PrPrice = object.getAsJsonObject().get("PrPrice").getAsInt();
+                    int PrNumber = object.getAsJsonObject().get("PrNumber").getAsInt();
+                    String PrIngredient = object.getAsJsonObject().get("PrIngredient").getAsString();
+                    ProductModel productModel = new ProductModel(PrCode, PrName, PrPrice, PrNumber, PrIngredient);
+                    vector.add(productModel);
+                }
+                callback.accept(vector);
             } catch (IOException e) {
                 e.printStackTrace();
                 callback.error(e.getMessage());

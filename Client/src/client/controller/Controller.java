@@ -19,16 +19,16 @@ public class Controller implements ActionListener {
         this.userView = userView;
         this.adminView = adminView;
         this.repository = repository;
-        userView.addListener(this);
+
 
     }
 
     public void connectServer() {
         repository.connectServer(new ServerConnectionCallback() {
-
             @Override
             public void accept(Vector<ProductModel> lists) {
                 userView.updateItemLists(lists);
+                userView.addListener(Controller.this::actionPerformed);
             }
 
             @Override
@@ -41,6 +41,7 @@ public class Controller implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent actionEvent) {
+        Object obj = actionEvent.getSource();
 
     }
 }
