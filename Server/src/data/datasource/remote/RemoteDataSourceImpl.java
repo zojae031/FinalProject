@@ -26,6 +26,7 @@ public class RemoteDataSourceImpl implements RemoteDataSource {
         server.startServer();
         server.ReceiveData(data -> {
             JsonObject object = parser.parse(data).getAsJsonObject();
+            System.out.println(object.toString());
             if (object.get("login") != null) {
                 callback.login();
             } else if (object.get("select") != null) {

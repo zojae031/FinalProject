@@ -40,12 +40,14 @@ public class RepositoryImpl implements Repository {
 
             @Override
             public void minusItem(String select) {
+                System.out.println(select);
                 new DataTransform("java7", "java8").cancelProduct(Integer.parseInt(select));
                 remote.sendData(local.getProductArray().toString());
             }
 
             @Override
             public void exitCallback(String select, int count) {
+                System.out.println(select);
                 new DataTransform("java7","java8").removeBasket(Integer.parseInt(select),count);
                 remote.sendData(local.getProductArray().toString());
             }

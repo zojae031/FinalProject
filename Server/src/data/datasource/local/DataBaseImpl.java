@@ -247,4 +247,36 @@ public class DataBaseImpl implements DataBase {
         return true;
     }
 
+    public int getTotal(){
+        int total = 0;
+        String sql = "select * from money";
+        try {
+            pstmt = conn.prepareStatement(sql);
+            ResultSet rs = pstmt.executeQuery();
+            while(rs.next()){
+                total = rs.getInt("Total");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return total;
+    }
+
+    public JsonObject getMoney(){
+        String sql = "select * from money";
+        JsonObject result = new JsonObject();
+        try {
+            pstmt = conn.prepareStatement(sql);
+            ResultSet rs = pstmt.executeQuery();
+            while(rs.next()){
+                result.addProperty("Expense",rs.getInt("Expense"));
+                result.addProperty("Income",rs.getInt("Income"));
+                result.addProperty("Total",rs.getInt("Total"));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return result;
+    }//getMoney
+
 }// Class DataBase
