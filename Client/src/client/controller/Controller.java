@@ -30,6 +30,9 @@ public class Controller implements ActionListener {
                 cardLayoutMain.userView.updateItemLists(lists);
                 cardLayoutMain.userView.addItemListListener(Controller.this::actionPerformed);
                 cardLayoutMain.userView.addListener(Controller.this::actionPerformed);
+
+                cardLayoutMain.adminView.addAdminListener(Controller.this::actionPerformed);
+                
             }
 
             @Override

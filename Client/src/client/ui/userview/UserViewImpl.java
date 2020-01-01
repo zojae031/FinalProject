@@ -20,9 +20,9 @@ public class UserViewImpl implements UserView {
         setLayout(new BorderLayout());*/
         setStartPnl();
 
-        /*updateTotalMoney("10000");
+        updateTotalMoney("10000");
         updateInsertMoney("3500");
-        updateChangesMoney("6500");*/
+        updateChangesMoney("6500");
 
 
 
