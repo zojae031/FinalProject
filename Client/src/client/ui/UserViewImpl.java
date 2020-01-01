@@ -39,7 +39,6 @@ public class UserViewImpl extends JFrame implements UserView {
         add(startPnl);
 
         // Manager <-> User Button
-        JButton btnAdminClient = new JButton();
         btnAdminClient.setText("Manager");
         btnAdminClient.setBounds(0, 0, 100, 30);
         startPnl.add(btnAdminClient);
@@ -111,25 +110,25 @@ public class UserViewImpl extends JFrame implements UserView {
     public void updateItemLists(Vector<ProductModel> lists) {
         lists.forEach(productModel -> System.out.println(productModel.PrCode + productModel.PrNumber + productModel.PrPrice + productModel.PrName + productModel.PrIngredient));
         for (int i = 0; i < lists.size(); i++) {
-            setItemInfoPnl item = new setItemInfoPnl(lists.get(i).PrName, Integer.toString(lists.get(i).PrPrice), i);
+            ItemInfoPnl item = new ItemInfoPnl(lists.get(i).PrName, Integer.toString(lists.get(i).PrPrice), i);
             item.addItemInfoPnl();
         }
     }
-    
+
+
 
     // 1개의 아이템 이름, 가격, 이미지 담고 있는 패널
-    public class setItemInfoPnl { // TODO: 2019-12-31 parameter Vector ItemDao
-        JPanel itemInfoPnl = new JPanel();
+    public class ItemInfoPnl extends JPanel {
         JButton btnItem = new JButton();
         JLabel lblItemPrice = new JLabel();
         JLabel lblItemName = new JLabel();
         int itemIndex;
 
 
-        public setItemInfoPnl(String itemName, String itemPrice, int index) {
-            itemInfoPnl.setPreferredSize(new Dimension(100, 70));
-            itemInfoPnl.setBackground(Color.CYAN);
-            itemInfoPnl.setLayout(new BoxLayout(itemInfoPnl, BoxLayout.Y_AXIS));
+        public ItemInfoPnl(String itemName, String itemPrice, int index) {
+            setPreferredSize(new Dimension(100, 70));
+            setBackground(Color.CYAN);
+            setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
             btnItem.setText(Integer.toString(index));
             //btnItem.setPreferredSize(new Dimension(100,50));
@@ -137,14 +136,14 @@ public class UserViewImpl extends JFrame implements UserView {
             lblItemName.setText(itemName);
             itemIndex = index;
 
-            itemInfoPnl.add(btnItem);
-            itemInfoPnl.add(lblItemName);
-            itemInfoPnl.add(lblItemPrice);
+            add(btnItem);
+            add(lblItemName);
+            add(lblItemPrice);
 
         }
 
         public void addItemInfoPnl() {
-            itemListPnl.add(itemInfoPnl);
+            itemListPnl.add(this);
         }
     }
 
