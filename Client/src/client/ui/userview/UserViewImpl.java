@@ -1,7 +1,6 @@
 package client.ui.userview;
 
 import client.data.dao.ProductModel;
-import client.ui.adminview.AdminView;
 
 import javax.swing.*;
 import java.awt.*;
@@ -11,7 +10,6 @@ import java.util.Vector;
 public class UserViewImpl implements UserView {
 
     // TODO: 2019-12-31  Vector<ProductModel> productModels = ;
-
 
 
     public UserViewImpl() {
@@ -156,12 +154,6 @@ public class UserViewImpl implements UserView {
     @Override
     public void updateTotalMoney(String money) { // TODO 총 금액
         lblTotalMoney.setText(lblTotalMoney.getText() + money);
-    }
-
-    @Override
-
-    public void changeDialog(String pnl) {
-
     }
 
     @Override

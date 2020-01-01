@@ -1,7 +1,6 @@
 package client.ui.userview;
 
 import client.data.dao.ProductModel;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
@@ -14,7 +13,8 @@ public class SelectedItemPnl extends JPanel {
     JLabel lblSelectedItemPrice = new JLabel();
     JPanel itemQuantityPnl = new JPanel();
     public JButton btnMinus = new JButton("-"), btnPlus = new JButton("+"), btnX = new JButton("x");
-    JLabel lblItemQuantity = new JLabel("1");
+    public int itemCount = 1;
+    JLabel lblItemQuantity = new JLabel(Integer.toString(itemCount));
     public ProductModel productModel;
 
     public SelectedItemPnl(ProductModel productModel) {
