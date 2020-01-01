@@ -40,6 +40,19 @@ public class Controller implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent actionEvent) {
         Object obj = actionEvent.getSource();
+        if (userView.btnPay.equals(obj)) {
+            //TODO 구매
+        } else if (userView.btnAdminClient.equals(obj)) {
+
+        } else {
+            userView.itemLists.forEach(item ->
+            {
+                if (obj.equals(item.btnItem)) {
+                    System.out.println(item.itemIndex);
+                }
+            });
+        }
+
 
     }
 }

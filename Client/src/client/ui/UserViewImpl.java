@@ -102,7 +102,7 @@ public class UserViewImpl extends JFrame implements UserView {
     public void updateItemLists(Vector<ProductModel> lists) {
         lists.forEach(productModel -> System.out.println(productModel.PrCode + productModel.PrNumber + productModel.PrPrice + productModel.PrName + productModel.PrIngredient));
         for (int i = 0; i < lists.size(); i++) {
-            ItemInfoPnl item = new ItemInfoPnl(lists.get(i).PrName, Integer.toString(lists.get(i).PrPrice), i);
+            ItemInfoPnl item = new ItemInfoPnl(lists.get(i), i);
             itemLists.add(item);
             item.addItemInfoPnl();
         }
@@ -196,21 +196,22 @@ public class UserViewImpl extends JFrame implements UserView {
 
     // 1개의 아이템 이름, 가격, 이미지 담고 있는 패널
     public class ItemInfoPnl extends JPanel {
-        JButton btnItem = new JButton();
+        ProductModel productModel;
+        public JButton btnItem = new JButton();
         JLabel lblItemPrice = new JLabel();
         JLabel lblItemName = new JLabel();
-        int itemIndex;
+        public int itemIndex;
 
 
-        public ItemInfoPnl(String itemName, String itemPrice, int index) {
+        public ItemInfoPnl(ProductModel productModel, int index) {
             setPreferredSize(new Dimension(100, 70));
             setBackground(Color.CYAN);
             setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
             btnItem.setText(Integer.toString(index));
             //btnItem.setPreferredSize(new Dimension(100,50));
-            lblItemPrice.setText(itemPrice);
-            lblItemName.setText(itemName);
+            lblItemPrice.setText(String.valueOf(productModel.PrPrice));
+            lblItemName.setText(productModel.PrName);
             itemIndex = index;
 
             add(btnItem);
