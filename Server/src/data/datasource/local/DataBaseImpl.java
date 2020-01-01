@@ -118,14 +118,22 @@ public class DataBaseImpl implements DataBase {
         }
     }//registerIngredient
 
-    public void updateIngredient(JsonArray toupdate) {
+    public boolean updateIngredient(JsonArray toupdate) {
+        boolean result = true;
         connectDB();
         for (JsonElement elem : toupdate) {
             JsonObject obj = elem.getAsJsonObject();
             String sql = "update ingredient set IgNumber = IgNumber - " + obj.get("IgNumber") + " where PrCode =" + obj.get("PrCode");
-
+            try {
+                pstmt = conn.prepareStatement(sql);
+                pstmt.executeUpdate();
+            } catch (SQLException e) {
+                e.printStackTrace();
+                result = false;
+            }
         }
         closeDB();
+        return result;
     }
 
     @Override

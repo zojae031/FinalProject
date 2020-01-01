@@ -23,14 +23,15 @@ public class DataTransform {
     public JsonArray returnIngredient(JsonObject product) {
         String str = product.get("PrIngredient").toString();
         JsonArray result = new JsonArray();
-        String PrCode = null;
+        int IgCode;
         while (!str.equals("")) {
-            PrCode = str.substring(0, 4);
+            IgCode = Integer.parseInt(str.substring(0, 4));
             str = str.substring(4);
-            int number = Integer.parseInt(str.substring(0, str.indexOf("/")));
+            int IgNumber = Integer.parseInt(str.substring(0, str.indexOf("/")));
             str = str.substring(str.indexOf("/"));
             JsonObject obj = new JsonObject();
-            obj.addProperty(PrCode, number);
+            obj.addProperty("IgCode",IgCode);
+            obj.addProperty("IgNumber",IgNumber);
             result.add(obj);
         }
         return result;
@@ -51,16 +52,20 @@ public class DataTransform {
         JsonArray needArr = returnIngredient(returnProductObject(PrCode));
         if (needArr.isJsonNull()) return false;
         JsonArray ingredientArr = DB.getIngredientArray();
-
+        JsonArray toUpdate = new JsonArray();
         for (JsonElement elem : ingredientArr) {
             for (JsonElement need : needArr) {
-                if (elem.getAsJsonObject().get("PrCode") == need.getAsJsonObject().get("PrCode")) {
-
+                if (elem.getAsJsonObject().get("IgCode") == need.getAsJsonObject().get("IgCode")) {
+                    if(elem.getAsJsonObject().get("IgNumber").getAsInt() > need.getAsJsonObject().get("IgNumber").getAsInt()){
+                        toUpdate.add(need);
+                    }
+                    else{
+                        return false;
+                    }
                 }
             }
         }
-
-
+        DB.updateIngredient(toUpdate);
         return true;
     }
 }
