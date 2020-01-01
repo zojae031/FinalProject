@@ -59,14 +59,13 @@ public class DataBaseImpl implements DataBase {
         this.jdbcUrl = "jdbc:mysql://" + IP + "/javadb?serverTimezone=UTC";
     }
 
-    // FIXME: 2019-12-31 Fix IP Address
     public DataBaseImpl(String ID, String Password) {
         jdbcUrl = "jdbc:mysql://localhost/javadb?serverTimezone=UTC";
         this.ID = ID;
         this.Password = Password;
     }
 
-    private boolean connectDB() {
+    public boolean connectDB() {
         boolean result = false;
         try {
             conn = DriverManager.getConnection(jdbcUrl, ID, Password);
