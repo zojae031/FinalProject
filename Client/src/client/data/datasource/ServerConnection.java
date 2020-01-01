@@ -81,4 +81,48 @@ public class ServerConnection {
         ).start();
     }
 
+    public void minusItem(ProductModel item, SelectItemCallback callback) {
+        JsonObject jsonObject = new JsonObject();
+        jsonObject.addProperty("minus", item.PrCode);
+        send(jsonObject.toString());
+        new Thread(() -> {
+            try {
+                String data = reader.readLine();
+                JsonArray array = (JsonArray) parser.parse(data);
+                Vector<ProductModel> vector = new Vector<>();
+                for (JsonElement object : array) {
+                    ProductModel model = JsonUtil.INSTANCE.getProductModel(object);
+                    vector.add(model);
+                }
+                callback.success(vector);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+        }
+        ).start();
+    }
+
+    public void exitItem(ProductModel item, int itemCount, SelectItemCallback callback) {
+        JsonObject jsonObject = new JsonObject();
+        jsonObject.addProperty("exit",item.PrCode);
+        jsonObject.addProperty("count",itemCount);
+        send(jsonObject.toString());
+        new Thread(() -> {
+            try {
+                String data = reader.readLine();
+                JsonArray array = (JsonArray) parser.parse(data);
+                Vector<ProductModel> vector = new Vector<>();
+                for (JsonElement object : array) {
+                    ProductModel model = JsonUtil.INSTANCE.getProductModel(object);
+                    vector.add(model);
+                }
+                callback.success(vector);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+        }
+        ).start();
+    }
 }

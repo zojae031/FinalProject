@@ -22,8 +22,6 @@ public class RepositoryImpl implements Repository {
 
     @Override
     public void connectServer(ServerConnectionCallback callback) {
-        //TODO Server와 연결하는 동작
-        // serverConnection
         serverConnection.login(new ServerConnectionCallback() {
             @Override
             public void accept(Vector<ProductModel> lists) {
@@ -41,5 +39,15 @@ public class RepositoryImpl implements Repository {
     @Override
     public void selectItem(ProductModel item, SelectItemCallback callback) {
         serverConnection.selectItem(item, callback);
+    }
+
+    @Override
+    public void minusItem(ProductModel item, SelectItemCallback callback) {
+        serverConnection.minusItem(item, callback);
+    }
+
+    @Override
+    public void exitItem(ProductModel item, int itemCount, SelectItemCallback callback) {
+        serverConnection.exitItem(item,itemCount,callback);
     }
 }

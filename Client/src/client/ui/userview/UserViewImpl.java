@@ -154,7 +154,6 @@ public class UserViewImpl extends JFrame implements UserView {
     @Override
 
     public void changeDialog(String pnl) {
-        //UserCardLayout.show(UserTab, "adminStartPanel");
         UserCardLayout.show(UserTab, pnl);
     }
 

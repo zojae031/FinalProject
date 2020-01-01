@@ -4,6 +4,7 @@ import client.data.Repository;
 import client.data.dao.ProductModel;
 import client.data.datasource.callback.ServerConnectionCallback;
 import client.ui.adminview.AdminView;
+import client.ui.userview.SelectedItemPnl;
 import client.ui.userview.UserView;
 import kotlin.jvm.Volatile;
 
@@ -68,17 +69,28 @@ public class Controller implements ActionListener {
             });
             userView.selectedItemLists.forEach(item -> {
                 if (obj.equals(item.btnMinus)) {
-                    repository.selectItem(item.productModel, (productModelVector) -> {
-
+                    repository.minusItem(item.productModel, (productModelVector) -> {
+                        updateUserView(item, productModelVector);
                     });
                 } else if (obj.equals(item.btnPlus)) {
-
+                    repository.selectItem(item.productModel, (productModelVector) -> {
+                        updateUserView(item, productModelVector);
+                    });
                 } else if (obj.equals(item.btnX)) {
-
+                    repository.exitItem(item.productModel, item.itemCount, (productModelVector) -> {
+                        updateUserView(item, productModelVector);
+                    });
                 }
             });
         }
 
 
+    }
+
+    private void updateUserView(SelectedItemPnl item, Vector<ProductModel> productModelVector) {
+        userView.updateSelectedLists(item.productModel);
+        userView.updateItemLists(productModelVector);
+        userView.addItemListListener(Controller.this::actionPerformed);
+        userView.addSelectedItemListener(this::actionPerformed);
     }
 }
