@@ -40,7 +40,8 @@ public class RepositoryImpl implements Repository {
 
             @Override
             public void minusItem(String select) {
-
+                new DataTransform("java7", "java8").cancelProduct(Integer.parseInt(select));
+                remote.sendData(local.getProductArray().toString());
             }
 
             @Override
