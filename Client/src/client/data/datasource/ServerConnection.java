@@ -105,8 +105,8 @@ public class ServerConnection {
 
     public void exitItem(ProductModel item, int itemCount, SelectItemCallback callback) {
         JsonObject jsonObject = new JsonObject();
-        jsonObject.addProperty("exit",item.PrCode);
-        jsonObject.addProperty("count",itemCount);
+        jsonObject.addProperty("exit", item.PrCode);
+        jsonObject.addProperty("count", itemCount);
         send(jsonObject.toString());
         new Thread(() -> {
             try {

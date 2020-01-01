@@ -13,37 +13,12 @@ public class UserViewImpl implements UserView {
 
 
     public UserViewImpl() {
-        /*setResizable(false);
-        setSize(1100, 700);
-        setDefaultCloseOperation(EXIT_ON_CLOSE);
-        setTitle("Manage System");
-        setLayout(new BorderLayout());*/
         setStartPnl();
-
-        /*updateTotalMoney("10000");
-        updateInsertMoney("3500");
-        updateChangesMoney("6500");*/
-
-
-
-
-        /*UserTab.setLayout(UserCardLayout);
-        UserTab.add(startPnl, "startPanel");
-
-        UserCardLayout.show(UserTab, "startPanel");
-        this.add(UserTab);
-        UserTab.add(AdminView.adminStartPanel, "adminStartPanel");*/
-
-
-        //setVisible(true);
-
     }
 
     public void setStartPnl() {
         // client View 전체를 담는 패널
         startPnl.setLayout(null);
-        //add(startPnl);
-
         // Manager <-> User Button
         btnAdminClient.setText("Manager");
         btnAdminClient.setBounds(0, 0, 100, 30);
@@ -132,9 +107,8 @@ public class UserViewImpl implements UserView {
         // 4. lblItemQuantity 가 1보다 아래로 안내려가도록 - 버튼 disable 시키는 코드 필요
 
         SelectedItemPnl item = new SelectedItemPnl(productModel);
-        //selectedItemLists.add(item);
+        selectedItemLists.add(item);
         selectedListPnl.add(item);
-
         selectedListPnl.updateUI();
     }
 
@@ -162,20 +136,20 @@ public class UserViewImpl implements UserView {
     }
 
     @Override
-    public void addListener(ActionListener listener) {
+    public synchronized void addListener(ActionListener listener) {
         btnAdminClient.addActionListener(listener); // Manager <-> User Switch Button
         btnPay.addActionListener(listener); // 구매 버튼
     }
 
     @Override
-    public void addItemListListener(ActionListener listener) {
+    public synchronized void addItemListListener(ActionListener listener) {
         itemLists.forEach(item -> {
             item.addListener(listener);
         });
     }
 
     @Override
-    public void addSelectedItemListener(ActionListener listener) {
+    public synchronized void addSelectedItemListener(ActionListener listener) {
         selectedItemLists.forEach(selectedItem -> {
             selectedItem.addListener(listener);
         });

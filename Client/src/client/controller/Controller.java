@@ -4,8 +4,9 @@ import client.data.Repository;
 import client.data.dao.ProductModel;
 import client.data.datasource.callback.ServerConnectionCallback;
 import client.ui.CardLayoutMain;
+import client.ui.userview.SelectedItemPnl;
 import kotlin.jvm.Volatile;
-import client.ui.userview.*;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Vector;
@@ -47,8 +48,10 @@ public class Controller implements ActionListener {
 
         } else if (cardLayoutMain.userView.btnAdminClient.equals(obj)) {
             if (changeDialogFlag) {
+                System.out.println("admin");
                 cardLayoutMain.changeDialog("admin");
             } else {
+                System.out.println("start");
                 cardLayoutMain.changeDialog("start");
             }
             changeDialogFlag = !changeDialogFlag;
