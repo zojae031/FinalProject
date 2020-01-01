@@ -5,5 +5,7 @@ public interface ServerCallback {
 
     void selectItem(String select);
 
+    void minusItem(String select);
+
     void error();
 }
