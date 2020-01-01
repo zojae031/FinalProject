@@ -1,0 +1,56 @@
+package client.ui.userview;
+
+import client.data.dao.ProductModel;
+
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionListener;
+
+
+public class SelectedItemPnl extends JPanel {
+
+    JPanel itemNameAndMoneyPnl = new JPanel();
+    JLabel lblSelectedItemName = new JLabel();
+    JLabel lblSelectedItemPrice = new JLabel();
+    JPanel itemQuantityPnl = new JPanel();
+    JButton btnMinus = new JButton("-"), btnPlus = new JButton("+"), btnX = new JButton("x");
+    JLabel lblItemQuantity = new JLabel("3");
+
+    public SelectedItemPnl(String productName) {
+        setBounds(10, 10, 370, 50);
+
+        itemNameAndMoneyPnl.setBounds(10, 10, 180, 50);
+        itemNameAndMoneyPnl.setBackground(Color.pink);
+        itemNameAndMoneyPnl.setLayout(new BorderLayout());
+
+        lblSelectedItemName.setText(productName);
+        lblSelectedItemName.setFont(new Font("맑은고딕", Font.PLAIN, 20));
+
+        lblSelectedItemPrice.setText(Integer.toString(3));
+        lblSelectedItemPrice.setFont(new Font("맑은고딕", Font.PLAIN, 20));
+
+        itemNameAndMoneyPnl.add(lblSelectedItemName, BorderLayout.CENTER);
+        itemNameAndMoneyPnl.add(lblSelectedItemPrice, BorderLayout.LINE_END);
+
+
+        itemQuantityPnl.setBounds(190, 10, 100, 50);
+        itemQuantityPnl.setBackground(Color.magenta);
+        itemQuantityPnl.setLayout(new GridLayout(1, 4));
+
+        itemQuantityPnl.add(btnMinus);
+        itemQuantityPnl.add(lblItemQuantity);
+        itemQuantityPnl.add(btnPlus);
+        itemQuantityPnl.add(btnX);
+
+        add(itemNameAndMoneyPnl);
+        add(itemQuantityPnl);
+
+    }
+
+    public void addListener(ActionListener listener) {
+        btnMinus.addActionListener(listener);
+        btnPlus.addActionListener(listener);
+        btnX.addActionListener(listener);
+    }
+
+}

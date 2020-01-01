@@ -49,7 +49,7 @@ public class Controller implements ActionListener {
             {
                 if (obj.equals(item.btnItem)) {
                     repository.selectItem(item.productModel, (productModelVector) -> {
-                        userView.updateSelectedLists(new Vector<>());//TODO 여기는 추가된 아이템 리스트!
+                        userView.updateSelectedLists("앙 앙앙");//TODO 여기는 추가된 아이템 리스트!
                         userView.updateItemLists(productModelVector);
                     });
                 }
