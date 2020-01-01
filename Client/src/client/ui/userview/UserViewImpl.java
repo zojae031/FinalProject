@@ -107,6 +107,7 @@ public class UserViewImpl extends JFrame implements UserView {
     }
 
 
+
     @Override
     public void updateSelectedLists(String productName) { // 선택된 상품 목록
         SelectedItemPnl item = new SelectedItemPnl(productName);

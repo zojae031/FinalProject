@@ -15,10 +15,12 @@ public interface UserView {
     List<ItemInfoPnl> itemLists = new LinkedList<>();
     List<SelectedItemPnl> selectedItemLists = new LinkedList<>();
 
-    // TODO: 2019-12-31 파라미터
+
     void updateItemLists(Vector<ProductModel> lists);
 
+
     // TODO: 2019-12-31 파라미터, 여기 i 어떻게?
+
     void updateSelectedLists(String productName);
 
     void updateInsertMoney(String money);
