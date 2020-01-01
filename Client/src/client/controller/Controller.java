@@ -66,6 +66,17 @@ public class Controller implements ActionListener {
 
                 }
             });
+            userView.selectedItemLists.forEach(item -> {
+                if (obj.equals(item.btnMinus)) {
+                    repository.selectItem(item.productModel, (productModelVector) -> {
+
+                    });
+                } else if (obj.equals(item.btnPlus)) {
+
+                } else if (obj.equals(item.btnX)) {
+
+                }
+            });
         }
 
 
