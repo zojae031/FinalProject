@@ -6,7 +6,7 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.nio.charset.StandardCharsets;
 
-public class Server  {
+public class Server extends Thread {
     private static final int port = 5050;
     private ServerSocket socket;
     private Socket clientSocket;
@@ -26,9 +26,7 @@ public class Server  {
 
 
             clientSocket = socket.accept();
-            reader = new BufferedReader(new InputStreamReader(clientSocket.getInputStream(), StandardCharsets.UTF_8));
-            writer = new PrintWriter(new BufferedWriter(new OutputStreamWriter(clientSocket.getOutputStream(), StandardCharsets.UTF_8)),
-                    true);
+            new Thread(this).start();
 
             System.out.println("클라이언트 접속 : " + clientSocket.getInetAddress());
 
@@ -38,15 +36,32 @@ public class Server  {
         }
     }
 
+    @Override
+    public void run() {
+        super.run();
+        try {
+            reader = new BufferedReader(new InputStreamReader(clientSocket.getInputStream(), StandardCharsets.UTF_8));
+            writer = new PrintWriter(new BufferedWriter(new OutputStreamWriter(clientSocket.getOutputStream(), StandardCharsets.UTF_8)),
+                    true);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+    }
+
     public void ReceiveData(ReceiveCallback callback) {
         new Thread(() -> {
             try {
-                callback.accept(reader.readLine());
+                while (!this.isInterrupted()) {
+                    callback.accept(reader.readLine());
+                }
+
             } catch (IOException e) {
                 e.printStackTrace();
             }
         }).start();
     }
+
 
     public synchronized void send(String data) {
         writer.println(data);

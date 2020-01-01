@@ -1,5 +1,6 @@
 package data.datasource.remote;
 
+import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import data.datasource.remote.callback.LoginCallback;
 import data.datasource.remote.network.Server;
@@ -24,14 +25,17 @@ public class RemoteDataSourceImpl implements RemoteDataSource {
     public void openServer(LoginCallback callback) {
         server.startServer();
         server.ReceiveData(data -> {
-            if (parser.parse(data).getAsJsonObject().get("login").getAsString().equals("100")) {
+            JsonObject object = parser.parse(data).getAsJsonObject();
+            if (object.get("login") != null) {
                 callback.login();
-
+            } else if (object.get("select") != null) {
+                System.out.println(object.get("select"));
             } else {
                 callback.error();
             }
 
         });
+
     }
 
     @Override
