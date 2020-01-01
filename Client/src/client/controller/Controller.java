@@ -48,7 +48,7 @@ public class Controller implements ActionListener {
             userView.itemLists.forEach(item ->
             {
                 if (obj.equals(item.btnItem)) {
-                    System.out.println(item.itemIndex);
+                    repository.selectItem(item.productModel, () -> userView.updateSelectedLists(new Vector<>()));
                 }
             });
         }

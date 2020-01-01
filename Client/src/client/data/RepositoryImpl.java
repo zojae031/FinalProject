@@ -2,6 +2,7 @@ package client.data;
 
 import client.data.dao.ProductModel;
 import client.data.datasource.ServerConnection;
+import client.data.datasource.callback.SelectItemCallback;
 import client.data.datasource.callback.ServerConnectionCallback;
 
 import java.util.Vector;
@@ -37,4 +38,8 @@ public class RepositoryImpl implements Repository {
 
     }
 
+    @Override
+    public void selectItem(ProductModel item, SelectItemCallback callback) {
+        serverConnection.selectItem(item, callback);
+    }
 }
