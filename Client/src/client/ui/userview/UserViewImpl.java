@@ -1,7 +1,7 @@
 package client.ui.userview;
 
-
 import client.data.dao.ProductModel;
+import client.ui.AdminView;
 
 import javax.swing.*;
 import java.awt.*;
@@ -21,13 +21,16 @@ public class UserViewImpl extends JFrame implements UserView {
 
         setStartPnl();
 
-        showAdminDialog();
-
         setVisible(true);
 
         updateTotalMoney("10000");
         updateInsertMoney("3500");
         updateChangesMoney("6500");
+
+
+        UserTab.add(startPnl, "startPnl");
+
+        UserTab.add(AdminView.adminStartPanel, "adminStartPanel");
 
     }
 
@@ -135,9 +138,9 @@ public class UserViewImpl extends JFrame implements UserView {
     }
 
     @Override
-    public void showAdminDialog() {
-
-
+    public void changeDialog(String pnl) {
+        //UserCardLayout.show(UserTab, "adminStartPanel");
+        UserCardLayout.show(UserTab, pnl);
     }
 
     @Override
