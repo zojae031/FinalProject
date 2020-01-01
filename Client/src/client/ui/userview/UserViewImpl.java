@@ -28,7 +28,8 @@ public class UserViewImpl extends JFrame implements UserView {
         updateChangesMoney("6500");
 
 
-        UserTab.add(startPnl, "startPnl");
+        UserTab.add(startPnl, "startPanel");
+        UserCardLayout.show(UserTab,"startPanel");
 
         UserTab.add(AdminView.adminStartPanel, "adminStartPanel");
 

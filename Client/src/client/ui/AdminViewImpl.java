@@ -55,7 +55,6 @@ public class AdminViewImpl extends JFrame implements AdminView {
         setSize(1100, 700);
 
 
-
         AdminTab.setLayout(AdminCardLayout);
 
 
