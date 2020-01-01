@@ -2,17 +2,33 @@ package client.ui;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionListener;
 
 public class AdminViewImpl extends JFrame implements AdminView {
 
     protected CardLayout cardLayout;
     protected Container tab;
-    protected JPanel btnAdminWhatToDo;
+
 
     protected JLabel lblWhatToDo = new JLabel();
     private JButton btnBack = new JButton("Back");
 
     JTable itemTable;
+    // 초기화면
+    protected JPanel adminStartPanel, btnAdminWhatToDo, AdminClientButtonPnl;
+    protected JButton btnTotalMoney, btnCurrentItems, btnBuyItem, btnAddItem, btnAdminClient;
+
+
+    // 총 매출
+    protected JPanel totalMoneyPnl, totalSalesPnl;
+    protected JLabel lblTotalSales, lblTotalSalesMoney;
+
+    // 재고 현황
+    protected JPanel currentIngredientsPnl;
+
+    // 재고 구매
+    protected JPanel buyIngredientsPnl;
+
     // TODO: 제품 제고현황 example
     String columnNames[] =
             {"상품번호", "제품명", "제품가격", "판매 갯수", "총액"};
@@ -49,27 +65,46 @@ public class AdminViewImpl extends JFrame implements AdminView {
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setSize(1100, 700);
 
-
-        setBuyIngredients();
         tab = new JPanel();
         cardLayout = new CardLayout();
         tab.setLayout(cardLayout);
 
+        //***************************
+        setBtnAdminWhatToDoPnl();
+        setTotalMoneyPnl();
+        setCurrentIngredients();
+        setBuyIngredients();
+
+        tab.add(adminStartPanel, "adminStart");
+        tab.add(totalMoneyPnl, "totalMoney");
+        tab.add(currentIngredientsPnl, "currentIngredients");
+        tab.add(buyIngredientsPnl, "buyIngredients");
+        //***************************
+
+
+        cardLayout.show(tab, "adminStart");
+        this.add(tab, BorderLayout.NORTH);
+
+
         setVisible(true);
     }
 
-    public void setBtnAdminWhatToDo() { // 판매총액, 재고현황, 재고구매, 제품추가
-        JPanel adminStartPanel = new JPanel();
-        adminStartPanel.setLayout(new BorderLayout());
+    // 판매총액, 재고현황, 재고구매, 제품추가
 
+    public void setBtnAdminWhatToDoPnl() {
+        adminStartPanel = new JPanel();
+        adminStartPanel.setLayout(new BorderLayout());
         btnAdminWhatToDo = new JPanel();
         btnAdminWhatToDo.setLayout(new GridLayout(2, 2, 50, 50));
         btnAdminWhatToDo.setBorder(BorderFactory.createEmptyBorder(100, 100, 100, 100));
-        JButton btnTotalMoney = new JButton("Item Total Money");
-        JButton btnCurrentItems = new JButton("Current Items");
-        JButton btnBuyItem = new JButton("Buy Items");
-        JButton btnAddItem = new JButton("Add Items");
 
+        // 버튼 4개 생성
+        btnTotalMoney = new JButton("Item Total Money");
+        btnCurrentItems = new JButton("Current Items");
+        btnBuyItem = new JButton("Buy Items");
+        btnAddItem = new JButton("Add Items");
+
+        // 버튼 set
         btnTotalMoney.setFont(new Font("맑은고딕", Font.PLAIN, 30));
         btnCurrentItems.setFont(new Font("맑은고딕", Font.PLAIN, 30));
         btnBuyItem.setFont(new Font("맑은고딕", Font.PLAIN, 30));
@@ -82,19 +117,19 @@ public class AdminViewImpl extends JFrame implements AdminView {
         adminStartPanel.add(btnAdminWhatToDo, BorderLayout.CENTER);
 
         // Admin <-> User Btn
-        JPanel AdminClientButtonPnl = new JPanel();
+        AdminClientButtonPnl = new JPanel();
         AdminClientButtonPnl.setLayout(new BorderLayout());
-        JButton btnAdminClient = new JButton();
+        btnAdminClient = new JButton();
         btnAdminClient.setText("User");
         btnAdminClient.setBounds(0, 0, 100, 30);
         AdminClientButtonPnl.add(btnAdminClient, BorderLayout.WEST);
         adminStartPanel.add(AdminClientButtonPnl, BorderLayout.NORTH);
 
-        add(adminStartPanel);
+        add(this);
     }
 
     public void setTotalMoneyPnl() { // 총 매출
-        JPanel totalMoneyPnl = new JPanel();
+        totalMoneyPnl = new JPanel();
         totalMoneyPnl.setLayout(null);
 
         lblWhatToDo.setText("Total Money");
@@ -115,17 +150,17 @@ public class AdminViewImpl extends JFrame implements AdminView {
 
 
         // total sale
-        JPanel totalSalesPnl = new JPanel();
+        totalSalesPnl = new JPanel();
         totalSalesPnl.setBackground(Color.orange);
         totalSalesPnl.setBounds(40, 490, 1000, 70);
         totalSalesPnl.setLayout(null);
 
-        JLabel lblTotalSales = new JLabel();
+        lblTotalSales = new JLabel();
         lblTotalSales.setText("총 매출 "); // TODO: 2019-12-31 함수로 따로 빼기
         lblTotalSales.setBounds(10, 5, 100, 50);
         lblTotalSales.setFont(new Font("맑은고딕", Font.PLAIN, 20));
 
-        JLabel lblTotalSalesMoney = new JLabel();
+        lblTotalSalesMoney = new JLabel();
         lblTotalSalesMoney.setText("1,000,000");
         lblTotalSalesMoney.setBounds(150, 5, 200, 50);
         lblTotalSalesMoney.setFont(new Font("맑은고딕", Font.PLAIN, 20));
@@ -143,8 +178,8 @@ public class AdminViewImpl extends JFrame implements AdminView {
         add(totalMoneyPnl);
     }
 
-    public void setCurrentIngredients() { // 제품 재고 현황황
-       JPanel currentIngredientsPnl = new JPanel();
+    public void setCurrentIngredients() { // 제품 재고 현황
+        currentIngredientsPnl = new JPanel();
         currentIngredientsPnl.setLayout(null);
 
         lblWhatToDo.setText("Current Items");
@@ -174,7 +209,7 @@ public class AdminViewImpl extends JFrame implements AdminView {
     }
 
     public void setBuyIngredients() { // 재고 구매
-        JPanel buyIngredientsPnl = new JPanel();
+        buyIngredientsPnl = new JPanel();
         buyIngredientsPnl.setLayout(null);
         lblWhatToDo.setText("Buy Items");
         lblWhatToDo.setFont(new Font("맑은고딕", Font.PLAIN, 25));
@@ -210,5 +245,17 @@ public class AdminViewImpl extends JFrame implements AdminView {
         buyIngredientsPnl.add(scroll);
         buyIngredientsPnl.add(btnBack);
         add(buyIngredientsPnl);
+    }
+
+
+    @Override
+    public void addAdminListener(ActionListener listener) {
+        btnAdminClient.addActionListener(listener);
+        btnBack.addActionListener(listener);
+        btnTotalMoney.addActionListener(listener);
+        btnCurrentItems.addActionListener(listener);
+        btnBuyItem.addActionListener(listener);
+        btnAddItem.addActionListener(listener);
+
     }
 }
