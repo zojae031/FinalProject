@@ -39,24 +39,11 @@ public class DataBaseImpl implements DataBase {
     private String ID, Password;
     // TODO: 2020-01-01 마지막 IgCode PrCode 갖고 있어야 하지 않을까?
 
-    public static DataBaseImpl getInstance(String ID, String Password, String IP) {
+    public static DataBaseImpl getInstance(String ID, String Password) {
         if (Instance == null) {
-            Instance = new DataBaseImpl(ID, Password, IP);
+            Instance = new DataBaseImpl(ID, Password);
         }
         return Instance;
-    }
-
-    public DataBaseImpl() {
-        if (jdbcUrl.isEmpty() || ID.isEmpty() || Password.isEmpty()) {
-            System.out.println("DB Connection fail");
-        }
-    }
-
-    public DataBaseImpl(String ID, String Password, String IP) {
-        jdbcUrl = "jdbc:mysql://localhost/javadb?serverTimezone=UTC";
-        this.ID = ID;
-        this.Password = Password;
-        this.jdbcUrl = "jdbc:mysql://" + IP + "/javadb?serverTimezone=UTC";
     }
 
     public DataBaseImpl(String ID, String Password) {
@@ -90,7 +77,7 @@ public class DataBaseImpl implements DataBase {
     public void registerProduct(JsonObject data_Product) {
         if (!connectDB()) {
             System.out.println("Connect DB is fail in DataBaseImpl at registerProduct");
-            System.out.println("Regist Product is fail");
+            System.out.println("Registration Product is fail");
         }
         String sql = "insert into product values(?,?,?,?,?)";
 
@@ -113,7 +100,7 @@ public class DataBaseImpl implements DataBase {
     public void registerIngredient(JsonObject data_Ingredient) {
         if (!connectDB()) {
             System.out.println("Connect DB is fail in DataBaseImpl at registerIngredient");
-            System.out.println("Regist Ingredient fail");
+            System.out.println("Registration Ingredient fail");
         }
         String sql = "insert into ingredient values(?,?,?,?,?)";
 
