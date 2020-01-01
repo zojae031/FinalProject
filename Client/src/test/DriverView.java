@@ -1,4 +1,4 @@
-package client.test;
+package test;
 
 import client.data.Repository;
 import client.data.RepositoryImpl;
