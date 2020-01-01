@@ -224,8 +224,7 @@ public class DataBaseImpl implements DataBase {
     }//getIngredientArray
 
     public boolean addIngredient(int IgCode) {
-
-
+        // TODO: 2020-01-01 Code 추가하기
         return true;
     }
 
