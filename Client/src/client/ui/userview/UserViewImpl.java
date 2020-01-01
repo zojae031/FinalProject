@@ -1,7 +1,7 @@
 package client.ui.userview;
 
 import client.data.dao.ProductModel;
-import client.ui.AdminView;
+import client.ui.adminview.AdminView;
 
 import javax.swing.*;
 import java.awt.*;
