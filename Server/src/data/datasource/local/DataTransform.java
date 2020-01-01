@@ -28,8 +28,8 @@ public class DataTransform {
         for(String elem : ig){
             String s[] = elem.split("-");
             JsonObject obj = new JsonObject();
-            obj.addProperty("IgCode",s[0]);
-            obj.addProperty("IgNumber",s[1]);
+            obj.addProperty("IgCode",Integer.parseInt(s[0]));
+            obj.addProperty("IgNumber",Integer.parseInt(s[1]));
             result.add(obj);
         }
         return result;
@@ -49,15 +49,17 @@ public class DataTransform {
     public boolean buyProduct(int PrCode) {
         JsonArray needArr = returnIngredient(returnProductObject(PrCode));
         if (needArr.isJsonNull()) return false;
+
         JsonArray ingredientArr = DB.getIngredientArray();
         JsonArray toUpdate = new JsonArray();
         for (JsonElement elem : ingredientArr) {
             for (JsonElement need : needArr) {
-                if (elem.getAsJsonObject().get("IgCode") == need.getAsJsonObject().get("IgCode")) {
+                if (elem.getAsJsonObject().get("IgCode").getAsInt() == need.getAsJsonObject().get("IgCode").getAsInt()) {
                     if(elem.getAsJsonObject().get("IgNumber").getAsInt() > need.getAsJsonObject().get("IgNumber").getAsInt()){
                         toUpdate.add(need);
                     }
                     else{
+                        System.out.println("재료가 부족한 게 있습니다.");
                         return false;
                     }
                 }

@@ -33,6 +33,7 @@ public class RepositoryImpl implements Repository {
 
             @Override
             public void selectItem(String select) {
+                System.out.println(select);
                 (new DataTransform("java7","java8")).buyProduct(Integer.parseInt(select));
             }
 

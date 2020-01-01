@@ -30,6 +30,7 @@ public class RemoteDataSourceImpl implements RemoteDataSource {
                 callback.login();
             } else if (object.get("select") != null) {
                 callback.selectItem(object.get("select").toString());
+
             } else {
                 callback.error();
             }

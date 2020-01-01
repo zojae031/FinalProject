@@ -123,10 +123,10 @@ public class DataBaseImpl implements DataBase {
         connectDB();
         for (JsonElement elem : toupdate) {
             JsonObject obj = elem.getAsJsonObject();
-            String sql = "update ingredient set IgNumber = IgNumber - " + obj.get("IgNumber") + " where PrCode =" + obj.get("PrCode");
+            System.out.println(obj.get("IgCode") + "|" + obj.get("IgNumber")  );
+            String sql = "update ingredient set IgNumber = IgNumber - " + obj.get("IgNumber") + " where IgCode = " + obj.get("IgCode");
             try {
-                pstmt = conn.prepareStatement(sql);
-                pstmt.executeUpdate();
+                pstmt.execute(sql);
             } catch (SQLException e) {
                 e.printStackTrace();
                 result = false;
