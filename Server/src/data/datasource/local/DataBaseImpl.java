@@ -4,6 +4,7 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 
+import javax.xml.crypto.Data;
 import java.sql.*;
 /*
     Database Info
@@ -123,7 +124,6 @@ public class DataBaseImpl implements DataBase {
         connectDB();
         for (JsonElement elem : toupdate) {
             JsonObject obj = elem.getAsJsonObject();
-            System.out.println(obj.get("IgCode") + "|" + obj.get("IgNumber"));
             String sql = "update ingredient set IgNumber = IgNumber " + sign + " " + obj.get("IgNumber") + " where IgCode = " + obj.get("IgCode");
             try {
                 pstmt = conn.prepareStatement(sql);
@@ -136,6 +136,25 @@ public class DataBaseImpl implements DataBase {
         closeDB();
         return result;
     }
+
+    public boolean updateIngredient(JsonArray toupdate, int num) {
+        boolean result = true;
+        connectDB();
+        for (JsonElement elem : toupdate) {
+            JsonObject obj = elem.getAsJsonObject();
+            String sql = "update ingredient set IgNumber = IgNumber + " + (obj.get("IgNumber").getAsInt() * num) + " where IgCode = " + obj.get("IgCode");
+            try {
+                pstmt = conn.prepareStatement(sql);
+                pstmt.execute();
+            } catch (SQLException e) {
+                e.printStackTrace();
+                result = false;
+            }
+        }
+        closeDB();
+        return result;
+    }
+
 
     @Override
     public JsonArray getProductArray() {

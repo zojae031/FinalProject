@@ -78,6 +78,19 @@ public class DataTransform {
         return true;
     }
 
+    public boolean removeBasket(int PrCode,int num){
+        JsonArray needArr = returnIngredient(returnProductObject(PrCode));
+        if(needArr.isJsonNull()) return false;
+        if(DB.updateIngredient(needArr,num)){
+            System.out.println("장바구니에 취소에서 재료 값 변동되었습니다");
+            return true;
+        }
+        else {
+            System.out.println("장바구니에서 재료 변동이 실패했습니다.");
+            return false;
+        }
+    }
+
     public boolean isSell(JsonObject product, JsonArray ingredient) {
         JsonArray supply = returnIngredient(product);
 

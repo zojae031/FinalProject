@@ -62,7 +62,6 @@ public class Server extends Thread {
         }).start();
     }
 
-
     public synchronized void send(String data) {
         writer.println(data);
     }
