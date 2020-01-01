@@ -66,8 +66,13 @@ public class ServerConnection {
         new Thread(() -> {
             try {
                 String data = reader.readLine();
-                System.out.println(data);
-                callback.success();
+                JsonArray array = (JsonArray) parser.parse(data);
+                Vector<ProductModel> vector = new Vector<>();
+                for (JsonElement object : array) {
+                    ProductModel model = JsonUtil.INSTANCE.getProductModel(object);
+                    vector.add(model);
+                }
+                callback.success(vector);
             } catch (IOException e) {
                 e.printStackTrace();
             }

@@ -12,5 +12,4 @@ object JsonUtil {
         val PrIngredient: String = obj.asJsonObject.get("PrIngredient").asString
         return ProductModel(PrCode, PrName, PrPrice, PrNumber, PrIngredient)
     }
-
 }

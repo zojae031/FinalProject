@@ -111,7 +111,7 @@ public class UserViewImpl extends JFrame implements UserView {
 
 
     @Override
-    public void updateSelectedLists(Vector<ProductModel> selectedItem) { // 선택된 상품 목록
+    public void updateSelectedLists(Vector<String> selectedItemName) { // 선택된 상품 목록
     }
 
     // TODO: for test
