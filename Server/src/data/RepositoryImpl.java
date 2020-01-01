@@ -1,6 +1,7 @@
 package data;
 
 import data.datasource.local.DataBase;
+import data.datasource.local.DataTransform;
 import data.datasource.remote.RemoteDataSource;
 import data.datasource.remote.callback.ServerCallback;
 
@@ -32,7 +33,7 @@ public class RepositoryImpl implements Repository {
 
             @Override
             public void selectItem(String select) {
-                // TODO: 2020-01-01 내가 고쳐야 하는 부분이다. 
+                (new DataTransform("java7","java8")).buyProduct(Integer.parseInt(select));
             }
 
             @Override

@@ -21,17 +21,15 @@ public class DataTransform {
     }
 
     public JsonArray returnIngredient(JsonObject product) {
-        String str = product.get("PrIngredient").toString();
+        String str = product.get("PrIngredient").getAsString();
         JsonArray result = new JsonArray();
         int IgCode;
-        while (!str.equals("")) {
-            IgCode = Integer.parseInt(str.substring(0, 4));
-            str = str.substring(4);
-            int IgNumber = Integer.parseInt(str.substring(0, str.indexOf("/")));
-            str = str.substring(str.indexOf("/"));
+        String ig[] = str.split("/");
+        for(String elem : ig){
+            String s[] = elem.split("-");
             JsonObject obj = new JsonObject();
-            obj.addProperty("IgCode",IgCode);
-            obj.addProperty("IgNumber",IgNumber);
+            obj.addProperty("IgCode",s[0]);
+            obj.addProperty("IgNumber",s[1]);
             result.add(obj);
         }
         return result;
@@ -48,7 +46,7 @@ public class DataTransform {
     }
 
     // TODO: 2020-01-01 Transit Data what you want
-    boolean buyProduct(int PrCode) {
+    public boolean buyProduct(int PrCode) {
         JsonArray needArr = returnIngredient(returnProductObject(PrCode));
         if (needArr.isJsonNull()) return false;
         JsonArray ingredientArr = DB.getIngredientArray();
