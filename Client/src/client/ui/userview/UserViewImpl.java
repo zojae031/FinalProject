@@ -31,7 +31,7 @@ public class UserViewImpl extends JFrame implements UserView {
         UserTab.setLayout(UserCardLayout);
         UserTab.add(startPnl, "startPanel");
 
-        UserCardLayout.show(UserTab,"startPanel");
+        UserCardLayout.show(UserTab, "startPanel");
         this.add(UserTab);
         UserTab.add(AdminView.adminStartPanel, "adminStartPanel");
 
@@ -106,6 +106,10 @@ public class UserViewImpl extends JFrame implements UserView {
     public void updateItemLists(Vector<ProductModel> lists) {
         for (int i = 0; i < lists.size(); i++) {
             ItemInfoPnl item = new ItemInfoPnl(lists.get(i), i);
+            if (!item.productModel.IsSell) {
+                item.btnItem.setBackground(Color.magenta);
+                item.btnItem.setEnabled(false);
+            }
             itemLists.add(item);
             itemListPnl.add(item);
         }

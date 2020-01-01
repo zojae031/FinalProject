@@ -57,7 +57,7 @@ public class Controller implements ActionListener {
             {
                 if (obj.equals(item.btnItem)) {
                     repository.selectItem(item.productModel, (productModelVector) -> {
-                        userView.updateSelectedLists(item.productModel.PrName);//TODO 여기는 추가된 아이템 리스트!
+                        userView.updateSelectedLists(item.productModel.PrName);
                         userView.updateItemLists(productModelVector);
                         userView.addSelectedItemListener(this::actionPerformed);
                     });
