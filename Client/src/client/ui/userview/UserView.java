@@ -24,7 +24,7 @@ public interface UserView {
 
     // TODO: 2019-12-31 파라미터, 여기 i 어떻게?
 
-    void updateSelectedLists(String productName);
+    void updateSelectedLists(ProductModel productModel);
 
     void updateInsertMoney(String money);
 

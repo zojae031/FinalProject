@@ -10,7 +10,6 @@ import java.util.Vector;
 
 public class UserViewImpl extends JFrame implements UserView {
 
-
     // TODO: 2019-12-31  Vector<ProductModel> productModels = ;
 
     public UserViewImpl() {
@@ -108,12 +107,10 @@ public class UserViewImpl extends JFrame implements UserView {
         itemListPnl.removeAll();
         for (int i = 0; i < lists.size(); i++) {
             ItemInfoPnl item = new ItemInfoPnl(lists.get(i), i);
-            System.out.println(item.productModel.IsSell);
             if (!item.productModel.IsSell) {
                 item.btnItem.setBackground(Color.magenta);
                 item.btnItem.setEnabled(false);
             }
-
             itemLists.add(item);
             itemListPnl.add(item);
         }
@@ -122,8 +119,8 @@ public class UserViewImpl extends JFrame implements UserView {
 
 
     @Override
-    public void updateSelectedLists(String productName) { // 선택된 상품 목록
-        SelectedItemPnl item = new SelectedItemPnl(productName);
+    public void updateSelectedLists(ProductModel productModel) { // 선택된 상품 목록
+        SelectedItemPnl item = new SelectedItemPnl(productModel);
         selectedItemLists.add(item);
         selectedListPnl.add(item);
 
