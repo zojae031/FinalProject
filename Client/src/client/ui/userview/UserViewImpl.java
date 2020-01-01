@@ -28,9 +28,11 @@ public class UserViewImpl extends JFrame implements UserView {
         updateChangesMoney("6500");
 
 
+        UserTab.setLayout(UserCardLayout);
         UserTab.add(startPnl, "startPanel");
-        UserCardLayout.show(UserTab,"startPanel");
 
+        UserCardLayout.show(UserTab,"startPanel");
+        this.add(UserTab);
         UserTab.add(AdminView.adminStartPanel, "adminStartPanel");
 
     }
@@ -38,7 +40,7 @@ public class UserViewImpl extends JFrame implements UserView {
     public void setStartPnl() {
         // client View 전체를 담는 패널
         startPnl.setLayout(null);
-        add(startPnl);
+        //add(startPnl);
 
         // Manager <-> User Button
         btnAdminClient.setText("Manager");
