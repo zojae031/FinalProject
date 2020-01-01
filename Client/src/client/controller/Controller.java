@@ -47,7 +47,7 @@ public class Controller implements ActionListener {
             if (changeDialogFlag) {
                 userView.changeDialog("adminStartPanel");
             } else {
-                userView.changeDialog("");
+                userView.changeDialog("startPanel");
             }
             changeDialogFlag = !changeDialogFlag;
         } else if (userView.btnAdminClient.equals(obj)) {
