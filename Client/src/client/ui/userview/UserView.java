@@ -17,7 +17,7 @@ public interface UserView {
     List<SelectedItemPnl> selectedItemLists = new LinkedList<>();
 
     CardLayout UserCardLayout = new CardLayout();
-    Container UserTab = new Container();
+    JPanel UserTab = new JPanel();
 
     void updateItemLists(Vector<ProductModel> lists);
 
