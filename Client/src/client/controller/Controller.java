@@ -3,6 +3,7 @@ package client.controller;
 import client.data.Repository;
 import client.data.dao.ProductModel;
 import client.data.datasource.callback.ServerConnectionCallback;
+import client.ui.CardLayoutMain;
 import client.ui.adminview.AdminView;
 import client.ui.userview.UserView;
 import kotlin.jvm.Volatile;
@@ -12,15 +13,15 @@ import java.awt.event.ActionListener;
 import java.util.Vector;
 
 public class Controller implements ActionListener {
-    private UserView userView;
-    private AdminView adminView;
+
     private Repository repository;
+    private CardLayoutMain cardLayoutMain;
     @Volatile
     private boolean changeDialogFlag = true;
 
-    public Controller(UserView userView, AdminView adminView, Repository repository) {
-        this.userView = userView;
-        this.adminView = adminView;
+
+    public Controller(CardLayoutMain cardLayoutMain, Repository repository) {
+        this.cardLayoutMain = cardLayoutMain;
         this.repository = repository;
     }
 
@@ -28,9 +29,9 @@ public class Controller implements ActionListener {
         repository.connectServer(new ServerConnectionCallback() {
             @Override
             public void accept(Vector<ProductModel> lists) {
-                userView.updateItemLists(lists);
-                userView.addItemListListener(Controller.this::actionPerformed);
-                userView.addListener(Controller.this::actionPerformed);
+                cardLayoutMain.userView.updateItemLists(lists);
+                cardLayoutMain.userView.addItemListListener(Controller.this::actionPerformed);
+                cardLayoutMain.userView.addListener(Controller.this::actionPerformed);
             }
 
             @Override
@@ -44,29 +45,29 @@ public class Controller implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent actionEvent) {
         Object obj = actionEvent.getSource();
-        if (userView.btnPay.equals(obj)) {
+        if (cardLayoutMain.userView.btnPay.equals(obj)) {
 
-        } else if (userView.btnAdminClient.equals(obj)) {
+        } else if (cardLayoutMain.userView.btnAdminClient.equals(obj)) {
             if (changeDialogFlag) {
-                userView.changeDialog("adminStartPanel");
+                cardLayoutMain.changeDialog("admin");
             } else {
-                userView.changeDialog("startPanel");
+                cardLayoutMain.changeDialog("start");
             }
             changeDialogFlag = !changeDialogFlag;
         } else {
-            userView.itemLists.forEach(item ->
+            cardLayoutMain.userView.itemLists.forEach(item ->
             {
                 if (obj.equals(item.btnItem)) {
                     repository.selectItem(item.productModel, (productModelVector) -> {
-                        userView.updateSelectedLists(item.productModel);
-                        userView.updateItemLists(productModelVector);
-                        userView.addItemListListener(Controller.this::actionPerformed);
-                        userView.addSelectedItemListener(this::actionPerformed);
+                        cardLayoutMain.userView.updateSelectedLists(item.productModel);
+                        cardLayoutMain.userView.updateItemLists(productModelVector);
+                        cardLayoutMain.userView.addItemListListener(Controller.this::actionPerformed);
+                        cardLayoutMain.userView.addSelectedItemListener(this::actionPerformed);
                     });
 
                 }
             });
-            userView.selectedItemLists.forEach(item -> {
+            cardLayoutMain.userView.selectedItemLists.forEach(item -> {
                 if (obj.equals(item.btnMinus)) {
                     repository.selectItem(item.productModel, (productModelVector) -> {
 

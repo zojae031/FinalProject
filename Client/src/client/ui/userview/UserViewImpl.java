@@ -8,33 +8,36 @@ import java.awt.*;
 import java.awt.event.ActionListener;
 import java.util.Vector;
 
-public class UserViewImpl extends JFrame implements UserView {
+public class UserViewImpl implements UserView {
 
     // TODO: 2019-12-31  Vector<ProductModel> productModels = ;
 
 
+
     public UserViewImpl() {
-        setResizable(false);
+        /*setResizable(false);
         setSize(1100, 700);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setTitle("Manage System");
-
+        setLayout(new BorderLayout());*/
         setStartPnl();
 
-        setVisible(true);
-
-        updateTotalMoney("10000");
+        /*updateTotalMoney("10000");
         updateInsertMoney("3500");
-        updateChangesMoney("6500");
+        updateChangesMoney("6500");*/
 
 
 
-        UserTab.setLayout(UserCardLayout);
+
+        /*UserTab.setLayout(UserCardLayout);
         UserTab.add(startPnl, "startPanel");
 
         UserCardLayout.show(UserTab, "startPanel");
         this.add(UserTab);
-        UserTab.add(AdminView.adminStartPanel, "adminStartPanel");
+        UserTab.add(AdminView.adminStartPanel, "adminStartPanel");*/
+
+
+        //setVisible(true);
 
     }
 
@@ -101,7 +104,7 @@ public class UserViewImpl extends JFrame implements UserView {
         btnPay.setBounds(830, 600, 100, 50);
         startPnl.add(btnPay);
 
-        add(startPnl);
+        // todo add(startPnl);
     }
 
 
@@ -131,7 +134,7 @@ public class UserViewImpl extends JFrame implements UserView {
         // 4. lblItemQuantity 가 1보다 아래로 안내려가도록 - 버튼 disable 시키는 코드 필요
 
         SelectedItemPnl item = new SelectedItemPnl(productModel);
-        selectedItemLists.add(item);
+        //selectedItemLists.add(item);
         selectedListPnl.add(item);
 
         selectedListPnl.updateUI();

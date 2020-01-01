@@ -4,7 +4,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
 
-public class AdminViewImpl extends JFrame implements AdminView {
+public class AdminViewImpl  implements AdminView {
 
     protected JLabel lblWhatToDo = new JLabel();
     // 초기화면
@@ -49,10 +49,10 @@ public class AdminViewImpl extends JFrame implements AdminView {
     private JButton btnBack = new JButton("Back");
 
     public AdminViewImpl() {
-        setTitle("Manage");
+        /*setTitle("Manage");
         setResizable(false);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
-        setSize(1100, 700);
+        setSize(1100, 700);*/
 
 
 
@@ -156,7 +156,7 @@ public class AdminViewImpl extends JFrame implements AdminView {
         totalMoneyPnl.add(btnBack);
         totalMoneyPnl.add(totalSalesPnl);
         setTotalMoneyPnlTable(t, 100000);
-        add(totalMoneyPnl);
+        //todo add(totalMoneyPnl);
     }
 
 
@@ -196,7 +196,7 @@ public class AdminViewImpl extends JFrame implements AdminView {
         currentIngredientsPnl.add(lblWhatToDo);
         currentIngredientsPnl.add(scroll);
         currentIngredientsPnl.add(btnBack);
-        add(currentIngredientsPnl);
+        // todo add(currentIngredientsPnl);
 
     }
 
@@ -236,7 +236,7 @@ public class AdminViewImpl extends JFrame implements AdminView {
         buyIngredientsPnl.add(lblWhatToDo);
         buyIngredientsPnl.add(scroll);
         buyIngredientsPnl.add(btnBack);
-        add(buyIngredientsPnl);
+       // todo add(buyIngredientsPnl);
     }
 
 
