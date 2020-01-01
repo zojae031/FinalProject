@@ -3,7 +3,7 @@ package client.controller;
 import client.data.Repository;
 import client.data.dao.ProductModel;
 import client.data.datasource.callback.ServerConnectionCallback;
-import client.ui.AdminView;
+import client.ui.adminview.AdminView;
 import client.ui.userview.UserView;
 import kotlin.jvm.Volatile;
 
@@ -29,6 +29,7 @@ public class Controller implements ActionListener {
             @Override
             public void accept(Vector<ProductModel> lists) {
                 userView.updateItemLists(lists);
+                userView.addItemListListener(Controller.this::actionPerformed);
                 userView.addListener(Controller.this::actionPerformed);
             }
 
@@ -44,21 +45,22 @@ public class Controller implements ActionListener {
     public void actionPerformed(ActionEvent actionEvent) {
         Object obj = actionEvent.getSource();
         if (userView.btnPay.equals(obj)) {
+
+        } else if (userView.btnAdminClient.equals(obj)) {
             if (changeDialogFlag) {
                 userView.changeDialog("adminStartPanel");
             } else {
-                userView.changeDialog("");
+                userView.changeDialog("startPanel");
             }
             changeDialogFlag = !changeDialogFlag;
-        } else if (userView.btnAdminClient.equals(obj)) {
-
         } else {
             userView.itemLists.forEach(item ->
             {
                 if (obj.equals(item.btnItem)) {
                     repository.selectItem(item.productModel, (productModelVector) -> {
-                        userView.updateSelectedLists(item.productModel.PrName);//TODO 여기는 추가된 아이템 리스트!
+                        userView.updateSelectedLists(item.productModel.PrName);
                         userView.updateItemLists(productModelVector);
+                        userView.addItemListListener(Controller.this::actionPerformed);
                         userView.addSelectedItemListener(this::actionPerformed);
                     });
 

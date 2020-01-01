@@ -1,4 +1,4 @@
-package client.ui;
+package client.ui.adminview;
 
 import javax.swing.*;
 import java.awt.*;

@@ -10,6 +10,8 @@ object JsonUtil {
         val PrPrice: Int = obj.asJsonObject.get("PrPrice").asInt
         val PrNumber: Int = obj.asJsonObject.get("PrNumber").asInt
         val PrIngredient: String = obj.asJsonObject.get("PrIngredient").asString
-        return ProductModel(PrCode, PrName, PrPrice, PrNumber, PrIngredient)
+        val isSell: Boolean = obj.asJsonObject.get("IsSell").asBoolean
+
+        return ProductModel(PrCode, PrName, PrPrice, PrNumber, PrIngredient, isSell)
     }
 }
