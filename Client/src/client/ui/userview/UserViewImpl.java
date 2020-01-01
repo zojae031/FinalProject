@@ -1,4 +1,4 @@
-package client.ui;
+package client.ui.userview;
 
 
 import client.data.dao.ProductModel;
@@ -104,7 +104,7 @@ public class UserViewImpl extends JFrame implements UserView {
         for (int i = 0; i < lists.size(); i++) {
             ItemInfoPnl item = new ItemInfoPnl(lists.get(i), i);
             itemLists.add(item);
-            item.addItemInfoPnl();
+            itemListPnl.add(item);//
         }
         itemListPnl.updateUI();
     }
@@ -185,7 +185,7 @@ public class UserViewImpl extends JFrame implements UserView {
     @Override
     public void addListener(ActionListener listener) {
         itemLists.forEach(item -> {
-            item.addLitener(listener);
+            item.addListener(listener);
         });
         btnAdminClient.addActionListener(listener); // Manager <-> User Switch Button
         btnPay.addActionListener(listener); // 구매 버튼
@@ -195,37 +195,5 @@ public class UserViewImpl extends JFrame implements UserView {
     }
 
     // 1개의 아이템 이름, 가격, 이미지 담고 있는 패널
-    public class ItemInfoPnl extends JPanel {
-        ProductModel productModel;
-        public JButton btnItem = new JButton();
-        JLabel lblItemPrice = new JLabel();
-        JLabel lblItemName = new JLabel();
-        public int itemIndex;
 
-
-        public ItemInfoPnl(ProductModel productModel, int index) {
-            setPreferredSize(new Dimension(100, 70));
-            setBackground(Color.CYAN);
-            setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
-
-            btnItem.setText(Integer.toString(index));
-            //btnItem.setPreferredSize(new Dimension(100,50));
-            lblItemPrice.setText(String.valueOf(productModel.PrPrice));
-            lblItemName.setText(productModel.PrName);
-            itemIndex = index;
-
-            add(btnItem);
-            add(lblItemName);
-            add(lblItemPrice);
-
-        }
-
-        public void addLitener(ActionListener listener) {
-            btnItem.addActionListener(listener);
-        }
-
-        public void addItemInfoPnl() {
-            itemListPnl.add(this);
-        }
-    }
 }

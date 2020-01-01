@@ -4,7 +4,7 @@ import client.data.Repository;
 import client.data.dao.ProductModel;
 import client.data.datasource.callback.ServerConnectionCallback;
 import client.ui.AdminView;
-import client.ui.UserView;
+import client.ui.userview.UserView;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;

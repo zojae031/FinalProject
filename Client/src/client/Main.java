@@ -4,7 +4,7 @@ import client.controller.Controller;
 import client.data.RepositoryImpl;
 import client.data.datasource.ServerConnection;
 import client.ui.AdminViewImpl;
-import client.ui.UserViewImpl;
+import client.ui.userview.UserViewImpl;
 
 public class Main {
     public static void main(String[] args) {
