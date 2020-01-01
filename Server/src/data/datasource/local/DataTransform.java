@@ -55,7 +55,7 @@ public class DataTransform {
         for (JsonElement elem : ingredientArr) {
             for (JsonElement need : needArr) {
                 if (elem.getAsJsonObject().get("IgCode").getAsInt() == need.getAsJsonObject().get("IgCode").getAsInt()) {
-                    if (elem.getAsJsonObject().get("IgNumber").getAsInt() > need.getAsJsonObject().get("IgNumber").getAsInt()) {
+                    if (elem.getAsJsonObject().get("IgNumber").getAsInt() >= need.getAsJsonObject().get("IgNumber").getAsInt()) {
                         toUpdate.add(need);
                     } else {
                         System.out.println("재료가 부족한 게 있습니다.");
