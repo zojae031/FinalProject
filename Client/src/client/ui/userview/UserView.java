@@ -33,4 +33,6 @@ public interface UserView {
 
     void addListener(ActionListener listener);
 
+    void addSelectedItemListener(ActionListener listener);
+
 }

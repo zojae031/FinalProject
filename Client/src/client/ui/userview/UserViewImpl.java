@@ -93,8 +93,6 @@ public class UserViewImpl extends JFrame implements UserView {
         // 구매 버튼
         btnPay.setBounds(830, 600, 100, 50);
         startPnl.add(btnPay);
-
-
     }
 
 
@@ -154,10 +152,13 @@ public class UserViewImpl extends JFrame implements UserView {
         });
         btnAdminClient.addActionListener(listener); // Manager <-> User Switch Button
         btnPay.addActionListener(listener); // 구매 버튼
+
+    }
+
+    @Override
+    public void addSelectedItemListener(ActionListener listener) {
         selectedItemLists.forEach(selectedItem -> {
             selectedItem.addListener(listener);
         });
     }
-
-
 }
