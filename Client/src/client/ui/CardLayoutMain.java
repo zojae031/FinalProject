@@ -2,11 +2,9 @@ package client.ui;
 
 import client.ui.adminview.AdminView;
 import client.ui.userview.UserView;
-import client.ui.userview.UserViewImpl;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionListener;
 
 public class CardLayoutMain extends JFrame {
     CardLayout cardLayout;
@@ -38,8 +36,4 @@ public class CardLayoutMain extends JFrame {
         cardLayout.show(tab, panelName);
     }
 
-    public void addListener(ActionListener listener) {
-        UserViewImpl.btnAdminClient.addActionListener(listener); // Manager <-> User Switch Button
-
-    }
 }
