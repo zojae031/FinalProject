@@ -13,6 +13,7 @@ public class AdminViewImpl extends JFrame implements AdminView {
     protected JLabel lblWhatToDo = new JLabel();
     private JButton btnBack = new JButton("Back");
 
+    JPanel tablePnl;
     JTable itemTable;
     // 초기화면
     protected JPanel adminStartPanel, btnAdminWhatToDo, AdminClientButtonPnl;
@@ -22,6 +23,7 @@ public class AdminViewImpl extends JFrame implements AdminView {
     // 총 매출
     protected JPanel totalMoneyPnl, totalSalesPnl;
     protected JLabel lblTotalSales, lblTotalSalesMoney;
+    protected JTable totalMoneyTable;
 
     // 재고 현황
     protected JPanel currentIngredientsPnl;
@@ -58,6 +60,7 @@ public class AdminViewImpl extends JFrame implements AdminView {
                     {1, "양파", 1000, "300g"},
                     {2, "마늘", 2000, "300g"},
                     {3, "파", 3000, "300g"}};
+    JTable t = new JTable(rowData, columnNames);
 
     public AdminViewImpl() {
         setTitle("Manage");
@@ -69,16 +72,17 @@ public class AdminViewImpl extends JFrame implements AdminView {
         cardLayout = new CardLayout();
         tab.setLayout(cardLayout);
 
-        //***************************
-        setBtnAdminWhatToDoPnl();
-        setTotalMoneyPnl();
-        setCurrentIngredients();
-        setBuyIngredients();
 
-        tab.add(adminStartPanel, "adminStart");
-        tab.add(totalMoneyPnl, "totalMoney");
-        tab.add(currentIngredientsPnl, "currentIngredients");
-        tab.add(buyIngredientsPnl, "buyIngredients");
+        //***************************
+        //setBtnAdminWhatToDoPnl();
+        setTotalMoneyPnl();
+        //setCurrentIngredients();
+        //setBuyIngredients();
+
+        //tab.add(adminStartPanel, "adminStart");
+        //tab.add(totalMoneyPnl, "totalMoney");
+        //tab.add(currentIngredientsPnl, "currentIngredients");
+        //tab.add(buyIngredientsPnl, "buyIngredients");
         //***************************
 
 
@@ -87,6 +91,7 @@ public class AdminViewImpl extends JFrame implements AdminView {
 
 
         setVisible(true);
+
     }
 
     // 판매총액, 재고현황, 재고구매, 제품추가
@@ -128,40 +133,32 @@ public class AdminViewImpl extends JFrame implements AdminView {
         add(this);
     }
 
-    public void setTotalMoneyPnl() { // 총 매출
+
+    public void setTotalMoneyPnl() {
         totalMoneyPnl = new JPanel();
         totalMoneyPnl.setLayout(null);
-
         lblWhatToDo.setText("Total Money");
         lblWhatToDo.setFont(new Font("맑은고딕", Font.PLAIN, 25));
         lblWhatToDo.setBounds(480, 10, 200, 30);
 
-        // table
-        JPanel tablePnl = new JPanel();
-        tablePnl.setLayout(new BorderLayout());
+        //totalMoneyTable = setTotalMoneyTable();
+        /*JScrollPane scroll = new JScrollPane(t, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
+                JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);*/
 
-        itemTable = new JTable(rowData, columnNames);
-        tablePnl.add(itemTable, BorderLayout.CENTER);
+        //scroll.setBounds(40, 70, 1000, 400);
 
-        JScrollPane scroll = new JScrollPane(itemTable, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
-                JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-
-        scroll.setBounds(40, 70, 1000, 400);
-
-
-        // total sale
+        // 총매출
         totalSalesPnl = new JPanel();
         totalSalesPnl.setBackground(Color.orange);
         totalSalesPnl.setBounds(40, 490, 1000, 70);
         totalSalesPnl.setLayout(null);
 
         lblTotalSales = new JLabel();
-        lblTotalSales.setText("총 매출 "); // TODO: 2019-12-31 함수로 따로 빼기
+        lblTotalSales.setText("총 매출 ");
         lblTotalSales.setBounds(10, 5, 100, 50);
         lblTotalSales.setFont(new Font("맑은고딕", Font.PLAIN, 20));
 
         lblTotalSalesMoney = new JLabel();
-        lblTotalSalesMoney.setText("1,000,000");
         lblTotalSalesMoney.setBounds(150, 5, 200, 50);
         lblTotalSalesMoney.setFont(new Font("맑은고딕", Font.PLAIN, 20));
 
@@ -172,11 +169,23 @@ public class AdminViewImpl extends JFrame implements AdminView {
         btnBack.setBounds(940, 580, 100, 50);
 
         totalMoneyPnl.add(lblWhatToDo);
-        totalMoneyPnl.add(scroll);
+        //totalMoneyPnl.add(scroll);
         totalMoneyPnl.add(btnBack);
         totalMoneyPnl.add(totalSalesPnl);
+        setTotalMoneyPnlTable(t, 100000);
         add(totalMoneyPnl);
     }
+
+
+    // TODO: 2020-01-01 Override
+    public void setTotalMoneyPnlTable(JTable table, int totalMoney) { // 총 매출
+        lblTotalSalesMoney.setText(Integer.toString(totalMoney));
+        JScrollPane scroll = new JScrollPane(table, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
+                JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+        scroll.setBounds(40, 70, 1000, 400);
+        totalMoneyPnl.add(scroll);
+    }
+
 
     public void setCurrentIngredients() { // 제품 재고 현황
         currentIngredientsPnl = new JPanel();
@@ -248,6 +257,10 @@ public class AdminViewImpl extends JFrame implements AdminView {
     }
 
 
+    public void setTotalMoneyTable(JTable table) {
+
+    }
+
     @Override
     public void addAdminListener(ActionListener listener) {
         btnAdminClient.addActionListener(listener);
@@ -256,6 +269,6 @@ public class AdminViewImpl extends JFrame implements AdminView {
         btnCurrentItems.addActionListener(listener);
         btnBuyItem.addActionListener(listener);
         btnAddItem.addActionListener(listener);
-
     }
+
 }

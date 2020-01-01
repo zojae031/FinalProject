@@ -21,15 +21,19 @@ public class UserViewImpl extends JFrame implements UserView {
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setTitle("Manage System");
 
-        startPnl = new JPanel(); // client View 전체를 담는 패널
-        startPnl.setLayout(null);
-        add(startPnl);
         setStartPnl();
 
         showAdminDialog();
+
         setVisible(true);
 
+        // TODO: 2019-12-31 for test
+        updateItemListss();
 
+        updateTotalMoney("10000");
+        updateInsertMoney("3500");
+        updateChangesMoney("6500");
+        updateSelectedListss();
     }
 
     public void setStartPnl() {
@@ -58,8 +62,7 @@ public class UserViewImpl extends JFrame implements UserView {
         scroll.setBounds(15, 50, 650, 600);
         startPnl.add(scroll);
 
-        // TODO: 2019-12-31 for test
-        updateItemListss();
+
 
         // selectedListPnl w 315, h 500
         selectedListPnl = new JPanel();
@@ -104,11 +107,7 @@ public class UserViewImpl extends JFrame implements UserView {
         btnPay.setBounds(780, 600, 100, 50);
         startPnl.add(btnPay);
 
-        // TODO: 2019-12-31 for test
-        updateTotalMoney("10000");
-        updateInsertMoney("3500");
-        updateChangesMoney("6500");
-        updateSelectedListss();
+
     }
 
 
@@ -161,9 +160,9 @@ public class UserViewImpl extends JFrame implements UserView {
         }
     }
 
-    // TODO: 2019-12-31 기능만 따로 빼기
+
     @Override
-    public void updateSelectedLists(Vector<ProductModel> selectedItem, int i) { // 선택된 상품 목록
+    public void updateSelectedLists(Vector<ProductModel> selectedItem) { // 선택된 상품 목록
     }
 
     // TODO: for test
@@ -172,7 +171,7 @@ public class UserViewImpl extends JFrame implements UserView {
         itemInsertPnl.setBounds(10, 10, 370, 50);
 
         JPanel itemNameAndMoneyPnl = new JPanel(); // 선택되는 순간 만들어짐
-        // 선택된 아이템 각각 w:180 h:100 todo 버튼을 이 옆에
+
         // TODO: itemNameAndMoneyPnl 이랑 itemQuantityPnl 위치 조정
         itemNameAndMoneyPnl.setBounds(10, 10, 180, 50);
         itemNameAndMoneyPnl.setBackground(Color.pink);
@@ -180,7 +179,7 @@ public class UserViewImpl extends JFrame implements UserView {
 
         JLabel lblSelectedItemName = new JLabel();
         JLabel lblSelectedItemPrice = new JLabel();
-// todo       lblSelectedItemName.setText(selectedItem.get(i).PrName);
+        // todo      lblSelectedItemName.setText(selectedItem.get(i).PrName);
         lblSelectedItemName.setText("menu1");
         //todo       lblSelectedItemPrice.setText(Integer.toString(selectedItem.get(i).PrPrice));
         lblSelectedItemName.setFont(new Font("맑은고딕", Font.PLAIN, 20));
