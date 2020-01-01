@@ -1,5 +1,6 @@
 package data.datasource.local;
 
+import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
@@ -25,11 +26,11 @@ public class DataTransform {
         JsonArray result = new JsonArray();
         int IgCode;
         String ig[] = str.split("/");
-        for(String elem : ig){
+        for (String elem : ig) {
             String s[] = elem.split("-");
             JsonObject obj = new JsonObject();
-            obj.addProperty("IgCode",Integer.parseInt(s[0]));
-            obj.addProperty("IgNumber",Integer.parseInt(s[1]));
+            obj.addProperty("IgCode", Integer.parseInt(s[0]));
+            obj.addProperty("IgNumber", Integer.parseInt(s[1]));
             result.add(obj);
         }
         return result;
@@ -45,7 +46,6 @@ public class DataTransform {
         return null;
     }
 
-    // TODO: 2020-01-01 Transit Data what you want
     public boolean buyProduct(int PrCode) {
         JsonArray needArr = returnIngredient(returnProductObject(PrCode));
         if (needArr.isJsonNull()) return false;
@@ -55,10 +55,9 @@ public class DataTransform {
         for (JsonElement elem : ingredientArr) {
             for (JsonElement need : needArr) {
                 if (elem.getAsJsonObject().get("IgCode").getAsInt() == need.getAsJsonObject().get("IgCode").getAsInt()) {
-                    if(elem.getAsJsonObject().get("IgNumber").getAsInt() > need.getAsJsonObject().get("IgNumber").getAsInt()){
+                    if (elem.getAsJsonObject().get("IgNumber").getAsInt() > need.getAsJsonObject().get("IgNumber").getAsInt()) {
                         toUpdate.add(need);
-                    }
-                    else{
+                    } else {
                         System.out.println("재료가 부족한 게 있습니다.");
                         return false;
                     }
@@ -67,5 +66,34 @@ public class DataTransform {
         }
         DB.updateIngredient(toUpdate);
         return true;
+    }
+
+    private boolean isSell(JsonObject product, JsonArray ingredient) {
+        JsonArray supply = returnIngredient(product);
+
+        for (JsonElement elem : ingredient) {
+            JsonObject obj = elem.getAsJsonObject();
+            for (JsonElement needelem : supply) {
+                JsonObject need = needelem.getAsJsonObject();
+                if (obj.get("IgCode").getAsInt() == need.get("IgCode").getAsInt()) {
+                    if (obj.get("IgNumber").getAsInt() < need.get("IgNumber").getAsInt())
+                        return false;
+                }
+            }
+        }
+        return true;
+    }
+
+    public JsonArray updateIsSell() {
+        JsonArray productArr = DB.getProductArray();
+        JsonArray ingredientArr = DB.getIngredientArray();
+        JsonArray result = new JsonArray();
+        for (JsonElement elem : productArr) {
+            JsonObject obj = elem.getAsJsonObject();
+            boolean sell = isSell(obj, ingredientArr);
+            obj.addProperty("IsSell", sell);
+            result.add(obj);
+        }
+        return result;
     }
 }

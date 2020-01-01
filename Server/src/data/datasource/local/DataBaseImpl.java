@@ -126,7 +126,8 @@ public class DataBaseImpl implements DataBase {
             System.out.println(obj.get("IgCode") + "|" + obj.get("IgNumber")  );
             String sql = "update ingredient set IgNumber = IgNumber - " + obj.get("IgNumber") + " where IgCode = " + obj.get("IgCode");
             try {
-                pstmt.execute(sql);
+                pstmt = conn.prepareStatement(sql);
+                pstmt.execute();
             } catch (SQLException e) {
                 e.printStackTrace();
                 result = false;
