@@ -27,9 +27,6 @@ public class UserViewImpl extends JFrame implements UserView {
 
         setVisible(true);
 
-        // TODO: 2019-12-31 for test
-        updateItemListss();
-
         updateTotalMoney("10000");
         updateInsertMoney("3500");
         updateChangesMoney("6500");
@@ -61,7 +58,6 @@ public class UserViewImpl extends JFrame implements UserView {
         // ItemListPnl w 650(+15), h 600(+50)
         scroll.setBounds(15, 50, 650, 600);
         startPnl.add(scroll);
-
 
 
         // selectedListPnl w 315, h 500
@@ -114,22 +110,12 @@ public class UserViewImpl extends JFrame implements UserView {
     @Override
     public void updateItemLists(Vector<ProductModel> lists) {
         lists.forEach(productModel -> System.out.println(productModel.PrCode + productModel.PrNumber + productModel.PrPrice + productModel.PrName + productModel.PrIngredient));
-
-        /*for (int i = 0; i < lists.size(); i++) {
+        for (int i = 0; i < lists.size(); i++) {
             setItemInfoPnl item = new setItemInfoPnl(lists.get(i).PrName, Integer.toString(lists.get(i).PrPrice), i);
             item.addItemInfoPnl();
-        }*/
-    }
-
-    public void updateItemListss() {
-        // TODO: 2019-12-31 for test
-        for (int i = 0; i < 27; i++) {
-            setItemInfoPnl item = new setItemInfoPnl("menu", "3,500", i);
-            item.addItemInfoPnl();
         }
-
-
     }
+    
 
     // 1개의 아이템 이름, 가격, 이미지 담고 있는 패널
     public class setItemInfoPnl { // TODO: 2019-12-31 parameter Vector ItemDao
