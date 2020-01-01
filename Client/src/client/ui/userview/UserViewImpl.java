@@ -126,7 +126,7 @@ public class UserViewImpl extends JFrame implements UserView {
     public void updateSelectedLists(ProductModel productModel) { // 선택된 상품 목록
         //TODO
         // 0. layout 배치 필요
-        // 1. 없으면 추가 2. 기존에 있으면 update하는 로직 필요
+        // 1. 없으면 추가 2. 기존에 있으면 update하는 로직 필요 (엎고 다시)
         // 3. SelectedItemPnl 안에 productModel에 isShell이 false면 증가 못하게 바꾸는 코드 필요
         // 4. lblItemQuantity 가 1보다 아래로 안내려가도록 - 버튼 disable 시키는 코드 필요
 

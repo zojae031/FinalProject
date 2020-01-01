@@ -3,7 +3,6 @@ package client.ui.userview;
 import client.data.dao.ProductModel;
 
 import javax.swing.*;
-import java.awt.*;
 import java.awt.event.ActionListener;
 import java.util.LinkedList;
 import java.util.List;
@@ -15,8 +14,6 @@ public interface UserView {
     JLabel lblInsertMoney = new JLabel("투입 금액 "), lblTotalMoney = new JLabel("총 금액 "), lblChangeMoney = new JLabel("거스름돈 ");
     List<ItemInfoPnl> itemLists = new LinkedList<>();
     List<SelectedItemPnl> selectedItemLists = new LinkedList<>();
-
-
 
 
     void updateItemLists(Vector<ProductModel> lists);
