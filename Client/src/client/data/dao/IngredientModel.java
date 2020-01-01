@@ -7,7 +7,7 @@ public class IngredientModel {
     public int IgPrice;
     public String IgProduct;
 
-    public IngredientModel(int IgCode, String IgName, int IgNumber, int IgPrice,String IgProduct) {
+    public IngredientModel(int IgCode, String IgName, int IgNumber, int IgPrice, String IgProduct) {
         this.IgCode = IgCode;
         this.IgName = IgName;
         this.IgNumber = IgNumber;

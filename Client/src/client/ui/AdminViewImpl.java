@@ -11,56 +11,45 @@ public class AdminViewImpl extends JFrame implements AdminView {
 
 
     protected JLabel lblWhatToDo = new JLabel();
-    private JButton btnBack = new JButton("Back");
-
-    JPanel tablePnl;
-    JTable itemTable;
     // 초기화면
     protected JPanel adminStartPanel, btnAdminWhatToDo, AdminClientButtonPnl;
     protected JButton btnTotalMoney, btnCurrentItems, btnBuyItem, btnAddItem, btnAdminClient;
-
-
     // 총 매출
     protected JPanel totalMoneyPnl, totalSalesPnl;
     protected JLabel lblTotalSales, lblTotalSalesMoney;
     protected JTable totalMoneyTable;
-
     // 재고 현황
     protected JPanel currentIngredientsPnl;
-
     // 재고 구매
     protected JPanel buyIngredientsPnl;
-
+    JPanel tablePnl;
+    JTable itemTable;
     // TODO: 제품 제고현황 example
     String columnNames[] =
             {"상품번호", "제품명", "제품가격", "판매 갯수", "총액"};
-
     Object rowData[][] =
             {
                     {1, "김밥", 1000, 3, 3000},
                     {2, "오믈렛", 3000, 4, 12000},
                     {3, "치킨마요", 4000, 1, 4000}};
-
     // TODO: 제품 재고현황 example
     String columnItemNames[] =
             {"상품번호", "재료명", "남은 수량"};
-
     Object rowItemData[][] =
             {
                     {1, "양파", "300g"},
                     {2, "마늘", "300g"},
                     {3, "파", "300g"}};
-
     // TODO: 재고 구매 example
     String columnIngredientNames[] =
             {"상품번호", "재료명", "재료 가격", "남은 수량"};
-
     Object rowIngredientData[][] =
             {
                     {1, "양파", 1000, "300g"},
                     {2, "마늘", 2000, "300g"},
                     {3, "파", 3000, "300g"}};
     JTable t = new JTable(rowData, columnNames);
+    private JButton btnBack = new JButton("Back");
 
     public AdminViewImpl() {
         setTitle("Manage");

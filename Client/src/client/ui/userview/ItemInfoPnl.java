@@ -9,9 +9,9 @@ import java.awt.event.ActionListener;
 public class ItemInfoPnl extends JPanel {
     public ProductModel productModel;
     public JButton btnItem = new JButton();
+    public int itemIndex;
     JLabel lblItemPrice = new JLabel();
     JLabel lblItemName = new JLabel();
-    public int itemIndex;
 
 
     public ItemInfoPnl(ProductModel productModel, int index) {

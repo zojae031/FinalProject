@@ -1,7 +1,5 @@
 package client.ui.userview;
 
-import client.data.dao.ProductModel;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
