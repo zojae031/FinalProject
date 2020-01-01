@@ -2,7 +2,7 @@ package data.datasource.remote;
 
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
-import data.datasource.remote.callback.LoginCallback;
+import data.datasource.remote.callback.ServerCallback;
 import data.datasource.remote.network.Server;
 
 import java.io.IOException;
@@ -22,7 +22,7 @@ public class RemoteDataSourceImpl implements RemoteDataSource {
     }
 
     @Override
-    public void openServer(LoginCallback callback) {
+    public void openServer(ServerCallback callback) {
         server.startServer();
         server.ReceiveData(data -> {
             JsonObject object = parser.parse(data).getAsJsonObject();
@@ -30,6 +30,7 @@ public class RemoteDataSourceImpl implements RemoteDataSource {
                 callback.login();
             } else if (object.get("select") != null) {
                 System.out.println(object.get("select"));
+                callback.selectItem();
             } else {
                 callback.error();
             }
