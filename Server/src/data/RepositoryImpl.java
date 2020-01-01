@@ -31,8 +31,8 @@ public class RepositoryImpl implements Repository {
             }
 
             @Override
-            public void selectItem() {
-
+            public void selectItem(String select) {
+                
             }
 
             @Override

@@ -29,8 +29,7 @@ public class RemoteDataSourceImpl implements RemoteDataSource {
             if (object.get("login") != null) {
                 callback.login();
             } else if (object.get("select") != null) {
-                System.out.println(object.get("select"));
-                callback.selectItem();
+                callback.selectItem(object.get("select").toString());
             } else {
                 callback.error();
             }
