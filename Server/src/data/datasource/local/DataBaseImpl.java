@@ -39,30 +39,29 @@ public class DataBaseImpl implements DataBase {
     private String ID, Password;
     // TODO: 2020-01-01 마지막 IgCode PrCode 갖고 있어야 하지 않을까?
 
-    public static DataBaseImpl getInstance(){
-        if(Instance == null){
-            System.out.println("Database must be initialize with ID PW IP");
-            return null;
+    public static DataBaseImpl getInstance(String ID, String Password, String IP) {
+        if (Instance == null) {
+            Instance = new DataBaseImpl(ID, Password, IP);
         }
         return Instance;
     }
 
-    public DataBaseImpl(){
-        if(jdbcUrl.isEmpty() || ID.isEmpty() || Password.isEmpty()){
+    public DataBaseImpl() {
+        if (jdbcUrl.isEmpty() || ID.isEmpty() || Password.isEmpty()) {
             System.out.println("DB Connection fail");
         }
     }
 
     public DataBaseImpl(String ID, String Password, String IP) {
-        jdbcUrl = "jdbc://mysql://localhost/javadb";
+        jdbcUrl = "jdbc:mysql://localhost/javadb?serverTimezone=UTC";
         this.ID = ID;
         this.Password = Password;
-        this.jdbcUrl = "jdbc://mysql://" + IP + "/javadb";
+        this.jdbcUrl = "jdbc:mysql://" + IP + "/javadb?serverTimezone=UTC";
     }
 
     // FIXME: 2019-12-31 Fix IP Address
     public DataBaseImpl(String ID, String Password) {
-        jdbcUrl = "jdbc://mysql://localhost/javadb";
+        jdbcUrl = "jdbc:mysql://localhost/javadb?serverTimezone=UTC";
         this.ID = ID;
         this.Password = Password;
     }
@@ -90,7 +89,7 @@ public class DataBaseImpl implements DataBase {
 
     @Override
     public void registerProduct(JsonObject data_Product) {
-        if(!connectDB()){
+        if (!connectDB()) {
             System.out.println("Connect DB is fail in DataBaseImpl at registerProduct");
             System.out.println("Regist Product is fail");
         }
@@ -113,7 +112,7 @@ public class DataBaseImpl implements DataBase {
 
     @Override
     public void registerIngredient(JsonObject data_Ingredient) {
-        if(!connectDB()){
+        if (!connectDB()) {
             System.out.println("Connect DB is fail in DataBaseImpl at registerIngredient");
             System.out.println("Regist Ingredient fail");
         }
@@ -134,7 +133,7 @@ public class DataBaseImpl implements DataBase {
 
     @Override
     public JsonArray getProductArray() {
-        if(!connectDB()){
+        if (!connectDB()) {
             System.out.println("Connect DB is fail in DataBaseImpl at getProductArray");
             return null;
         }
@@ -163,7 +162,7 @@ public class DataBaseImpl implements DataBase {
 
     @Override
     public JsonArray getIngredientArray() {
-        if(!connectDB()){
+        if (!connectDB()) {
             System.out.println("Connect DB is fail in DataBaseImpl at getIngredientArray");
             return null;
         }

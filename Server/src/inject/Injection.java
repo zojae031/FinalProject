@@ -33,7 +33,7 @@ public class Injection implements Injector {
 
     @Override
     public DataBase injectLocalDataSource() {
-        if (local == null) local = DataBaseImpl.getInstance();
+        if (local == null) local = DataBaseImpl.getInstance("ID","Password","localhost");
         return local;
     }
 
