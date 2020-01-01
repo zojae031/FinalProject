@@ -48,7 +48,12 @@ public class Controller implements ActionListener {
             userView.itemLists.forEach(item ->
             {
                 if (obj.equals(item.btnItem)) {
-                    repository.selectItem(item.productModel, () -> userView.updateSelectedLists("ff"));
+
+                    repository.selectItem(item.productModel, (productModelVector) -> {
+                        userView.updateSelectedLists("앙 앙앙");//TODO 여기는 추가된 아이템 리스트!
+                        userView.updateItemLists(productModelVector);
+                    });
+
                 }
             });
         }
