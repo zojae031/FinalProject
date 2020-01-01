@@ -11,9 +11,9 @@ import java.awt.event.ActionListener;
 import java.util.Vector;
 
 public class Controller implements ActionListener {
-    UserView userView;
-    AdminView adminView;
-    Repository repository;
+    private UserView userView;
+    private AdminView adminView;
+    private Repository repository;
 
     public Controller(UserView userView, AdminView adminView, Repository repository) {
         this.userView = userView;
