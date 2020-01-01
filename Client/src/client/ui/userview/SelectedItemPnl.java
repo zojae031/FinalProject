@@ -1,5 +1,7 @@
 package client.ui.userview;
 
+import client.data.dao.ProductModel;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
@@ -12,16 +14,17 @@ public class SelectedItemPnl extends JPanel {
     JLabel lblSelectedItemPrice = new JLabel();
     JPanel itemQuantityPnl = new JPanel();
     JButton btnMinus = new JButton("-"), btnPlus = new JButton("+"), btnX = new JButton("x");
-    JLabel lblItemQuantity = new JLabel("3");
+    JLabel lblItemQuantity = new JLabel("1");
+    ProductModel productModel;
 
-    public SelectedItemPnl(String productName) {
+    public SelectedItemPnl(ProductModel productModel) {
         setBounds(10, 10, 370, 50);
-
+        this.productModel = productModel;
         itemNameAndMoneyPnl.setBounds(10, 10, 180, 50);
         itemNameAndMoneyPnl.setBackground(Color.pink);
         itemNameAndMoneyPnl.setLayout(new BorderLayout());
 
-        lblSelectedItemName.setText(productName);
+        lblSelectedItemName.setText(productModel.PrName);
         lblSelectedItemName.setFont(new Font("맑은고딕", Font.PLAIN, 20));
 
         lblSelectedItemPrice.setText(Integer.toString(3));
